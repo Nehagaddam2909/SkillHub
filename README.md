@@ -1,6 +1,6 @@
 # SkillHub
 
-Skillhub is the persoalized app for the organization to maintain the details of the employees along with their skills.
+Skillhub is the personalized app for the organization to maintain the details of the employees along with their skills.
 
 ## It has two users:
 
