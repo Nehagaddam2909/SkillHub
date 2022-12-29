@@ -5,28 +5,31 @@ const {isEmail}=require("validator")
 
 const EmployeeSchema=new Schema({
     email:{
-        title:String,
+        type:String,
         required:[true,"Email can't be empty"],
         validate:[isEmail,"Enter valid email"]
     },
     username:{
-        title:String,
+        type:String,
         required:[true,"USername can't be empty"],
     },
     password:{
-        title:String,
+        type:String,
         required:true,
         minLength:[6,"Min length of the password is 6 characters"]
     },
     skills:[{
-        skill_name:{
-            type:Schema.Types.skill_name,
+        skill_id:{
+            type:Schema.Types.ObjectId,
             ref:"Skills",
-            required:true,
         },
         level:{
             type:String,
-            required:true,
+            required:true
+        },
+        yoe:{
+            type:Number,
+            required:true
         }
     }]
 

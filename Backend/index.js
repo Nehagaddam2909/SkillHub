@@ -11,6 +11,8 @@ const mongoose=require("mongoose")
 
 //Environment setup
 const dotenv=require("dotenv").config()
+const router=require("./Routes/Apis/Skills")
+
 
 // Used to allow the react to access the backend API.
 const cores=require("cors")
@@ -20,11 +22,12 @@ const corsOptons = {
 		};
 app.use(cores(corsOptons));
 
+app.use("/api",router)
 //Handling the '/' URL
 app.use("/",(req,res)=>{
     res.send("<h1>Hello to the world!!!</h1>")
 })
-
+mongoose.set("strictQuery", false);
 //MongoDb connection
 mongoose.connect(process.env.URI).then(result=>{
 

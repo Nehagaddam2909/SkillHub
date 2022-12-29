@@ -6,6 +6,7 @@ const skillSchema=new Schema({
     skill_name:{
         type:String,
         required:true,
+        unique:true,
     },
     domain:{
         type:String,
