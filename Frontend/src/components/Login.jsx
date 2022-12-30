@@ -7,7 +7,7 @@ function Login() {
     <div className="Login bg-gray-200 h-screen flex items-center justify-center">
       <center>
       <div className=''>
-        <div className="container bg-white w-80 ">
+        <div className="container bg-white w-80 border rounded-lg shadow-md border-gray-200">
           <h1 className='text-2xl p-2'>
             Login
           </h1>
