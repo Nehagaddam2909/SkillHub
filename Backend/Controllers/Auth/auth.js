@@ -31,4 +31,7 @@ const handleSignup=async (req,res)=>{
     // otherwise generate the error signal
 }
 
+
+//login form with JWT
+
 module.exports={handleSignup}

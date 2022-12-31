@@ -14,12 +14,11 @@ Router.get("/getSkills", (req,res)=>{
 })
 
 
+//Form to add the skills
 
 Router.post("/addSkill",async (req,res)=>{
     const skills=[...req.body.skills];
-    // skills.forEach(element => {
-    //     
-    // });
+  
     for(let i=0;i<skills.length;i++)
     {
         const skill_name=skills[i].skill_name,domain=skills[i].domain;

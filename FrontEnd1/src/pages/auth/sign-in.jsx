@@ -13,33 +13,38 @@ import {
 export function SignIn() {
   return (
     <>
-      <img
-        src="https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80"
-        className="absolute inset-0 z-0 h-full w-full object-cover"
-      />
-      <div className="absolute inset-0 z-0 h-full w-full bg-black/50" />
-      <div className="container mx-auto p-4">
-        <Card className="absolute top-2/4 left-2/4 w-full max-w-[24rem] -translate-y-2/4 -translate-x-2/4">
-          <CardHeader
-            variant="gradient"
-            color="blue"
-            className="mb-4 grid h-28 place-items-center"
-          >
-            <Typography variant="h3" color="white">
-              Sign In
-            </Typography>
-          </CardHeader>
-          <CardBody className="flex flex-col gap-4">
-            <Input type="email" label="Email" size="lg" />
-            <Input type="password" label="Password" size="lg" />
-            <div className="-ml-2.5">
+      <div className="absolute inset-0 z-0 h-full w-full bg-blue-700/50" />
+     <div className="absolute  grid w-screen h-screen place-items-center ">
+      <div className="absolute block -ml-6 p-6 w-29 md:w-22 border bg-white shadow-lg">
+          
+            <Typography variant="h3"
+                  color="black"
+                  className="xl font-bold">SignIn</Typography>
+            <Typography variant="paragraph"
+                  color="black"
+                  className="text-xs">Please fill the from to login</Typography><hr className="my-2 w-full h-2 border-black"/>
+              
+
+              <div className="mb-3">
+                {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
+                <input type="email" id="Email" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 text-base sm:text-xs focus:outline-blue-500" placeholder="Enter Email"/>
+
+              </div>
+
+              <div className="mb-5 md:mb-6">
+                {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
+                <input type="password" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 text-base sm:text-xs focus:outline-blue-500" placeholder="Enter Password"/>
+
+              </div>
+              <div className="-ml-2.5">
               <Checkbox label="Remember Me" />
             </div>
-          </CardBody>
-          <CardFooter className="pt-0">
-            <Button variant="gradient" fullWidth>
+              {/* <input type="submit" id="password" className="block w-full px-3 py-2.5 mb-3 black border bg-blue-500 text-white font-bold text-base focus:outline-blue-500" placeholder="Enter Password"/> */}
+              <Button variant="gradient" className="text-sm" fullWidth>
               Sign In
             </Button>
+
+
             <Typography variant="small" className="mt-6 flex justify-center">
               Don't have an account?
               <Link to="/auth/sign-up">
@@ -49,13 +54,12 @@ export function SignIn() {
                   color="blue"
                   className="ml-1 font-bold"
                 >
-                  Sign up
+                  Sign Up
                 </Typography>
               </Link>
             </Typography>
-          </CardFooter>
-        </Card>
       </div>
+    </div>
     </>
   );
 }
