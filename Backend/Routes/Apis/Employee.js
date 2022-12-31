@@ -1,10 +1,11 @@
-const router  = require('express').Router;
+const router  = require('express').Router();
 const Employee = require('../../Models/Employee');
 
 //Get the data of the user
 router.get("/employee/:id",async (req,res)=>{
-    const {id}=req.params.id;
-    const data=await Employee.findOne({id});
+    const id=req.params.id;
+    
+    const data=await Employee.findOne({_id:id});
     if(data)
     {
         res.json({"Success":true,data:data})
@@ -13,13 +14,13 @@ router.get("/employee/:id",async (req,res)=>{
 })
 
 //Update the skill
-router.get("/employee/:id",async (req,res)=>{
-    const {id}=req.params.id;
-    const data=await Employee.findOne({id})
-    const {skill_id,skill_name,skill_level,YOE}=req.body;
+router.post("/employee/:id",async (req,res)=>{
+    const id=req.params.id;
+    const data=await Employee.findOne({_id:id})
+    const d=[...req.body.skills]
     if(data)
     {
-        const list_skill=data.skills;
+        await Employee.updateOne({_id:data._id},{$set:{skills:d}})
         res.json({"Success":true})
     }
     else{
@@ -29,3 +30,4 @@ router.get("/employee/:id",async (req,res)=>{
 
 
 //
+module.exports=router

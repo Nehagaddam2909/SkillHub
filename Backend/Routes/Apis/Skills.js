@@ -8,23 +8,31 @@ const Router=express.Router();
 
 Router.get("/getSkills", (req,res)=>{
     Skills.find().then(data=>{
-        res.json({"Success":data})
+        res.json({"Success":true,data:data})
     }).catch(err=>
-        res.json({"Error":err}))
+        res.json({"Success":false,message:message}))
 })
 
 
 
 Router.post("/addSkill",async (req,res)=>{
-    const {name,domain}=req.body;
-    try{
-        const skill=await Skills.create({name,domain})
-        res.json({"Success":skill})
-    }catch(err)
+    const skills=[...req.body.skills];
+    // skills.forEach(element => {
+    //     
+    // });
+    for(let i=0;i<skills.length;i++)
     {
-        res.json({"Errors":err})
-    }
-   
+        const skill_name=skills[i].skill_name,domain=skills[i].domain;
+        try{
+            const skill=await Skills.create({skill_name,domain})
+            // res.json({"Success":true,data:skill})
+            }catch(err)
+            {
+                res.json({"Success":false,message:err})
+                return;
+            }
+    }   
+   res.json({"Success":true})
 })
 
 module.exports = Router;
