@@ -19,7 +19,7 @@ const handleSignup=async (req,res)=>{
         const user=await Employee.create({FirstName,LastName,Gender,JoinDate,Location,Department,Position,Email,Password});
         //encode the password
         const token=createToken(user._id)
-        res.cookie("jwt",token,{httpOnly:true,maxAge:age*1000})
+        res.cookie("jwt",token,{httpOnly:false,maxAge:age*1000})
         res.json({"Success":user._id});
 
     }catch(err)
@@ -34,4 +34,18 @@ const handleSignup=async (req,res)=>{
 
 //login form with JWT
 
-module.exports={handleSignup}
+const handleLogin=async (req,res)=>{
+    const {email,password}=req.body
+    
+    try{
+        const user=await Employee.login(email,password);
+        const token=createToken(user._id)
+        res.cookie("jwt",token,{httpOnly:false,maxAge:age*1000})
+        res.json({"Success":true,"data":user._id});
+    }
+    catch(err)
+    {
+        res.json({"Success":false,"message":err.message})
+    }
+}
+module.exports={handleSignup,handleLogin}

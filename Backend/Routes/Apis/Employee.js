@@ -1,9 +1,10 @@
 const router  = require('express').Router();
 const Employee = require('../../Models/Employee');
+const {requireAuth}=require("../../Controllers/index")
 
 //Get the data of the user
-router.get("/employee/:id",async (req,res)=>{
-    const id=req.params.id;
+router.get("/employee/:id",requireAuth,async (req,res)=>{
+    const id=req.body.id;
     
     const data=await Employee.findOne({_id:id});
     if(data)

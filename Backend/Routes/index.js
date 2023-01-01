@@ -4,7 +4,7 @@ const Employee=require("../Models/Employee")
 const manager=require("./Apis/Manager")
 const emp=require("./Apis/Employee")
 const skill=require("./Apis/Skills")
-const {handleSignup}=require("../Controllers/Auth/auth")
+const {handleSignup,handleLogin}=require("../Controllers/Auth/auth")
 const express=require("express")
 const { application } = require("express")
 const router=express.Router()
@@ -13,14 +13,7 @@ const router=express.Router()
 router.post("/signup",handleSignup)
 
 
-router.post("/login",(req,res)=>{
-
-    //Encode the password
-
-    //Check if the usernmae exists 
-    //Check the password
-
-})
+router.post("/login",handleLogin)
 
 
 router.use(manager)

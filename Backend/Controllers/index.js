@@ -1,10 +1,12 @@
 const Employee=require("../Models/Employee")
 const dotenv=require("dotenv").config()
-const jwt=require("jsonwebtoken")
+const jwt=require("jsonwebtoken");
+const { restart } = require("nodemon");
 
 //require Authentication
 const requireAuth=(req,res,next)=>{
     const token=req.cookies;
+    console.log(token)
     if(token)
     {
         token=token.jwt
@@ -12,16 +14,20 @@ const requireAuth=(req,res,next)=>{
             if(err)
             {
                 // console.log(err.message);
-                res.redirect("/login");
+                // res.redirect("http://localhost:5173/auth/sign-in");
+                res.redirect("/")
             }
             else{
                 // console.log(decodedToken);
+                req.body.id=decodedToken._id;
                 next();
             }
         })
     }
     else{
-        res.redirect("/login")
+        res.redirect("");
+
+        //res.redirect("")
     }
 }
 

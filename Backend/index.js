@@ -15,15 +15,25 @@ const router=require("./Routes/Apis/Skills")
 
 
 // Used to allow the react to access the backend API.
-const cores=require("cors")
+const cors=require("cors")
 const { urlencoded } = require("express")
 
 //token authentication
 const token=require("./Routes")
-const corsOptons = {
-	origin: "http://localhost:4000/"
-		};
-app.use(cores(corsOptons));
+const corsOptions ={
+    origin:['http://localhost:5173'], 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+ }
+ 
+ app.use(cors(corsOptions)) 
+
+ app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Credentials', true)
+    res.header( "Access-Control-Allow-Origin" );
+
+    next()
+  })
 
 app.use("/api",router)
 app.use(token)

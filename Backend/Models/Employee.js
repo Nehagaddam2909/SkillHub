@@ -75,7 +75,7 @@ EmployeeSchema.pre('save',async function(next){
 
 //Checking the login
 EmployeeSchema.statics.login=async function(email,password){
-    const auth=await this.findOne({email})
+    const auth=await this.findOne({Email:email})
     if(auth)
     {
         const dd=await bcrypt.compare(password,auth.Password)

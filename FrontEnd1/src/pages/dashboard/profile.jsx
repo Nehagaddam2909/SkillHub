@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 import {
   Card,
   CardBody,
@@ -40,8 +42,31 @@ import {
 import { Link } from "react-router-dom";
 import { ProfileInfoCard, MessageCard } from "@/widgets/cards";
 import { platformSettingsData, conversationsData, projectsData } from "@/data";
+import axios from "axios";
+
+
+
+
+
 
 export function Profile() {
+  const [cookies, setCookie] = useCookies();
+  useEffect( ()=>{
+  async function fetchData(){
+    const token=cookies.jwt;
+    //  console.log(token)
+     await axios.get("http://localhost:4000/employee/123",
+     {  
+     withCredentials:true } // could also try 'same-origin'
+
+     ).then(d=>{
+      console.log("sdfghjkl")
+     }).catch(err=>{
+      console.log("dfghj",err)
+     })
+  }
+  fetchData()
+  },[])
   return (
     <div>
       <div 
