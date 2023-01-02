@@ -4,7 +4,7 @@ const {requireAuth}=require("../../Controllers/index")
 
 //Get the data of the user
 router.get("/employee/:id",requireAuth,async (req,res)=>{
-    const id=req.body.id;
+    const id=req.params.id;
     
     const data=await Employee.findOne({_id:id});
     if(data)
