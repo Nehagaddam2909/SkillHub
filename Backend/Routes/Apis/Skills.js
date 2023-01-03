@@ -16,7 +16,7 @@ Router.get("/getSkills", (req,res)=>{
 
 //Form to add the skills
 
-Router.post("/addSkill",async (req,res)=>{
+Router.post("/addSkills",async (req,res)=>{
     const skills=[...req.body.skills];
   
     for(let i=0;i<skills.length;i++)
