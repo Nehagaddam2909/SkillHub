@@ -5,23 +5,24 @@ const { restart } = require("nodemon");
 const cookies = require("cookies");
 //require Authentication
 const requireAuth = (req, res, next) => {
-  const token = req.cookie;
+  const token = req.body.cookie;
+
   //   const token = req.cookie.jwt;
-  console.log(token);
+  // console.log(token);
   if (token) {
     // token = token.jwt;
     jwt.verify(token, process.env.Secrete_key, (err, decodedToken) => {
       if (err) {
-        // console.log(err.message);
         res.redirect("http://localhost:5173/auth/sign-in");
         // res.redirect("/");
       } else {
         // console.log(decodedToken);
-        req.body.id = decodedToken._id;
+        req.body.id = decodedToken.id;
         next();
       }
     });
   } else {
+    console.log("Cookie not setted")
     res.redirect("http://localhost:5173/auth/sign-in");
 
     //res.redirect("")

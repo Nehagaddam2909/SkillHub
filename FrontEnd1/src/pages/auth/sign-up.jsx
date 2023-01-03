@@ -42,10 +42,14 @@ export function SignUp() {
           changAlert(true)
           return ;
       }
+
+    let res=pos.toLocaleLowerCase();
+    let ismanager=(res.indexOf("manager")>=0?1:0);
+
     const d= await fetch("http://localhost:4000/signup",{
       method:"POST",
       body:JSON.stringify({"FirstName":first,"LastName":last,"Gender":gen,"JoinDate":jod,"Location":location,
-      "Department":dept,"Position":pos,"Email":email,"Password":pass}),
+      "Department":dept,"Position":pos,"Email":email,"Password":pass,"ismanager":ismanager}),
       headers:{"Content-type":"application/json"}
     })
     const jss=await d.json();
@@ -145,8 +149,7 @@ export function SignUp() {
                 value={pass} onChange={(e)=>(changePass(e.target.value))} required/>
 
               </div>
-
-              {/* <input type="submit" id="password" className="block w-full px-3 py-2.5 mb-3 black border bg-blue-500 text-white font-bold text-base focus:outline-blue-500" placeholder="Enter Password"/> */}
+             
               <Button variant="gradient" className="text-sm" onClick={handleClick} fullWidth>
               Sign up
             </Button>
