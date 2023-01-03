@@ -10,8 +10,28 @@ import {
 } from "@material-tailwind/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { authorsTableData, projectsTableData } from "@/data";
+import Pop from "./Pop";
+import { useState } from "react";
 
 export function Tables() {
+  const [showPop,setPop]=useState(true)
+
+  const [v1,setv1]=useState("")
+
+  const popData=()=>{
+
+      // cosnt status=showPop;
+      if(showPop===true)
+      {
+        setPop(false);
+      }
+      else
+      {
+        setPop(true);
+      }
+      console.log("ppppppppppppppppppppppop:",showPop)
+  };
+
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
@@ -49,7 +69,13 @@ export function Tables() {
                   }`;
 
                   return (
-                    <tr key={name}>
+                    <div className="popup" key={key} onClick={popData}>
+
+                      {/* {showPop===true?<Pop img={img} name={name} email={email} job={job} online={online} date={date} />:<h1>######################</h1> } */}
+                      
+                      <Pop img={img} name={name} email={email} job={job} online={online} date={date} />
+
+                      <tr key={name}>
                       <td className={className}>
                         <div className="flex items-center gap-4">
                           <Avatar src={img} alt={name} size="sm" />
@@ -98,6 +124,7 @@ export function Tables() {
                         </Typography>
                       </td>
                     </tr>
+                    </div>
                   );
                 }
               )}
