@@ -7,7 +7,6 @@ const cookies = require("cookies");
 const requireAuth = (req, res, next) => {
   const token = req.body.cookie;
 
-  //   const token = req.cookie.jwt;
   // console.log(token);
   if (token) {
     // token = token.jwt;

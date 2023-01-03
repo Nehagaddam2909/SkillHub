@@ -18,7 +18,7 @@ Router.get("/getSkills", (req,res)=>{
 
 Router.post("/addSkills",async (req,res)=>{
     const skills=[...req.body.skills];
-  
+    
     for(let i=0;i<skills.length;i++)
     {
         const skill_name=skills[i].skill_name,domain=skills[i].domain;

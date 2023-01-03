@@ -54,7 +54,7 @@ const EmployeeSchema=new Schema({
             type:String,
             required:true
         },
-        yoe:{
+        YOE:{
             type:Number,
             required:true
         }
