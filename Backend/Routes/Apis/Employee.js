@@ -3,15 +3,16 @@ const Employee = require('../../Models/Employee');
 const {requireAuth}=require("../../Controllers/index")
 
 //Get the data of the user
-router.get("/employee/:id",requireAuth,async (req,res)=>{
-    const id=req.params.id;
-    
+router.post("/employee/:id",requireAuth,async (req,res)=>{
+    const id=req.body.id;
+    // console.log(id)
     const data=await Employee.findOne({_id:id});
     if(data)
     {
         res.json({"Success":true,data:data})
     }
-    else res.json({"Success":false,message:"Invalid id"})
+    else 
+    res.json({"Success":false,message:"Invalid id"})
 })
 
 //Update the skill

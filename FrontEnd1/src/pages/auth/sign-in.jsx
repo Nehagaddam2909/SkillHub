@@ -71,7 +71,7 @@ export function SignIn() {
         }
         else{
           changAlert(false)
-          history("/")
+          history(-1)
         }
     }).catch(err=>{
         changeColor(err.message)
