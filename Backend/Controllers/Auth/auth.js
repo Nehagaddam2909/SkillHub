@@ -1,6 +1,7 @@
 const Employee=require("../../Models/Employee")
 const dotenv=require("dotenv").config()
-const jwt=require("jsonwebtoken")
+const jwt=require("jsonwebtoken");
+const Manager = require("../../Models/Manager");
 
 const age=24*60*60*3;
 const createToken=(id)=>{
@@ -13,11 +14,16 @@ const createToken=(id)=>{
 
 // Here add the basic backend code
 const handleSignup=async (req,res)=>{
-    const {FirstName,LastName,Gender,JoinDate,Location,Department,Position,Email,Password}=req.body
-    // console.log(req.body)
+    const {FirstName,LastName,Gender,JoinDate,Location,Department,Position,Email,Password,ismanager}=req.body
+    // console.log(ismanager)
     try{
         const user=await Employee.create({FirstName,LastName,Gender,JoinDate,Location,Department,Position,Email,Password});
         //encode the password
+        if(ismanager)
+        {
+            const managr=await Manager.create({id:user._id})
+            console.log(managr)
+        }
         const token=createToken(user._id)
         res.cookie("jwt",token,{httpOnly:false,maxAge:age*1000})
         res.json({"Success":user._id});

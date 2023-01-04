@@ -10,6 +10,8 @@ import {
 } from "@material-tailwind/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { authorsTableData, projectsTableData } from "@/data";
+import Pop from "./Pop";
+// import { useState } from "react";
 import React, { useState } from 'react';
 
 
@@ -56,15 +58,14 @@ export function Tables() {
                     // const myData=[img, name, email, job, online, date];
 
                     return (
-                      <div className="popoff" onClick={popData}>
+                    <div className="popup" key={key} >
 
-                        {/* pop component caled */}
-                        {/* <Pop/> */}
-                        
-                      {/* calling popup componets */}
-                      {
-                        showPop===true?<Pop/>:<h1>hhhhhhhhhhhhhhhhhl lorem10</h1>
-                      }
+                      {/* {showPop===true?<Pop img={img} name={name} email={email} job={job} online={online} date={date} />:<h1>######################</h1> } */}
+                      
+                      <Pop img={img} name={name} email={email} job={job} online={online} date={date} />
+
+                        <div className="popoff">
+
 
                         <tr key={name}>
                           <td className={className}>
@@ -115,10 +116,13 @@ export function Tables() {
                             </Typography>
                           </td>
                         </tr>
-                      </div>
+                    </div>
+                    </div>
                     );
                   }
+                
                 )}
+                
               </tbody>
             </table>
           </CardBody>
