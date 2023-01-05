@@ -24,6 +24,7 @@ export function SignIn() {
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
   let history=useNavigate();
+
   const handleClick=async(e)=>{
     if(!email.length)
     {
@@ -53,7 +54,7 @@ export function SignIn() {
       "http://localhost:4000/login",{
       email:email,
       password:password
-      },
+      }, 
       {
         withCredentials:true
 

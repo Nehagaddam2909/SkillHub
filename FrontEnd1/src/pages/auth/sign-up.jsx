@@ -14,6 +14,8 @@ import {
   showAlerts,
 } from "@material-tailwind/react";
 import React from "react";
+
+
 export function SignUp() {
   let history=useNavigate();
   const [first,changeFirst]=useState("")
@@ -57,7 +59,7 @@ export function SignUp() {
     { 
         changeColor(jss.message)
         changAlert(true)
-        
+        history("/auth/login")
     }
     else{
       changAlert(false)

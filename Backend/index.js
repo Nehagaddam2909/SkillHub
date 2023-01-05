@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 
-//url encoded string
+//url encoded string ---middleware---
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -16,9 +16,9 @@ const router = require("./Routes/Apis/Skills");
 // Used to allow the react to access the backend API.
 const cors = require("cors");
 const { urlencoded } = require("express");
+const MyRoutes = require("./Routes");
 
 //token authentication
-const token = require("./Routes");
 const corsOptions = {
   origin: ["http://localhost:5173"],
   credentials: true, //access-control-allow-credentials:true
@@ -38,16 +38,19 @@ app.use(function (req, res, next) {
 });
 
 app.use("/api", router);
-app.use(token);
+app.use(MyRoutes);
 //Handling the '/' URL
 app.use("/", (req, res) => {
   res.send("<h1>Hello to the world!!!</h1>");
 });
+
 mongoose.set("strictQuery", false);
 //MongoDb connection
 mongoose.connect(process.env.URI).then((result) => {
   //Listen to server
   app.listen(process.env.PORT, () => {
-    console.log("Server Started!!!");
+    console.log(
+      `Server conected to DB & Started on http://localhost:${process.env.PORT}/`
+    );
   });
 });

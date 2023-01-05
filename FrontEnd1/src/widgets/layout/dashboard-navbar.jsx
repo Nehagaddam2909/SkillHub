@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation,useNavigate, Link } from "react-router-dom";
 import {
   Navbar,
   Typography,
@@ -25,12 +25,54 @@ import {
   setOpenConfigurator,
   setOpenSidenav,
 } from "@/context";
+import { useEffect } from "react";
+import { useState } from "react";
+// import { removeCookie,remove  } from "js-cookie";
+import Cookies from 'js-cookie';
+import jwt from 'jwt-decode';
+import Logoutted from "./Logoutted";
+
 
 export function DashboardNavbar() {
+  const [user, setUser] = useState(null);
+
+  // Fetch the logged-in user's information
+
+  // Decode the JWT from the cookie
+  // Fetch the logged-in user's information
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
+  useEffect(() => {
+    // Decode the JWT from the cookie
+    // const token = document.cookie.replace(/(?:(?:^|.*;\s*)jwt\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        // if (token) {
+    //   const decoded = jwt(token);
+    //   console.log("tokennnnnnnn--decoed:",decoded)}
+    const username = getCookie('name');
+    console.log("username:............",username)
+    if(username) {
+      console.log("username:............",username)
+      setUser(username);
+    }
+    else
+    {
+      console.log("errrrrrrrrrrrrrrror")
+    }
+  }, []);
+
+
+const [isLogin,setisLogin]=useState(false)
+
   const [controller, dispatch] = useMaterialTailwindController();
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
+
+// const history = useNavigate();
 
   return (
     <Navbar
@@ -43,6 +85,7 @@ export function DashboardNavbar() {
       fullWidth
       blurred={fixedNavbar}
     >
+      
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <div className="capitalize">
           <Breadcrumbs
@@ -83,6 +126,16 @@ export function DashboardNavbar() {
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
+
+
+
+
+          <p style={{"color":"red"}}>Welcome, {user?(user):"default"}</p>
+          {/* <p style={{"color":"red"}}>Email: {user?user.email:"user.email default"}</p> */}
+            {
+              isLogin?<>
+              {/* sign-in */}
+
           <Link to="/auth/sign-in">
             <Button
               variant="text"
@@ -100,6 +153,49 @@ export function DashboardNavbar() {
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
             </IconButton>
           </Link>
+
+{/* sign-up */}
+          <Link to="/auth/sign-up">
+            <Button
+              variant="text"
+              color="blue-gray"
+              className="hidden items-center gap-1 px-4 xl:flex"
+            >
+              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+              sign-up
+            </Button>
+            <IconButton
+              variant="text"
+              color="blue-gray"
+              className="grid xl:hidden"
+            >
+              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+            </IconButton>
+          </Link>
+              </> :
+            <>
+            {/* logout */}
+            <Logoutted/>
+            </>
+
+            
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           {/* <IconButton
             variant="text"
             color="blue-gray"
