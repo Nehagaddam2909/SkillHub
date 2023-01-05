@@ -44,6 +44,7 @@ import { Link,useNavigate } from "react-router-dom";
 import { ProfileInfoCard, MessageCard } from "@/widgets/cards";
 import { platformSettingsData, conversationsData, projectsData } from "@/data";
 import axios from "axios";
+import { useState } from "react";
 
 
 
@@ -52,6 +53,7 @@ import axios from "axios";
 
 export function Profile() {
   const [cookies, setCookie] = useCookies();
+  const [data,setData]=useState([])
   let history=useNavigate();
   useEffect( ()=>{
   async function fetchData(){
@@ -65,7 +67,8 @@ export function Profile() {
      withCredentials:true } // could also try 'same-origin'
 
      ).then(d=>{
-      console.log(d.data)
+      // console.log(d.data)
+      setData(d.data)
      }).catch(err=>{
       history("/auth/sign-in")
       // console.log("dfghj",err)
@@ -94,8 +97,7 @@ export function Profile() {
               />
               <div>
                 <Typography variant="h5" color="blue-gray" className="mb-1">
-                  Richard Davis
-                </Typography>
+{                 data.FirstName}                </Typography>
                 <Typography
                   variant="small"
                   className="font-normal text-blue-gray-600"
