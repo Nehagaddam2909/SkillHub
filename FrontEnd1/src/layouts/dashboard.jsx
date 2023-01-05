@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 import { IconButton } from "@material-tailwind/react";
+import {useState} from 'react'
 import {
   Sidenav,
   DashboardNavbar,
@@ -9,11 +10,19 @@ import {
 } from "@/widgets/layout";
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
-
+// import Skills from '@/pages/notifications'
+import { Skills } from "@/pages/dashboard";
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType } = controller;
-
+  // enable overlay
+  const [open, setOpen] = useState(true);
+  // prevent from scrolling the body
+  document.body.style.overflow = open ? "hidden" : "auto";
+  const toggleOverlay = (b) => setOpen(b); 
+  
+  
+  
   return (
     <div className="min-h-screen bg-blue-gray-50/50">
       <Sidenav
@@ -22,6 +31,8 @@ export function Dashboard() {
           sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
         }
       />
+      { open &&<div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-10">
+  </div>}
       <div className="p-4 xl:ml-80">
         <DashboardNavbar />
       
@@ -29,12 +40,12 @@ export function Dashboard() {
           {routes.map(
             ({ layout, pages }) =>
               layout === "dashboard" &&
-              pages.map(({ path, element }) => (
-                <Route exact path={path} element={element} />
-              ))
+              pages.map(({ path, element }) =>{
+                if(path==='/skills') return <Route exact path={path} element={<Skills open={open} toggleOverlay={toggleOverlay} />} />
+                return <Route exact path={path} element={element} />
+              })
           )}
         </Routes>
-        
       </div>
     </div>
   );
@@ -43,3 +54,4 @@ export function Dashboard() {
 Dashboard.displayName = "/src/layout/dashboard.jsx";
 
 export default Dashboard;
+// export { to};

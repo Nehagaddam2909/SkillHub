@@ -12,7 +12,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-export function Skills() {
+export function Skills({toggleOverlay}) {
   // [{"_id":"63af1e42157be2cd2d498984","skill_name":"c","domain":"Technical","__v":0},{"_id":"63af1e42157be2cd2d498986","skill_name":"c++","domain":"Technical2","__v":0}]
   const [data,setData]=useState({});
   let history=useNavigate();
@@ -24,7 +24,7 @@ export function Skills() {
   const [cookies, setCookie] = useCookies(); 
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
-
+  const [overlay,changeOverlay]=useState(true) 
   //Retriving the domain from the request
   useEffect(()=>{
     
@@ -54,7 +54,7 @@ export function Skills() {
       
         
        })
-
+//Api for getting skills from the database
        await axios.get("http://localhost:4000/getSkills",
      {  withCredentials:true } 
      ).then(d=>{
@@ -256,10 +256,11 @@ export function Skills() {
       return ;
 
     }
+    
   }
   return (
 
-    <div className="mx-auto my-8 md:my-15 flex min-w-sm flex-col gap-8">
+    <div className="relative mx-auto my-8 md:my-15 flex min-w-sm flex-col gap-8">
      <Alert
               show={alert}
               color={"red"}
@@ -270,9 +271,42 @@ export function Skills() {
             >
              {text}
             </Alert>
-       
-            
-       <Typography variant="h3" color="blue">Skills</Typography>
+  {/* overlay */}
+  
+
+        <div className="flex justify-between ">
+           <Typography variant="h3">Skills</Typography>
+           <Button onClick={e=>{toggleOverlay(true); changeOverlay(true)}} varient="gradient" color="blue" className="text-xl px-8 py-2 font-normal capitalize mr-5" >+ Add Skill</Button>
+        </div>            
+        {overlay && <div className= "bg-white z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5">
+            <div className="text-xl border-b-2 border-gray-700 pb-2 mb-3">Add Skill</div>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-0">
+                <label htmlFor="skill">Skill <small className="text-red-900 absolute ml-1 ">*</small> </label>
+                <input type="text" name="skill" id="skill" className="border-b-2 border-blue-300  px-2 py-1 outline-none" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="domain">Domain <small className="text-red-900 absolute ml-1 ">*</small></label>
+                <select className=" px-3 py-1 outline-none bg-white border border-blue-500 " name="" id="">
+                  {
+                    domain_data && domain_data.map((ele,idx)=>{
+                      return <option key={idx} value={ele}>{ele}</option>
+                    })
+                  }
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              
+              <div className="flex justify-end gap-2">
+                <Button onClick={e=>{
+                  toggleOverlay(false)
+                  changeOverlay(false)
+                }} varient="gradient" color="red" className="text-lg rounded px-3 py-1 font-normal capitalize" >Cancel</Button>
+                <Button varient="gradient"  className="text-lg bg-green-500 rounded px-3 py-1  font-normal capitalize" >Add</Button>
+              </div>
+              </div>
+          <hr />
+          </div>}
        <div className="flex flex-wrap justify-evenly">
        {domain_data && domain_data.map((ele,idx)=>{
         // console.log("Domain set here")
@@ -291,6 +325,7 @@ export function Skills() {
             <div className={`flex flex-wrap justify-evenly `} id={dom}>
               {
                 data[dom] && data[dom].map((ele,idx)=>{
+                  
                   // console.log("components rendered")
                   return(
                     <div key={idx} id={ele._id+`flex`} className ={`flex flex-wrap mb-3 justify-center items-center  shadow-md rounded-xl w-[10rem] h-[7.5rem] flex-col ${ele.checked?"bg-blue-600 text-white":"bg-white text-blue-600"} ${domain!==dom?"hidden":""}` } >
@@ -330,8 +365,11 @@ export function Skills() {
 
         
       <Button varient="gradient" color="blue" className={`ml-3 w-[9rem] justify-center`} onClick={handleButton}>Save Changes</Button>
-       
-      <Card>
+
+
+
+
+      <Card> 
         <CardHeader
           color="transparent"
           floated={false}
@@ -339,7 +377,8 @@ export function Skills() {
           className="m-0 p-4"
         >
           <Typography variant="h5" color="blue-gray">
-            Alerts with Icon
+            Add more skills
+            
           </Typography>
         </CardHeader>
         <CardBody className="flex flex-col gap-4 p-4">

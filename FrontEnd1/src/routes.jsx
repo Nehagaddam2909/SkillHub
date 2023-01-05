@@ -7,7 +7,7 @@ import {
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Skills } from "@/pages/dashboard";
-import { SignIn, SignUp } from "@/pages/auth";
+import { SignIn, SignUp,Signup } from "@/pages/auth";
 
 
 const icon = {
@@ -60,6 +60,12 @@ export const routes = [
         name: "Logout",
         path: "/Logout",
         element: <SignIn />,
+      },
+      {
+        icon: <UserPlusIcon {...icon} />,
+        name: "Sign up",
+        path: "/Signup",
+        element: <Signup />,
       },
     ],
   },

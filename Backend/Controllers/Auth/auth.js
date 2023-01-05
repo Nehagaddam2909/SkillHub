@@ -23,6 +23,12 @@ const handleSignup = async (req, res) => {
     Email,
     Password,
     ismanager,
+    about,
+    highlight,
+    portfolio,
+    github,
+    linkedIn
+
   } = req.body;
   // console.log(ismanager)
   try {
@@ -36,33 +42,37 @@ const handleSignup = async (req, res) => {
       Position,
       Email,
       Password,
+      about,
+      highlight,
+    portfolio,
+    github,
+    linkedIn
+
     });
+    console.log(user)
     //encode the password
-    if (ismanager) {
-      const managr = await Manager.create({ id: user._id });
-      console.log(managr);
-    }
+    // if (ismanager) {
+    //   const managr = await Manager.create({ id: user._id });
+    //   console.log(managr);
+    // }
     const token = createToken(user._id);
     res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
     res.cookie("name", FirstName, { httpOnly: false, maxAge: age * 1000 });
-    console.log("-----Signup successful-----");
-    res.redirect("http://localhost:5173/auth/sign-in");
-
-    res.json({ Success: user._id });
+    // console.log("-----Signup successful-----");
+    
+    res.json({ Success:true,data: user._id });
   } catch (err) {
     console.log(err);
     res.json({ Success: false, message: err });
   }
 
-  //Check if username is already taken if not then add
-  // otherwise generate the error signal
 };
 
 //login form with JWT
 
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
-  console.log("-----email-pass-----:", email, password);
+  // console.log("-----email-pass-----:", email, password);
 
   try {
     const user = await Employee.login(email, password);

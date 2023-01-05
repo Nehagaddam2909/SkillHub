@@ -57,8 +57,25 @@ const EmployeeSchema=new Schema({
         YOE:{
             type:Number,
             required:true
-        }
-    }]
+        },
+        
+    }],
+    about:{
+        type:String
+    },
+    highlight:{
+        type:String
+    },
+    portfolio:{
+        type:String
+    },
+    github:{
+        type:String
+    },
+    linkedIn:{
+        type:String
+    },
+
 
 });
 

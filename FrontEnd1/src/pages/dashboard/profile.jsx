@@ -52,6 +52,7 @@ import { useState } from "react";
 
 
 export function Profile() {
+  const [date,setDate]=useState([])
   const [cookies, setCookie] = useCookies();
   const [data,setData]=useState([])
   let history=useNavigate();
@@ -68,10 +69,17 @@ export function Profile() {
 
      ).then(d=>{
       // console.log(d.data)
-      setData(d.data)
+      if(d.data.Success)
+      {
+        setData(d.data.data)
+        const t_date=d.data.data.JoinDate.toISOString().split( "T" ); 
+        setDate(t[0])
+
+      }
+        else
+          history("/auth/sign-in")
      }).catch(err=>{
       history("/auth/sign-in")
-      // console.log("dfghj",err)
       
      })
   }
@@ -89,64 +97,64 @@ export function Profile() {
         <CardBody className="p-4">
           <div className="mb-10 flex items-center justify-between gap-6">
             <div className="flex items-center gap-6">
-              <Avatar
-                src="/img/bruce-mars.jpeg"
-                alt="bruce-mars"
-                size="xl"
-                className="rounded-lg shadow-lg shadow-blue-gray-500/40"
-              />
-              <div>
+             
+              <div className="w-[18rem]">
+                
                 <Typography variant="h5" color="blue-gray" className="mb-1">
-{                 data.FirstName}                </Typography>
+
+                {data && data["FirstName"]}  
+                </Typography>
+                <Typography variant="h4">About</Typography>
+                <Typography variant="paragraph">{data && (data["about"] || "Some random text goes here")}</Typography>
                 <Typography
                   variant="small"
-                  className="font-normal text-blue-gray-600"
+                  className="mt-1 -mb-2 font-normal text-blue-gray-600"
                 >
-                  CEO / Co-Founder
+                  Details:
                 </Typography>
               </div>
             </div>
            
           </div>
           <div className="flex flex-col ">
-            <div className="w-full  flex space-x-5 justify-center ">
+            <div className="w-full  flex space-x-5 justify-evenly">
               <Typography variant="paragraph">First Name</Typography>
-              <Typography variant="paragraph">Neha</Typography>
+              <Typography variant="paragraph">{data && data["FirstName"]}</Typography>
 
           </div>
-          <div className="flex space-x-5 justify-center ">
-              <Typography variant="paragraph">First Name</Typography>
-              <Typography variant="paragraph">Neha</Typography>
+          <div className="flex space-x-5 justify-evenly">
+              <Typography variant="paragraph">Last Name</Typography>
+              <Typography variant="paragraph">{data && data["LastName"]}</Typography>
 
           </div>
-          <div className="flex space-x-5 justify-center ">
-              <Typography variant="paragraph">First Name</Typography>
-              <Typography variant="paragraph">Neha</Typography>
+          <div className="flex space-x-5 justify-evenly">
+              <Typography variant="paragraph">Department</Typography>
+              <Typography variant="paragraph">{data && data["Department"]}</Typography>
 
           </div>
-          <div className="flex space-x-5 justify-center ">
-              <Typography variant="paragraph">First Name</Typography>
-              <Typography variant="paragraph">Neha</Typography>
+          <div className="flex space-x-5 justify-evenly">
+              <Typography variant="paragraph">Position</Typography>
+              <Typography variant="paragraph">{data && data["Position"]}</Typography>
 
           </div>
-          <div className="flex space-x-5 justify-center ">
-              <Typography variant="paragraph">First Name</Typography>
-              <Typography variant="paragraph">Neha</Typography>
+          <div className="flex space-x-5 justify-evenly">
+              <Typography variant="paragraph">Location</Typography>
+              <Typography variant="paragraph">{data && data["Location"]}</Typography>
 
           </div>
-          <div className="flex space-x-5 justify-center ">
-              <Typography variant="paragraph">First Name</Typography>
-              <Typography variant="paragraph">Neha</Typography>
+          <div className="flex space-x-5 justify-evenly">
+              <Typography variant="paragraph">Gender</Typography>
+              <Typography variant="paragraph">{data && data["Gender"]}</Typography>
 
           </div>
-          <div className="flex space-x-5 justify-center ">
-              <Typography variant="paragraph">First Name</Typography>
-              <Typography variant="paragraph">Neha</Typography>
+          <div className="flex space-x-5 justify-evenly">
+              <Typography variant="paragraph">Joining dat</Typography>
+              <Typography variant="paragraph">{data && date }</Typography>
 
           </div>
 
         </div>
-
+{/* kai kela */}
           
         </CardBody>
       </Card>
