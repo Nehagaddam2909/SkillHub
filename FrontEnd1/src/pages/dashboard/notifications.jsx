@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { Link,useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import { useEffect,useState } from "react";
 import {
   Typography,
@@ -13,10 +15,12 @@ import {
 export function Notifications() {
   // [{"_id":"63af1e42157be2cd2d498984","skill_name":"c","domain":"Technical","__v":0},{"_id":"63af1e42157be2cd2d498986","skill_name":"c++","domain":"Technical2","__v":0}]
   const [data,setData]=useState({});
+  let history=useNavigate();
   const [domain_data,setDomainData]=useState([])
   const [skills,setSkills]=useState([])
   const [domain, setdomain] = useState("")
-  const [chunks, setchunks] = useState([]) 
+  const [chunks, setchunks] = useState([])
+  const [cookies, setCookie] = useCookies(); 
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
 
@@ -111,13 +115,13 @@ export function Notifications() {
       flex.classList.add('text-white')
 
       const arr=[...chunks]
-      const fData=arr.filter(ele=> ele.skill_name===name)
+      const fData=arr.filter(ele=> ele.skill_id===name)
       if(fData.length)
       {
         for(const ele of arr){
-          if(ele.skill_name===name){
-            ele.skill_level=slct.value || 1
-            ele.yoe=num.value
+          if(ele.skill_id===name){
+            ele.level=slct.value || 1
+            ele.YOE=num.value
           }
         }
 
@@ -125,7 +129,7 @@ export function Notifications() {
       }
       else{
         arr.push({
-          skill_name:name,
+          skill_id:name,
           domain:domain,
           level:slct.value,
           YOE:num.value || 1
@@ -159,11 +163,13 @@ export function Notifications() {
   }
 
   const handleButton=async()=>{
+    const token=cookies.jwt;
     if(chunks.length)
     {
       await axios.post(
-        "http://localhost:4000/employee/addSkills",{
-          skills:chunks
+        "http://localhost:4000/employee/skill",{
+          skills:chunks,
+          cookie:token,
         },
         {
           withCredentials:true
@@ -180,6 +186,7 @@ export function Notifications() {
               
           }
           else{
+            console.log(jss)
             changAlert(false)
             history("/")
           }
@@ -227,7 +234,7 @@ export function Notifications() {
        {skills.map((ele,index)=>{
           return (
         <div key={index} id={domain+index+`flex`} className ={`flex flex-wrap mb-3 justify-center items-center  shadow-md rounded-xl w-[10rem] h-[7.5rem] flex-col bg-white text-purple-600 ` } >
-          <input name={ele.skill_name}  type="checkbox" id={domain+index+'checkbox'}  className="hidden" onChange={e=>handleToggle(index)}></input>
+          <input name={ele._id}  type="checkbox" id={domain+index+'checkbox'}  className="hidden" onChange={e=>handleToggle(index)}></input>
           <label htmlFor={domain+index+'checkbox'} className="text-xl" >{ele.skill_name}</label>
           <div className={` grid-cols-1 md:grid-cols-1  text-white hidden`} id={domain+index+`grid`}>
             <select id={domain+index+'select'} onChange={e=>handleToggle(index)} className="py-1 bg-transparent mb-2 mx-3 lg:mb-0 rounded-lg focus:outline-purle-600">
