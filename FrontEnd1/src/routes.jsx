@@ -6,7 +6,8 @@ import {
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications ,EmployeeList} from "@/pages/dashboard";
+// import { Home, Profile, Tables, Notifications,Skills,Filter} from "@/pages/dashboard";
+import { Home, Profile, Tables, Skills,Filter} from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
 
@@ -43,17 +44,17 @@ export const routes = [
         element: <Skills />,
       },
       
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: "notifactions",
+      //   path: "/notifactions",
+      //   element: <Notifications />,
+      // },
       {
         icon: <BellIcon {...icon} />,
-        name: "notifactions",
-        path: "/notifactions",
-        element: <Notifications />,
-      },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "setFilter",
-        path: "/setFilter",
-        element: <EmployeeList />,
+        name: "getFilter",
+        path: "/getFilter",
+        element: <Filter />,
       },
 
       // 
