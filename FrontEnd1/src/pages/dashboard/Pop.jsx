@@ -11,9 +11,9 @@ import {
  
 
 export default (props) => (
-  <Popup trigger={<button> View Details</button>} position="right center">
-    <div className='w-screen'>
-
+  <Popup closeOnDocumentClick = "true" repositionOnResize = "true" trigger={<button> View Details</button>} className="left-0 relative">
+    <div className='w-96 relative right-52'>
+    {/* <button className='close-btn'></button> */}
     {/* <Card className="w-96">
       <CardHeader color="blue" className="relative h-56">
         <img
@@ -51,7 +51,7 @@ export default (props) => (
             <dh-component>
 
                 
-                <div class="lg:w-1/3 md:w-2/3 sm: w-full h-80 bg-gray-100 px-10 pt-10">
+                <div class=" h-80 bg-gray-100 px-10 pt-10">
                     <div class="container mx-auto">
                         <div role="list" aria-label="Behind the scenes People " class=" items-center xl:justify-between flex-wrap md:justify-around sm:justify-around lg:justify-around">
 
