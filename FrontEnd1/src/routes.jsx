@@ -5,8 +5,15 @@ import {
   BellIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
+  PlusCircleIcon,
+  UserMinusIcon,
+  
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications ,EmployeeList} from "@/pages/dashboard";
+// <<<<<<< HEAD
+// import { Home, Profile, Tables, Notifications ,EmployeeList} from "@/pages/dashboard";
+// =======
+import { Home, Profile, Tables, Skills } from "@/pages/dashboard";
+// >>>>>>> a9e82dad7fe41b4e519fd12820f2b88a7a356b5b
 import { SignIn, SignUp } from "@/pages/auth";
 
 
@@ -18,12 +25,7 @@ export const routes = [
   {
     layout: "dashboard",
     pages: [
-      {
-        icon: <HomeIcon {...icon} />,
-        name: "dashboard",
-        path: "/home",
-        element: <Home />,
-      },
+      
       {
         icon: <UserCircleIcon {...icon} />,
         name: "profile",
@@ -37,10 +39,10 @@ export const routes = [
         element: <Tables />,
       },
       {
-        icon: <BellIcon {...icon} />,
-        name: "notifactions",
-        path: "/notifactions",
-        element: <Notifications />,
+        icon: <PlusCircleIcon {...icon} />,
+        name: "Add Skills",
+        path: "/skills",
+        element: <Skills />,
       },
       {
         icon: <BellIcon {...icon} />,
@@ -67,11 +69,12 @@ export const routes = [
         element: <SignUp />,
       },
       {
-        icon: <UserPlusIcon {...icon} />,
+        icon: <UserMinusIcon {...icon} />,
         name: "Logout",
         path: "/Logout",
         element: <SignIn />,
       },
+      
     ],
   },
 ];

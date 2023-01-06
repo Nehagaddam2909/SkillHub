@@ -29,7 +29,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 // import { removeCookie,remove  } from "js-cookie";
 import Cookies from 'js-cookie';
-import jwt from 'jwt-decode';
+// import jwt from 'jwt-decode';
 import Logoutted from "./Logoutted";
 
 

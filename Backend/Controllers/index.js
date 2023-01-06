@@ -28,28 +28,7 @@ const requireAuth = (req, res, next) => {
   }
 };
 
-// const requireAuth = (req, res, next) => {
-//   token_from_server = req.cookie;
 
-//   if (token_from_server) {
-//     jwt.verify(
-//       token_from_server,
-//       process.env.Secrete_key,
-//       (err, decodedToken) => {
-//         if (err) {
-//           console.log(err.message);
-//           res.redirect("http://localhost:5173/auth/sign-in");
-//         } else {
-//           console.log(decodedToken);
-//           next();
-//         }
-//       }
-//     );
-//   } else {
-//     console.log("token is not verify/created");
-//     res.redirect("http://localhost:5173/auth/sign-in");
-//   }
-// };
 
 module.exports = { requireAuth };
 //controller for the post login
