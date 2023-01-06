@@ -47,6 +47,8 @@ export function Tables() {
                   )}
                 </tr>
               </thead>
+
+
               <tbody>
                 {authorsTableData.map(
                   ({ img, name, email, job, online, date }, key) => {
@@ -58,16 +60,12 @@ export function Tables() {
                     // const myData=[img, name, email, job, online, date];
 
                     return (
-                    <div className="popup" key={key} >
+                    < >
 
                       {/* {showPop===true?<Pop img={img} name={name} email={email} job={job} online={online} date={date} />:<h1>######################</h1> } */}
                       
-                      <Pop img={img} name={name} email={email} job={job} online={online} date={date} />
-
-                        <div className="popoff">
-
-
-                        <tr key={name}>
+                      
+                        <tr key={name} className="popup" >
                           <td className={className}>
                             <div className="flex items-center gap-4">
                               <Avatar src={img} alt={name} size="sm" />
@@ -112,17 +110,15 @@ export function Tables() {
                               href="#"
                               className="text-xs font-semibold text-blue-gray-600"
                             >
-                              Edit
+                              <Pop img={img} name={name} email={email} job={job} online={online} date={date} />
                             </Typography>
                           </td>
                         </tr>
-                    </div>
-                    </div>
+                    
+                    </>
                     );
-                  }
-                
-                )}
-                
+                  }     
+                )}    
               </tbody>
             </table>
           </CardBody>
