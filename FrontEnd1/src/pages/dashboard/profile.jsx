@@ -71,9 +71,10 @@ export function Profile() {
       // console.log(d.data)
       if(d.data.Success)
       {
+        // console.log(d.data)
         setData(d.data.data)
-        const t_date=d.data.data.JoinDate.toISOString().split( "T" ); 
-        setDate(t[0])
+        // const t_date=d.data.data.JoinDate.toISOString().split( "T" ); 
+        // setDate(t[0])
 
       }
         else

@@ -11,6 +11,7 @@ import {
   CardBody,
   Button,
 } from "@material-tailwind/react";
+import {CheckBadgeIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export function Skills({toggleOverlay}) {
   // [{"_id":"63af1e42157be2cd2d498984","skill_name":"c","domain":"Technical","__v":0},{"_id":"63af1e42157be2cd2d498986","skill_name":"c++","domain":"Technical2","__v":0}]
@@ -24,7 +25,10 @@ export function Skills({toggleOverlay}) {
   const [cookies, setCookie] = useCookies(); 
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
-  const [overlay,changeOverlay]=useState(true) 
+  const [overlay,changeOverlay]=useState(false) 
+  const [slct_skill,setSkill]=useState("")
+  const [select_v,changeSelectV]=useState("Technical")
+  const [other,changeOther]=useState("")
   //Retriving the domain from the request
   useEffect(()=>{
     
@@ -117,8 +121,7 @@ export function Skills({toggleOverlay}) {
   const handleCheck=(e)=>{
       
     setdomain(e.target.name)
-    const ele=document.getElementById("temp1")
-    const ele2=document.getElementById("temp")
+    
     
     for(const ele in data){
       if(ele===e.target.name)
@@ -220,7 +223,7 @@ export function Skills({toggleOverlay}) {
     if(chunks.length)
     {
       await axios.post(
-        "http://localhost:4000/employee/addSkill",{
+        "http://localhost:4000/employee/addSkills",{
           skills:chunks,
           cookie:token,
         },
@@ -258,6 +261,32 @@ export function Skills({toggleOverlay}) {
     }
     
   }
+//handling the skill add
+const handleSkill=async(e)=>{
+  changeOverlay(false)
+  toggleOverlay(false)
+  const text=(select_v==="Other"?other:select_v)
+
+  await axios.post("http://localhost:4000/addSkil",
+  {
+    skill:slct_skill,
+    domain:text
+  },
+  {  
+  withCredentials:true } // could also try 'same-origin'
+
+  ).then(d=>{
+   
+    
+
+  }).catch(err=>{
+     changeColor(err)
+     changAlert(true)
+ 
+   
+  })
+
+}
   return (
 
     <div className="relative mx-auto my-8 md:my-15 flex min-w-sm flex-col gap-8">
@@ -276,25 +305,32 @@ export function Skills({toggleOverlay}) {
 
         <div className="flex justify-between ">
            <Typography variant="h3">Skills</Typography>
-           <Button onClick={e=>{toggleOverlay(true); changeOverlay(true)}} varient="gradient" color="blue" className="text-xl px-8 py-2 font-normal capitalize mr-5" >+ Add Skill</Button>
+           <Button onClick={e=>{toggleOverlay(true); changeOverlay(true)}} varient="gradient" color="green" className="ml-3 w-[9rem] justify-center" >+ Add Skill</Button>
         </div>            
-        {overlay && <div className= "bg-white z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5">
+        {overlay && <div className= "bg-white z-10 absolute top-[10rem] lg:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5">
             <div className="text-xl border-b-2 border-gray-700 pb-2 mb-3">Add Skill</div>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-0">
                 <label htmlFor="skill">Skill <small className="text-red-900 absolute ml-1 ">*</small> </label>
-                <input type="text" name="skill" id="skill" className="border-b-2 border-blue-300  px-2 py-1 outline-none" />
+                <input type="text" value={slct_skill} name="skill" id="skill" className="border-b-2 border-blue-300  px-2 py-1 outline-none" onChange={e=>setSkill(e.target.value)}/>
               </div>
               <div className="flex flex-col gap-2">
+             
                 <label htmlFor="domain">Domain <small className="text-red-900 absolute ml-1 ">*</small></label>
-                <select className=" px-3 py-1 outline-none bg-white border border-blue-500 " name="" id="">
+                <select className=" px-3 py-1 outline-none bg-white border border-blue-500 " name="" id="" value={select_v} onChange={e=>(changeSelectV(e.target.value))}>
                   {
                     domain_data && domain_data.map((ele,idx)=>{
                       return <option key={idx} value={ele}>{ele}</option>
                     })
                   }
                   <option value="Other">Other</option>
+
+
                 </select>
+                <label htmlFor="other" className={`${select_v!=='Other'?"hidden":""}`}>Specify <small className={`text-red-900 absolute ml-1 ${select_v!=='Other'?"hidden":""} `}>*</small></label>
+
+                <input type="text" name="other" id="other" className={`border-b-2 border-blue-300 outline-none ${select_v!=='Other'?"hidden":""} `} value={other} onChange={e=>changeOther(e.target.value)}/>
+
               </div>
               
               <div className="flex justify-end gap-2">
@@ -302,7 +338,8 @@ export function Skills({toggleOverlay}) {
                   toggleOverlay(false)
                   changeOverlay(false)
                 }} varient="gradient" color="red" className="text-lg rounded px-3 py-1 font-normal capitalize" >Cancel</Button>
-                <Button varient="gradient"  className="text-lg bg-green-500 rounded px-3 py-1  font-normal capitalize" >Add</Button>
+                <Button varient="gradient"  className="text-lg bg-green-500 rounded px-3 py-1  font-normal capitalize" onClick={e=>handleSkill(e)}
+                >Add</Button>
               </div>
               </div>
           <hr />
@@ -310,7 +347,12 @@ export function Skills({toggleOverlay}) {
        <div className="flex flex-wrap justify-evenly">
        {domain_data && domain_data.map((ele,idx)=>{
         // console.log("Domain set here")
-       return( <div key={idx} className={`flex items-center justify-center bg-white shadow-md rounded-xl h-28 w-[12rem] mb-2 ${domain===ele?"bg-blue-600 text-white":"bg-white text-blue-600"}`}>
+       return( <div key={idx} className={`flex items-center justify-center shadow-md rounded-xl h-28 w-[12rem] mb-2 bg-white text-blue-600`}>
+
+ <CheckBadgeIcon className= {`w-5 h-5 text-inherit ${domain!==ele?"hidden":""}`}></CheckBadgeIcon>
+
+
+        
         <input type="radio" name={ele} id={ele} checked={domain==ele} onChange={e=> handleCheck(e)}  className="hidden" ></input>
         <label htmlFor={ele} className="text-center	text-xl">{ele}</label>
       </div>);

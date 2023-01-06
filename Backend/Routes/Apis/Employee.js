@@ -3,7 +3,7 @@ const Employee = require("../../Models/Employee");
 const { requireAuth } = require("../../Controllers/index");
 
 //Update the skill
-router.post("/employee/addSkill",requireAuth, async (req, res) => {
+router.post("/employee/addSkills",requireAuth, async (req, res) => {
   const id = req.body.id;
   const d = [...req.body.skills];
   

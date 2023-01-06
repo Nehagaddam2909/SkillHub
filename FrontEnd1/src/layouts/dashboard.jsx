@@ -12,15 +12,16 @@ import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 // import Skills from '@/pages/notifications'
 import { Skills } from "@/pages/dashboard";
+import { useCookies } from "react-cookie";
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavType } = controller;
   // enable overlay
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   // prevent from scrolling the body
   document.body.style.overflow = open ? "hidden" : "auto";
   const toggleOverlay = (b) => setOpen(b); 
-  
+  const [cookie,setCookie]=useCookies()
   
   
   return (
@@ -42,7 +43,9 @@ export function Dashboard() {
               layout === "dashboard" &&
               pages.map(({ path, element }) =>{
                 if(path==='/skills') return <Route exact path={path} element={<Skills open={open} toggleOverlay={toggleOverlay} />} />
-                return <Route exact path={path} element={element} />
+                 return <Route exact path={path} element={element} />
+
+               
               })
           )}
         </Routes>

@@ -5,9 +5,12 @@ import {
   BellIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
+  PlusCircleIcon,
+  UserMinusIcon,
+  
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Skills } from "@/pages/dashboard";
-import { SignIn, SignUp,Signup } from "@/pages/auth";
+import { SignIn, SignUp } from "@/pages/auth";
 
 
 const icon = {
@@ -32,7 +35,7 @@ export const routes = [
         element: <Tables />,
       },
       {
-        icon: <BellIcon {...icon} />,
+        icon: <PlusCircleIcon {...icon} />,
         name: "Add Skills",
         path: "/skills",
         element: <Skills />,
@@ -56,17 +59,12 @@ export const routes = [
         element: <SignUp />,
       },
       {
-        icon: <UserPlusIcon {...icon} />,
+        icon: <UserMinusIcon {...icon} />,
         name: "Logout",
         path: "/Logout",
         element: <SignIn />,
       },
-      {
-        icon: <UserPlusIcon {...icon} />,
-        name: "Sign up",
-        path: "/Signup",
-        element: <Signup />,
-      },
+      
     ],
   },
 ];

@@ -49,17 +49,17 @@ const handleSignup = async (req, res) => {
     linkedIn
 
     });
-    console.log(user)
+    // console.log(user)
     //encode the password
-    // if (ismanager) {
-    //   const managr = await Manager.create({ id: user._id });
-    //   console.log(managr);
-    // }
+    if (ismanager) {
+      const managr = await Manager.create({ id: user._id });
+      // console.log(managr);
+    }
     const token = createToken(user._id);
     res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
     res.cookie("name", FirstName, { httpOnly: false, maxAge: age * 1000 });
     // console.log("-----Signup successful-----");
-    
+    res.body._id=user._id
     res.json({ Success:true,data: user._id });
   } catch (err) {
     console.log(err);
@@ -79,9 +79,10 @@ const handleLogin = async (req, res) => {
     const token = createToken(user._id);
     res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
     res.cookie("name", user.FirstName, { httpOnly: false, maxAge: age * 1000 });
+    // console.log(token)
     res.json({ Success: true, data: user._id });
 
-    console.log("....login successful....");
+    // console.log("....login successful....");
   } catch (err) {
     res.json({ Success: false, message: err.message });
   }
