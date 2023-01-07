@@ -22,13 +22,15 @@ export function Skills({toggleOverlay}) {
   const [userdata,setUserdata]=useState([])
   const [domain, setdomain] = useState("")
   const [chunks, setchunks] = useState([])
+  // const [chunksName, setchunksName] = useState([])
   const [cookies, setCookie] = useCookies(); 
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
-  const [overlay,changeOverlay]=useState(false) 
+  const [overlay,changeOverlay]=useState(true) 
   const [slct_skill,setSkill]=useState("")
   const [select_v,changeSelectV]=useState("Technical")
-  const [other,changeOther]=useState("")
+  const [ModalName,changeModalName]=useState("Update")
+  const [skill_to_edit, setskill_to_edit] = useState({})
   //Retriving the domain from the request
   useEffect(()=>{
     
@@ -106,7 +108,7 @@ export function Skills({toggleOverlay}) {
         console.log(res)
         setDomainData(Object.keys(res))
         setdomain(dom[0])
-        setSkills(res[dom[0]])
+        // setSkills(res[dom[0]])
 
      }).catch(err=>{
       console.log("dfghj",err)
@@ -122,12 +124,12 @@ export function Skills({toggleOverlay}) {
       
     setdomain(e.target.name)
     
-    
+    console.log("Idharr:")
     for(const ele in data){
       if(ele===e.target.name)
       {
         const d=data[ele]
-        
+        console.log(d)
         setSkills(d)
         return ;
       }
@@ -186,6 +188,7 @@ export function Skills({toggleOverlay}) {
       temp[dom][index].YOE=num.value
       temp[dom][index].level=slct.value
       setData(temp)
+      
       setchunks(arr)
       console.log(arr)
     } else{
@@ -204,12 +207,12 @@ export function Skills({toggleOverlay}) {
       temp[dom][index].level='Beginner'
       setData(temp) 
       arr.filter((ele,i)=>{
-        if(ele.skill_name===name){
+        if(ele.skill_id===name){
           arr.splice(i,1)
         }
       })
       setchunks(arr)
-      // console.log(arr)
+      console.log("arr",arr)
 
     }
 
@@ -263,29 +266,181 @@ export function Skills({toggleOverlay}) {
   }
 //handling the skill add
 const handleSkill=async(e)=>{
-  changeOverlay(false)
-  toggleOverlay(false)
-  const text=(select_v==="Other"?other:select_v)
-
-  await axios.post("http://localhost:4000/addSkil",
+  // changeOverlay(false)
+  // toggleOverlay(false)
+  // const text=(select_v==="Other"?other:select_v)
+  console.log(slct_skill)
+  console.log(select_v)
+  await axios.post("http://localhost:4000/addSkill",
   {
     skill:slct_skill,
-    domain:text
+    domain:select_v
   },
   {  
   withCredentials:true } // could also try 'same-origin'
 
   ).then(d=>{
-   
-    
+    const jss =  d.data()
+    if(!jss.Success)
+    { 
+      changeOverlay(false)
+        toggleOverlay(false)
+        // changeColor(jss.message)
+        // changAlert(true)
+
+        
+    }
+    else{
+      console.log("success false:",jss)
+      // changAlert(false)
+      // history("/")
+    }
 
   }).catch(err=>{
-     changeColor(err)
-     changAlert(true)
- 
+    changeOverlay(false)
+    toggleOverlay(false)
+    console.log(err)
+    //  changeColor(err)
+    //  changAlert(true)
+    
    
   })
 
+}
+// console.log("Data",data)
+// Object.keys(data).map((ele,i)=>{
+//   console.log(ele)
+//   console.log(data[ele])
+// })
+const arr =[];
+const handleEditSkill = ()=>{
+    const token=cookies.jwt;
+    const name = skill_to_edit.skill_name
+    const id = skill_to_edit.skill_id
+    // axios call
+    axios.post("http://localhost:4000/skills/editSkill",
+    {
+      skill_id:id,
+      skill_name:name,
+      token,
+    }
+    ).then(d=>{
+      const jss =  d.data()
+      if(jss.Success)
+      { 
+        changeOverlay(false)
+          toggleOverlay(false)
+          window.location.reload()
+          // changeColor(jss.message)
+          // changAlert(true)
+
+          
+      }
+      else{
+        console.log("success false:",jss)
+        // changAlert(false)
+        // history("/")
+      }
+
+    }
+    ).catch(err=>{
+      changeOverlay(false)
+      toggleOverlay(false)
+      console.log(err)
+      //  changeColor(err)
+      //  changAlert(true)
+      
+     
+    }
+    )
+}
+const HandleDeleteSkill = ({id}) =>{
+  const token=cookies.jwt;
+  
+  // axios call
+  axios.post("http://localhost:4000/skills/deleteSkill",
+  {
+    skill_id:id,
+    token,
+  }
+  ).then(d=>{
+    const jss =  d.data()
+    if(jss.Success)
+    { 
+      // remove from chunks
+      const arr = [...chunks]
+      arr.filter((ele,i)=>{
+        if(ele.skill_id===id){
+          arr.splice(i,1)
+        } 
+      })
+      setchunks(arr)
+      changeOverlay(false)
+        toggleOverlay(false)
+        window.location.reload()
+        // changeColor(jss.message)
+        // changAlert(true)
+
+        
+    }
+    else{
+      console.log("success false:",jss)
+      // changAlert(false)
+      // history("/")
+    }
+
+  }
+  ).catch(err=>{
+    changeOverlay(false)
+    toggleOverlay(false)
+    console.log(err)
+    //  changeColor(err)
+    //  changAlert(true)
+    
+   
+  }
+  )
+}
+const HandleDeleteAllSkills = ()=>{
+  const token=cookies.jwt;
+  
+  // axios call
+  axios.post("http://localhost:4000/skills/deleteAllSkills",
+  {
+    data:chunks,
+    token,
+  }
+  ).then(d=>{
+    const jss =  d.data()
+    if(jss.Success)
+    { 
+      // remove from chunks
+      setchunks([])
+      changeOverlay(false)
+        toggleOverlay(false)
+        window.location.reload()
+        // changeColor(jss.message)
+        // changAlert(true)
+
+        
+    }
+    else{
+      console.log("success false:",jss)
+      // changAlert(false)
+      // history("/")
+    }
+
+  }
+  ).catch(err=>{
+    changeOverlay(false)
+    toggleOverlay(false)
+    console.log(err)
+    //  changeColor(err)
+    //  changAlert(true)
+    
+   
+  }
+  )
 }
   return (
 
@@ -305,9 +460,17 @@ const handleSkill=async(e)=>{
 
         <div className="flex justify-between ">
            <Typography variant="h3">Skills</Typography>
-           <Button onClick={e=>{toggleOverlay(true); changeOverlay(true)}} varient="gradient" color="green" className="ml-3 w-[9rem] justify-center" >+ Add Skill</Button>
+           <div className="flex  space-x-5" >
+           <Button onClick={e=>{changeModalName("Update"); toggleOverlay(true); changeOverlay(true)}} varient="gradient"  className="px-7 bg-yellow-600 h-10 inline-flex items-center space-x-3" >
+           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+</svg>
+
+             <span>Update Skills</span></Button>
+           <Button onClick={e=>{changeModalName("Add"); toggleOverlay(true); changeOverlay(true)}} varient="gradient" color="green" className="px-9 h-10 items-center" >+ Add Skill</Button>
+           </div>
         </div>            
-        {overlay && <div className= "bg-white z-10 absolute top-[10rem] lg:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5">
+        { ModalName==="Add" && overlay  && <div className= "bg-white z-10 absolute top-[10rem] lg:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5">
             <div className="text-xl border-b-2 border-gray-700 pb-2 mb-3">Add Skill</div>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-0">
@@ -323,24 +486,95 @@ const handleSkill=async(e)=>{
                       return <option key={idx} value={ele}>{ele}</option>
                     })
                   }
-                  <option value="Other">Other</option>
-
-
                 </select>
-                <label htmlFor="other" className={`${select_v!=='Other'?"hidden":""}`}>Specify <small className={`text-red-900 absolute ml-1 ${select_v!=='Other'?"hidden":""} `}>*</small></label>
-
-                <input type="text" name="other" id="other" className={`border-b-2 border-blue-300 outline-none ${select_v!=='Other'?"hidden":""} `} value={other} onChange={e=>changeOther(e.target.value)}/>
+               
 
               </div>
               
-              <div className="flex justify-end gap-2">
-                <Button onClick={e=>{
+              <div className="flex justify-end gap-2 pb-3">
+                <button onClick={e=>{
                   toggleOverlay(false)
                   changeOverlay(false)
-                }} varient="gradient" color="red" className="text-lg rounded px-3 py-1 font-normal capitalize" >Cancel</Button>
-                <Button varient="gradient"  className="text-lg bg-green-500 rounded px-3 py-1  font-normal capitalize" onClick={e=>handleSkill(e)}
-                >Add</Button>
+                }}  color="red" className="text-lg text-white bg-red-500 rounded px-3 py-1 font-normal capitalize" >Cancel</button>
+                <button  className="text-lg text-white bg-green-500 rounded px-3 py-1  font-normal capitalize" onClick={e=>handleSkill(e)}
+                >Add</button>
               </div>
+              </div>
+          <hr />
+          </div>}
+
+           {/* Update Skills Modal */}
+          { ModalName==="Update" && overlay  && 
+          <div className= "bg-white z-10 absolute top-[10rem] lg:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5 space-y-5">
+            <div className="text-xl border-b-2 border-gray-700 pb-2 mb-3 ">Update Skills</div>
+           
+            {chunks && chunks.map((ele,idx)=>{
+              let name;
+              
+              // console.log("Ele:",ele.skill_id)
+                Object.values(data).map(d=>{
+                  // console.log("D:",d)
+                  d.forEach(e=>{
+                    if(e._id==ele.skill_id){
+                      name = e.skill_name
+                      arr.push({name,skill_id:e._id})
+
+                    }
+                  })
+                  // name = data[d].filter(e=>e.skill_id==ele.skill_id)
+              })
+              // setchunksName(prev=>[...prev,name])
+              // console.log("Name:",name)
+              return <div key={idx} className="flex w-screen max-w-xs  justify-between items-center space-x-12">
+                <div className="flex items-center gap-2">
+                  {/* <input type="checkbox" name="" id="" /> */}
+                  <label className="opacity-75" htmlFor="">{name}</label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-500 cursor-pointer" onClick={e=>{
+                    // setskill_to_edit(ele)
+                    let n;
+                    Object.values(data).map(d=>{
+                      d.forEach(e=>{
+                        if(e._id==ele.skill_id){
+                          n = e.skill_name
+                        }
+                      })
+                    })
+                    setskill_to_edit({skill_id:ele.skill_id,skill_name:n})
+                    changeModalName("Edit")
+                  }}>Edit</span>
+                  <span onClick={e=>HandleDeleteSkill(ele.skill_id)} className="text-red-500 cursor-pointer">Delete</span>
+                </div>
+              </div>
+            })
+            }
+            <div className="flex justify-end gap-2">
+                <button onClick={e=>{
+                  toggleOverlay(false)
+                  changeOverlay(false)
+                }}  color="red" className="text-lg text-white bg-green-500 rounded px-3 py-1 font-normal capitalize" >Cancel</button>
+                <button onClick={HandleDeleteAllSkills}  className="text-lg text-white bg-red-500 rounded px-3 py-1  font-normal capitalize"
+                >Delete All</button>
+              </div>
+          <hr />
+          </div>}
+
+           {/* Edit Skills Modal */}
+           { ModalName==="Edit" && overlay  && 
+          <div className= "bg-white z-10 absolute top-[10rem] lg:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5 space-y-5">
+            <div className="text-xl border-b-2 border-gray-700 pb-2 mb-3 ">Edit Skill Name</div>
+              ID:   <input type="text" value={skill_to_edit.skill_id} disabled />
+               <p>Name :</p> <input className="border-b-2 outline-none" type="text" value={skill_to_edit.skill_name} onChange={e=>skill_to_edit.skill_name=e.target.nodeValue} />
+            <div className="flex justify-end gap-2">
+                <button onClick={e=>{
+                  // toggleOverlay(false)
+                  // changeOverlay(false)
+                  changeModalName("Update")
+                }}  color="red" className="text-lg text-white bg-red-500 rounded px-3 py-1 font-normal capitalize"  >Cancel</button>
+                <button  className="text-lg text-white bg-green-500 rounded px-3 py-1  font-normal capitalize" 
+                onclick={e=>handleEditSkill()}
+                >Update</button>
               </div>
           <hr />
           </div>}

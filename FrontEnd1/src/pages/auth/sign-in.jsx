@@ -117,7 +117,7 @@ export function SignIn() {
 
               <div className="mb-5 md:mb-6">
                 {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
-                <input type="password" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 text-base sm:text-xs focus:outline-blue-500" placeholder="Enter Password"
+                <input type="password" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 text-base sm:text-xs focus:outline-blue-500 capitalize" placeholder="Enter Password"
                 value={password} onChange={(e)=>(changePassword(e.target.value))} required/>
 
               </div>

@@ -18,3 +18,27 @@
   [data-popup='tooltip'].popup-overlay {
     background: transparent;
   }
+
+
+.rdt_Table{
+  font-family: serif;
+
+}
+.rdt_Pagination{
+  font-size:.8rem !important;
+}
+  .rdt_TableCell
+  {
+    font-size:1rem !important;
+    font-family: serif;
+    text-transform: capitalize;
+    padding:.7rem;
+  }
+  .rdt_TableHead
+  {
+    font-size: 1rem !important;
+    font-weight: bold !important;
+  }
+  /* .dataTables_wrapper .rdt_TableCell{
+    font-size:25px !important;
+  } */

@@ -87,21 +87,21 @@ export function SIGNUP({signup,setSignup}) {
       
               <div className="flex justify-between mb-3 flex-row">
                   <div className="pr-2">
-                    <input type="text" id="FirstName" className="block w-full px-3 py-2.5  black text-x border border-gray-300 sm:text-xs focus:outline-blue-500"  placeholder="First Name"
+                    <input type="text" id="FirstName" className="block w-full px-3 py-2.5  black text-x border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize"  placeholder="First Name"
                     value={first} onChange={(e)=>(handleChange(e,"first"))} required/>
                   </div>
                   <div className="pl-2">
-                    <input type="text" id="LastName" className="block w-full px-3 py-2.5   black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="Last Name"
+                    <input type="text" id="LastName" className="block w-full px-3 py-2.5   black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Last Name"
                     value={last} onChange={(e)=>(handleChange(e,"last"))} required/>
                   </div>
               </div>
               <div className="flex justify-between mb-3 flex-row">
                   <div className="pr-2">
-                    <input type="text" id="Department" className="block w-full px-3 py-2.5  black border border-gray-300 sm:text-xs focus:outline-blue-500"  placeholder="Department"
+                    <input type="text" id="Department" className="block w-full px-3 py-2.5  black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize"  placeholder="Department"
                     value={dept} onChange={(e)=>(handleChange(e,"dept"))} required/>
                   </div>
                   <div className="pl-2">
-                    <input type="text" id="Position" className="block w-full px-3 py-2.5  black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="Position"
+                    <input type="text" id="Position" className="block w-full px-3 py-2.5  black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Position"
                     value={pos} onChange={(e)=>(handleChange(e,"pos"))} required />
                   </div>
               </div>
@@ -118,7 +118,7 @@ export function SIGNUP({signup,setSignup}) {
                     </select>
                   </div>
                   <div className="w-1/2 pl-2">
-                  <input type="text" id="location" className="block w-full px-3 py-2 sm:text-xs border border-gray-300  focus:outline-blue-500"  placeholder="Location"
+                  <input type="text" id="location" className="block w-full px-3 py-2 sm:text-xs border border-gray-300  focus:outline-blue-500 capitalize"  placeholder="Location"
                   value={loc} onChange={(e)=>(handleChange(e,"loc"))} required/>
                   </div>
               </div>
@@ -126,7 +126,7 @@ export function SIGNUP({signup,setSignup}) {
               <div className="flex mb-3">
                 <label className="w-1/2 py-2 pl-2">Select Joining date</label>
                 {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
-                <input type="date" id="JD" className="block w-1/2 px-3 py-2.5 mb-3  black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder=""
+                <input type="date" id="JD" className="block w-1/2 px-3 py-2.5 mb-3  black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder=""
                 value={jod} onChange={(e)=>(handleChange(e,"jod"))} required/>
 
               </div>
@@ -140,7 +140,7 @@ export function SIGNUP({signup,setSignup}) {
 
               <div className="mb-5 md:mb-6">
                 {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
-                <input type="password" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="Enter Password"
+                <input type="password" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Enter Password"
                 value={pass} onChange={(e)=>(handleChange(e,"pass"))} required/>
 
               </div>
