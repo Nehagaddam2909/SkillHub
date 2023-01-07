@@ -19,18 +19,22 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import DataTable, { createTheme  } from "react-data-table-component";
 import { tableCustomStyles } from "./tableCustomStyle";
-
+import { useNavigate } from "react-router-dom";
 
 export function Tables({toggleOverlay}) {
   const [toggle,changeToggle]=useState(false)
   const [id,setId]=useState("")
+  const navigate = useNavigate();
   const [cookies,setCookie]=useCookies()
   const [data,setData]=useState(
 [    {"_id":"63b713e7ba4fb439c79d9678","FirstName":"loc","LastName":"dob","Gender":"Female","JoinDate":"2003-09-29T00:00:00.000Z","Location":"pune ","Department":"sales","Position":"sales person","Email":"loc@gmail.com","Password":"$2b$10$TRV7076kpx3.N0rWAXYm4.7WJrNKzAyEbOcGK9D6RvOzCSgDDvOqu","Skills":[],"__v":0},
     {"_id":"63b715ee2d2fd1cc52f9001c","FirstName":"vbn","LastName":"sdf","Gender":"Female","JoinDate":"2013-12-31T00:00:00.000Z","Location":"sdfg","Department":"sdfgn","Position":"xcvb","Email":"vbn@gmail.com","Password":"$2b$10$02bQWAoK/aLHE9ZzKc/vfuoZz3K2IXaN6796VsNdgls4JeaLY72Lm","Skills":[{"skill_id":"63af1e42157be2cd2d498984","level":"Beginner","YOE":2,"_id":"63b71b0aca22d6993db9550c"},{"skill_id":"63b3a57939ac8dece5f96ada","level":"Intermediate","YOE":2,"_id":"63b71b40ca22d6993db9551f"}],"__v":0,"about":"I am enthusicatic learner","highlight":"Have experience of sales more than 8 yeaens","github":"http://my-github.com","linkedIn":"http://my-linked.com","portfolio":"http://my-portforlio.com"},{"_id":"63b716732d2fd1cc52f9001e","FirstName":"sdjs","LastName":"mnzd","Gender":"female","JoinDate":"0201-02-23T00:00:00.000Z","Location":"md","Department":"mdnm","Position":"md","Email":"hj@gmail.co","Password":"$2b$10$mu6gSb8SBVUIbsxwCfH8peslcEOaivW96fXCCTR9800u2asqsL.LC","about":"dasdjjfsdmn","highlight":"nzbczbxcnzxbczxb","Skills":[],"__v":0},{"_id":"63b716ce000b60bc71d4bfa6","FirstName":"Nehal","LastName":"Ughade","Gender":"Female","JoinDate":"2002-08-07T00:00:00.000Z","Location":"Mumbai","Department":"Technical","Position":"SDE","Email":"nehalughade1221@gmail.com","Password":"$2b$10$RhVzGL3/YR8zNNAEE9blp.0oN1zsV/QyPX6wKIgZhFJNinE5HyiIG","Skills":[{"skill_id":"63af1e42157be2cd2d498986","level":"Beginner","YOE":5,"_id":"63b7cbe2f8927bae8321aee5"},{"skill_id":"63b7ca29f8927bae8321ae91","level":"Expert","YOE":0,"_id":"63b7cbe2f8927bae8321aee6"}],"__v":0},{"_id":"63b7197e000b60bc71d4c02e","FirstName":"wew","LastName":"aa","Gender":"female","JoinDate":"0201-12-12T00:00:00.000Z","Location":"sds","Department":"SA","Position":"ds","Email":"wewe@gm.co","Password":"$2b$10$59RWnbVYBcmzIF8eNb/H3.SnpKFEyqgckhtgUmwR6sgpZqkbMhN0y","about":"dmfds","highlight":"mncmn","portfolio":"mcxn","github":"xvmxmvc","Skills":[],"__v":0},{"_id":"63b71a16ca22d6993db954bc","FirstName":"adsa","LastName":"asdasd","Gender":"Female","JoinDate":"2012-12-12T00:00:00.000Z","Location":"asdsad","Department":"sczx","Position":"asdsad","Email":"sadsand@ndj.com","Password":"$2b$10$wExXBi9utUDBYN2x5QR7.uAHfuFYs8dh2zuO1ZNZbpBKNZ7b2qa4u","Skills":[],"__v":0}]
   )
   const [keys,setKeys]=useState([])
+  const handleClick=(e,row)=>{
 
+    navigate('/dashboard/profile', { state: row });
+  }
   const handleToggle=(e,id)=>{
     console.log(id)
     const ele=document.getElementById(id+"h")
@@ -43,47 +47,42 @@ export function Tables({toggleOverlay}) {
     {
       name: "Name",
       
-      selector: (row) =>{row.Department} ,
+      selector: (row) =>row.FirstName,
       sortable: true,
     },
     {
-      name: 
-      <Typography variant="" className="text-[1rem] md:text-base font-bold">Position</Typography>,
-      selector: (row) => <Typography variant="" className="text-center font-serif text-[1rem] md:text-base capitalize">{row.Position}</Typography>   ,
+      name: "Position",
+      selector: (row) => row.Position   ,
       sortable: true
     },
     {
       name: 
-      <Typography variant="" className="text-[1rem] md:text-base font-bold">Department</Typography>,
-      selector: (row) =><Typography variant="" className="font-serif text-[1rem] md:text-base capitalize">{row.Department}</Typography> ,
+      "Department",
+      selector: (row) =>row.Department ,
       sortable: true
     },
     {
-      name:  <Typography variant="" className="text-[1rem] md:text-base font-bold">Gender</Typography>,
-      selector: (row) => <Typography variant="" className="font-serif text-[1rem] md:text-base capitalize">{row.Gender}</Typography>,
+      name:  "Gender",
+      selector: (row) => row.Gender,
       sortable: true
     },
     {
-      name: <Typography variant="" className="text-[1rem] md:text-base font-bold">Location</Typography>,
-      selector: (row) =><Typography variant="" className="font-serif text-[1rem] md:text-base capitalize">{row.Location} </Typography>,
+      name: "Location",
+      selector: (row) =>row.Location,
       sortable: true
     },
     {
-      name: <Typography variant="" className="text-[1rem] md:text-base font-bold">Employeed</Typography>,
-      selector: (row) => <Typography variant="" className="font-serif text-[1rem] md:text-base capitalize">{row.JoinDate}</Typography>,
+      name: "Employeed",
+      selector: (row) => row.JoinDate,
       sortable: true
     },
      {
-      name:<Typography variant="" className="text-[1rem] md:text-base font-bold">Action</Typography>,
-      selector:(row)=><Link to={`/employee/profile/${row._id}`} className="font-serif text-[1rem] md:text-base text-center capitalize">View</Link>
+      name:"Action",
+      selector:(row)=><button onClick={e=>handleClick(e,row)} className="font-serif text-[1rem] md:text-base text-center capitalize">View</button>
      }   
     
   ];
-  const myNewTheme= {
-    rows: {
-      fontSize: '2rem'
-    }
-  }
+  
 
   return (
     <div>
@@ -103,7 +102,7 @@ export function Tables({toggleOverlay}) {
         
         defaultSortFieldId
         highlightOnHover
-        customTheme={myNewTheme}
+    
         customStyles={tableCustomStyles}
         // style="backgrund-color:red !important;"
       />

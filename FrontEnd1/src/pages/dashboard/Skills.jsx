@@ -207,12 +207,12 @@ export function Skills({toggleOverlay}) {
       temp[dom][index].level='Beginner'
       setData(temp) 
       arr.filter((ele,i)=>{
-        if(ele.skill_name===name){
+        if(ele.skill_id===name){
           arr.splice(i,1)
         }
       })
       setchunks(arr)
-      // console.log(arr)
+      console.log("arr",arr)
 
     }
 

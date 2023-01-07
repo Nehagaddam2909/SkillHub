@@ -39,27 +39,27 @@ const Details=({detail,setdetail})=>{
     }   
    return( <div>
      <div className="mb-5 md:mb-6">
-        <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="About"
+        <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="About"
         value={about} onChange={e=>(handleChange(e,"about"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
-        <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="Add highlight"
+        <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add highlight"
         value={highlight} onChange={e=>(handleChange(e,"highlight"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
-        <input type="text" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="Add portfolio(optional)"
+        <input type="text" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add portfolio(optional)"
         value={portfolio} onChange={e=>(handleChange(e,"portfolio"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
-        <input type="text" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="Add github url(optional)"
+        <input type="text" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add github url(optional)"
         value={github} onChange={e=>(handleChange(e,"github"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
-        <input type="text" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="Add linkedIn(optional)"
+        <input type="text" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add linkedIn(optional)"
         value={linkedIn} onChange={e=>(handleChange(e,"linkedIn"))} required/>
 
     </div>

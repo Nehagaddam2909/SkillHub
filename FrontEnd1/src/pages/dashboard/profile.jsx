@@ -44,7 +44,7 @@ import {
   MapIcon,
   InboxIcon,
 } from "@heroicons/react/24/solid";
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useNavigate,useLocation } from "react-router-dom";
 import { ProfileInfoCard, MessageCard } from "@/widgets/cards";
 import { platformSettingsData, conversationsData, projectsData } from "@/data";
 import axios from "axios";
@@ -56,6 +56,7 @@ export function Profile() {
   const [cookies, setCookie] = useCookies();
   const [data,setData]=useState([])
   const [keys,setKeys]=useState([])
+  const {state} = useLocation();
   let history=useNavigate();
   useEffect( ()=>{
   async function fetchData(){
@@ -85,7 +86,11 @@ export function Profile() {
       
      })
   }
-  fetchData()
+  console.log("stat",state)
+      if(!state)
+        fetchData()
+      else 
+        setData(state)
   },[])
   return (
     <div>
