@@ -30,6 +30,7 @@ export function SignUp() {
  
   const handleClick=async (e)=>{
     // console.log(e.target.value)
+    e.preventDefault()
     if(step==0)
         setstep(step+1);
     else
@@ -75,7 +76,7 @@ export function SignUp() {
                 { 
                     changeColor(jss.message)
                     changAlert(true)
-                    history("/auth/login")
+                    // history("/auth/sign-in")
                 }
                 else{
                   changAlert(false)
