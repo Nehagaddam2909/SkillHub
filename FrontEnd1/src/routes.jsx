@@ -5,11 +5,9 @@ import {
   BellIcon,
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
-  PlusCircleIcon,
-  UserMinusIcon,
-  
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Skills } from "@/pages/dashboard";
+// import { Home, Profile, Tables, Notifications,Skills,Filter} from "@/pages/dashboard";
+import { Home, Profile, Tables, Skills,Filter} from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 
 
@@ -21,7 +19,12 @@ export const routes = [
   {
     layout: "dashboard",
     pages: [
-      
+      {
+        icon: <HomeIcon {...icon} />,
+        name: "dashboard",
+        path: "/home",
+        element: <Home />,
+      },
       {
         icon: <UserCircleIcon {...icon} />,
         name: "profile",
@@ -35,11 +38,27 @@ export const routes = [
         element: <Tables />,
       },
       {
-        icon: <PlusCircleIcon {...icon} />,
+        icon: <BellIcon {...icon} />,
         name: "Add Skills",
         path: "/skills",
         element: <Skills />,
       },
+      
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: "notifactions",
+      //   path: "/notifactions",
+      //   element: <Notifications />,
+      // },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "getFilter",
+        path: "/getFilter",
+        element: <Filter />,
+      },
+
+      // 
+      
     ],
   },
   {
@@ -59,12 +78,11 @@ export const routes = [
         element: <SignUp />,
       },
       {
-        icon: <UserMinusIcon {...icon} />,
+        icon: <UserPlusIcon {...icon} />,
         name: "Logout",
         path: "/Logout",
         element: <SignIn />,
       },
-      
     ],
   },
 ];

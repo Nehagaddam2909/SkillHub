@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
-
 import {
   Card,
   CardBody,
@@ -63,7 +62,7 @@ export function Profile() {
     const token=cookies.jwt;
      console.log(token)
      await axios.post("http://localhost:4000/employee/123",
-     {
+     {  
       cookie:token,
      },
      {  
