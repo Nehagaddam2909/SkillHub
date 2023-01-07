@@ -67,7 +67,7 @@ export function Filter() {
           setLocations(uniqueLocations)
           
           
-        //   console.log(locs,depts,pos); // ['a', 'b']
+          console.log("my unique values:",locs,depts,pos); // ['a', 'b']
 
     }, []);
 
