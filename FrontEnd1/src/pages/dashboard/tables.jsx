@@ -42,6 +42,7 @@ export function Tables({toggleOverlay}) {
     
     {
       name: "Name",
+      
       selector: (row) =>{row.Department} ,
       sortable: true,
     },
