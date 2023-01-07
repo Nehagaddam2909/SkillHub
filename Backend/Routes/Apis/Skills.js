@@ -17,14 +17,16 @@ Router.get("/getSkills", (req,res)=>{
 //Form to add the skills
 
 Router.post("/addSkill",async (req,res)=>{
-        const {skill_name,domain}=req.body
+        const {skill,domain}=req.body
+        console.log(skill,domain)
         try{
-            const skill=await Skills.create({skill_name,domain})
-            res.json({"Success":true,data:skill})
+            const data= await Skills.create({skill_name:skill,domain})
+            res.json({"Success":true,data})  
             }catch(err)
             {
+                console.log(err)
                 res.json({"Success":false,message:err})
-                return;
+
             }
       
    

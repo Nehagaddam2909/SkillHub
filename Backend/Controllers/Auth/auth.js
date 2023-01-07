@@ -59,6 +59,7 @@ const handleSignup = async (req, res) => {
     res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
     res.cookie("name", FirstName, { httpOnly: false, maxAge: age * 1000 });
     // console.log("-----Signup successful-----");
+    console.log(user)
     res.body._id=user._id
     res.json({ Success:true,data: user._id });
   } catch (err) {
@@ -76,11 +77,17 @@ const handleLogin = async (req, res) => {
 
   try {
     const user = await Employee.login(email, password);
-    const token = createToken(user._id);
-    res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
-    res.cookie("name", user.FirstName, { httpOnly: false, maxAge: age * 1000 });
-    // console.log(token)
-    res.json({ Success: true, data: user._id });
+    if(user)
+    {
+      const token = createToken(user._id);
+      res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
+      res.cookie("name", user.FirstName, { httpOnly: false, maxAge: age * 1000 });
+      console.log(user)
+      // res.body.id=user._id
+      res.json({ Success: true, data: user._id });
+    }
+    else
+      res.json({Success:false,message:"user not found"})
 
     // console.log("....login successful....");
   } catch (err) {

@@ -11,7 +11,7 @@ import {
 import routes from "@/routes";
 import { useMaterialTailwindController, setOpenConfigurator } from "@/context";
 // import Skills from '@/pages/notifications'
-import { Skills } from "@/pages/dashboard";
+import { Skills,Tables } from "@/pages/dashboard";
 import { useCookies } from "react-cookie";
 export function Dashboard() {
   const [controller, dispatch] = useMaterialTailwindController();
@@ -43,6 +43,8 @@ export function Dashboard() {
               layout === "dashboard" &&
               pages.map(({ path, element }) =>{
                 if(path==='/skills') return <Route exact path={path} element={<Skills open={open} toggleOverlay={toggleOverlay} />} />
+                if(path==='/tables') return <Route exact path={path} element={<Tables open={open} toggleOverlay={toggleOverlay} />} />
+
                  return <Route exact path={path} element={element} />
 
                
