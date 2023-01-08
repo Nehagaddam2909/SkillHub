@@ -1,4 +1,4 @@
-import { Link ,useLocation,useNavigate} from "react-router-dom";
+import { Link ,useNavigate,useLocation} from "react-router-dom";
 import { useState } from "react";
 import {
   Card,
@@ -15,7 +15,9 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 import Switch from './Switch';
-export function SignUp() {
+import { useEffect } from "react";
+export function EditProfile() {
+  let {state}=useLocation();
   let history=useNavigate();
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
@@ -24,11 +26,39 @@ export function SignUp() {
     "about":"","highlight":"","github":"","linkedIn":"","portfolio":""
   });
   const [signup,setSignup]=useState({"first":"","last":"","dept":"","pos":"","gen":"female","jod":"","location":"","email":"","pass":"",
-  "about":"","highlight":"","github":"","linkedIn":"","portfolio":""})
+  "about":"","highlight":"","github":"","linkedIn":"","portfolio":""
+})
   const laststep=1
-  const values={detail,signup}
-  const {state}=useLocation()
+  let c;
   let ismanager=0;
+  useEffect(()=>{
+    // console.log("..")
+    if(state)
+    {
+      let d={}
+      
+      d.first=(state.FirstName)?state.FirstName:"";
+      d.last=(state.LastName)?state.LastName:"";
+      d.dept=(state.Department)?state.Department:"";
+      d.pos=(state.Position)?state.Position:"";
+      d.gen=(state.Gender)?state.Gender:"";
+      d.jod=(state.JoinDate)?state.JoinDate:"";
+      d.location=(state.Location)?state.Location:"";
+      d.email=(state.Email)?state.Email:"";
+      d.pass=(state.Password)?state.Password:"";
+      d.about=(state.about)?state.about:"";
+      d.highlight=(state.highlight)?state.highlight:"";
+      d.portfolio=(state.portfolio)?state.portfolio:"";
+      d.github=(state.github)?state.github:"";
+      d.linkedIn=(state.linkedIn)?state.linkedIn:"";
+     
+      
+        setSignup(d)
+      
+
+    }
+    // console.log(d)
+  },[])
  
   const handleClick=async (e)=>{
     // console.log(e.target.value)
@@ -44,8 +74,8 @@ export function SignUp() {
         var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         const key=Object.keys(signup)
         key.forEach((e)=>{
-          if(flag==1 || e==="about" || e==="highlight" || e==="portfolio" || e==="linkedIn" || e==="github")
-            return ;
+          if(flag==1 || e==="about" || e==="highlight" || e==="portfolio" || e==="linkedIn" | e==="github")
+          return ;
             if(!signup[e])
             {
                 changeColor(e," can't be empty")
@@ -76,13 +106,15 @@ export function SignUp() {
             }
            
         })
-        if(!flag)
+        console.log(flag)
+        if(flag===0)
         {
-          const d= await fetch("http://localhost:4000/signup",{
+          e.preventDefault()
+          const d= await fetch("http://localhost:4000/edit",{
                   method:"POST",
-                  body:JSON.stringify({"FirstName":signup["first"],"LastName":signup["last"],"Gender":signup["gen"],"JoinDate":signup["jod"],"Location":signup["location"],
-                  "Department":signup["dept"],"Position":signup["pos"],"Email":signup["email"],"Password":signup["pass"],"ismanager":ismanager,"about":detail["about"
-                ],"highlight":detail["highlight"],"portfolio":detail["portfolio"],"github":detail["github"],"linkedIn":detail[""]
+                  body:JSON.stringify({"id":state._id,"FirstName":signup["first"],"LastName":signup["last"],"Gender":signup["gen"],"JoinDate":signup["jod"],"Location":signup["location"],
+                  "Department":signup["dept"],"Position":signup["pos"],"Email":signup["email"],"Password":signup["pass"],"about":signup["about"
+                ],"highlight":signup["highlight"],"portfolio":signup["portfolio"],"github":signup["github"],"linkedIn":signup["linkedIn"]
             }),
                   headers:{"Content-type":"application/json"}
                 })
@@ -96,21 +128,24 @@ export function SignUp() {
                     history("/")
                      
                       
+                  }else{
+                    changeColor(jss.message)
+                    changAlert(true)
+                    console.log(jss)
                   }
                 }
                 
                 catch(err)
                 {
-                  console.log("ghjkl")
-                  // changeColor(jss.message)
-                  // changAlert(true)
+                  console.log("ghjkl",err)
+                
                 }
                   
         }
         
                 
               
-            
+        //  console.log("Clicked the submit")   
     }
     
   }
@@ -134,15 +169,15 @@ export function SignUp() {
           
             <Typography variant="h3"
                   color="black"
-                  className="xl font-bold">Signup</Typography>
+                  className="xl font-bold">{state?"Edit Profile":"Signup"}</Typography>
             <Typography variant="paragraph"
                   color="black"
-                  className="text-xs">Please fill the from to create the account</Typography><hr className="my-2 w-full h-2 border-black"/>
+                  className="text-xs">Please fill the from to edit the profile</Typography><hr className="my-2 w-full h-2 border-black"/>
               
 
-            {Switch(step,signup,setSignup,state)}
+            {state && signup.first && Switch(step,signup,setSignup,state)}
             <div className="flex justify-center space-x-4">
-            <Button variant="outlined"  onClick={e=>setstep(step-1)} className={`${step===0?"hidden":""}`}>Prev</Button>
+            <Button variant="outlined"  onClick={e=>setstep(step-1)} className={`${step===0?"hiden":""}`}>Prev</Button>
             <Button variant="gradient" onClick={e=>handleClick(e)} >{step===laststep?"submit":"next"}</Button>
             </div>
             <Typography variant="small" className="mt-6 flex justify-center">
@@ -164,4 +199,4 @@ export function SignUp() {
   );
 }
 
-export default SignUp;
+export default EditProfile;

@@ -16,17 +16,17 @@ import {
 import React from "react";
 
 
-export function SIGNUP({signup,setSignup}) {
+export function SIGNUP({signup,setSignup,state}) {
   let history=useNavigate();
-  const [first,setfirst]=useState("")
-  const [last,setlast]=useState("")
-  const [loc,setloc]=useState("")
-  const [dept,setdept]=useState("")
-  const [pos,setpos]=useState("")
-  const [jod,setjod]=useState("")
-  const [gen,setgen]=useState("Female")
-  const [email,setemail]=useState("")
-  const [pass,setpass]=useState("")
+  const [first,setfirst]=useState(signup.first)
+  const [last,setlast]=useState(signup.last)
+  const [loc,setloc]=useState(signup.location)
+  const [dept,setdept]=useState(signup.dept)
+  const [pos,setpos]=useState(signup.pos)
+  const [jod,setjod]=useState(signup.jod)
+  const [gen,setgen]=useState(signup.email)
+  const [email,setemail]=useState(signup.email)
+  const [pass,setpass]=useState(signup.pass)
   
   const handleChange=(val,s)=>{
     // console.log(e,s)
@@ -126,25 +126,32 @@ export function SIGNUP({signup,setSignup}) {
               
               <div className="flex mb-3">
                 <label className="w-1/2 py-2 pl-2">Select Joining date</label>
-                {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
                 <input type="date" id="JD" className="block w-1/2 px-3 py-2.5 mb-3  black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder=""
                 value={jod} onChange={(e)=>(handleChange(e.target.value,"jod"))} required/>
 
               </div>
 
-              <div className="mb-3">
-                {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
+               {state && <div className="mb-3">
+                <input type="email" id="Email" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="Enter Email"
+                value={email} onChange={(e)=>(handleChange(e.target.value,"email"))} required disabled/>
+
+              </div>}
+              {!state && <div className="mb-3">
                 <input type="email" id="Email" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500" placeholder="Enter Email"
                 value={email} onChange={(e)=>(handleChange(e.target.value,"email"))} required/>
 
-              </div>
+              </div>}
 
-              <div className="mb-5 md:mb-6">
-                {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
+              {state && <div className="mb-5 md:mb-6">
+                <input type="password" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Enter Password"
+                value={pass} onChange={(e)=>(handleChange(e.target.value,"pass"))} required disabled/>
+
+              </div>}
+              {!state && <div className="mb-5 md:mb-6">
                 <input type="password" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Enter Password"
                 value={pass} onChange={(e)=>(handleChange(e.target.value,"pass"))} required/>
 
-              </div>
+              </div>}
              
              
     </>

@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/solid";
 // import { Home, Profile, Tables, Notifications,Skills,Filter} from "@/pages/dashboard";
 import { Home, Profile, Tables, Skills,Filter} from "@/pages/dashboard";
-import { SignIn, SignUp } from "@/pages/auth";
+import { EditProfile, SignIn, SignUp } from "@/pages/auth";
 import { PlusSmallIcon, SquaresPlusIcon } from "@heroicons/react/24/outline";
 import Logoutted from "./widgets/layout/Logoutted";
 
@@ -75,6 +75,12 @@ export const routes = [
         name: "Logout",
         path: "/Logout",
         element: <SignIn state={true} />,
+      },
+      {
+        icon: <UserPlusIcon {...icon} />,
+        name: "Edit profile",
+        path: "/edit-profile",
+        element: <EditProfile />,
       },
     ],
   },

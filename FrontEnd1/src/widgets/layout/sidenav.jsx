@@ -64,7 +64,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
               </li>
             )}
             {pages.map(({ icon, name, path }) => {
-              if(name!=='sign in' && name!='sign up')
+              if(name!=='sign in' && name!='sign up' )
               {
               // console.log("hg",name==="sign in")
 

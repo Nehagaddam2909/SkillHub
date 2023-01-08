@@ -92,6 +92,44 @@ const handleLogin = async (req, res) => {
   }
 };
 
+const handleEdit = async (req, res) => {
+  const {
+    id,
+    FirstName,
+    LastName,
+    Gender,
+    JoinDate,
+    Location,
+    Department,
+    Position,
+    Email,
+    about,
+    highlight,
+    portfolio,
+    github,
+    linkedIn
+
+  } = req.body;
+  console.log(id)
+  try {
+    const user = await Employee.findOneAndUpdate({_id:id},{$set:{
+      FirstName: FirstName, LastName:LastName,Gender: Gender, JoinDate:JoinDate, Location:Location,
+      Department:Department,Position:Position,Email:Email,
+      about:about,highlight:highlight,portfolio: portfolio,github: github,
+      linkedIn:linkedIn
+    }
+      
+
+    });
+  
+    
+    res.json({ Success:true,data: user._id });
+  } catch (err) {
+    console.log(err);
+    res.json({ Success: false, message: err });
+  }
+
+};
 
 
 const logout = (req, res) => {
@@ -103,4 +141,4 @@ const logout = (req, res) => {
   res.send({ success: true });
 };
 
-module.exports = { handleSignup, handleLogin, logout };
+module.exports = { handleSignup, handleLogin, logout,handleEdit };

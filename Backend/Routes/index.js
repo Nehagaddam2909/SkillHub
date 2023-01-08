@@ -8,14 +8,17 @@ const {
   handleSignup,
   handleLogin,
   logout,
+  handleEdit,
 } = require("../Controllers/Auth/auth");
 const express = require("express");
 const { application } = require("express");
 const router = express.Router();
+router.post("/edit", handleEdit);
 
 router.post("/signup", handleSignup);
 
 router.post("/login", handleLogin);
+
 
 // app.post("/api/logout", verifyJWT, (req, res) => {
 //     // Send a successful response to the client

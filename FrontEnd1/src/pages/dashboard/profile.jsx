@@ -92,6 +92,12 @@ export function Profile() {
       else 
         setData(state)
   },[])
+
+
+  const handleClick=(e)=>{
+    console.log(e)
+    history("/auth/edit-profile",{state:data})
+  }
   return (
     <div>
       <div 
@@ -101,8 +107,27 @@ export function Profile() {
        </div>
       <div className="flex flex-col md:flex-col lg:flex-row justify-center">
       <Card className="mx-3 -mt-16 mb-6 lg:mx-4">
+      
         <CardBody className="p-4">
+        {!state && <Menu placement="left-start">
+              <MenuHandler className="float-right">
+                <IconButton size="sm" variant="text" color="blue-gray">
+                  <EllipsisVerticalIcon
+                    strokeWidth={3}
+                    fill="currenColor"
+                    className="h-6 w-6 capitalize"
+                  />
+                </IconButton>
+              </MenuHandler>
+              <MenuList>
+                
+
+                <MenuItem><button onClick={e=>handleClick(e)}>Edit</button></MenuItem>
+              </MenuList>
+            </Menu>}
+        
           <div className="mb-10 flex items-center justify-center gap-6">
+            
             <div className="flex items-center gap-6">
              
               <div className="w-[18rem]">

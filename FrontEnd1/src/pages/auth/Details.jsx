@@ -1,16 +1,16 @@
 
 import { useState } from "react";
-const Details=({detail,setdetail})=>{
-    const [about,setabout]=useState(detail['about'])
-    const [highlight,sethighlight]=useState(detail['highlight'])
-    const [github,setgithub]=useState(detail['github'])
-    const [linkedIn,setlinkedIn]=useState(detail['linkedIn'])
-    const [portfolio,setportfolio]=useState(detail['portfolio'])
+const Details=({signup,setSignup})=>{
+    const [about,setabout]=useState(signup['about'])
+    const [highlight,sethighlight]=useState(signup['highlight'])
+    const [github,setgithub]=useState(signup['github'])
+    const [linkedIn,setlinkedIn]=useState(signup['linkedIn'])
+    const [portfolio,setportfolio]=useState(signup['portfolio'])
     // console.log("xcvbnkl")
     const handleChange=(val,s)=>{
         // console.log("val")
         // console.log(e.target.value,s)
-        const delt=detail
+        const delt=signup
         if(s==='about')
         {
             delt['about']=val
@@ -41,13 +41,13 @@ const Details=({detail,setdetail})=>{
             delt['portfolio']=val
             setportfolio(val)
         }
-        setdetail(delt)
+        setSignup(delt)
         // console.log("",detail)
     }   
    return( <div>
      <div className="mb-5 md:mb-6">
         <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="About"
-        value={detail["about"]} onChange={e=>(handleChange(e.target.value,"about"))} required/>
+        value={about} onChange={e=>(handleChange(e.target.value,"about"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
