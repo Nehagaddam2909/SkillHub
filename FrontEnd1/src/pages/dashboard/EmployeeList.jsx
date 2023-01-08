@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// import './filterForm.css'
 
 // const EmployeeTable = ({ employees, genderFilter, positionFilter ,departmentFilter,locationFilter}) => {
 // const [filteredEmployees,setfilteredEmployees]=useState([])
@@ -96,10 +97,13 @@ export function EmployeeList() {
     if (error) {
       return <p>An error occurred: {error.message}</p>;
     }
+    const styling={
+      border:"2px solid blue",
+    }
   
     return (
       <div>
-        <form>
+        <form style={styling}>
           <label htmlFor="gender-filter">Gender:</label>
           <select id="gender-filter" value={genderFilter} onChange={event => setGenderFilter(event.target.value)}>
             <option value="">All</option>

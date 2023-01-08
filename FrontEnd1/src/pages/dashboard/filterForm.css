@@ -1,0 +1,84 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 500px;
+  }
+  
+  @media (min-width: 600px) {
+    form {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  
+  select {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #555;
+    padding: 10px;
+  }
+  
+  @media (min-width: 600px) {
+    select {
+      width: 150px;
+    }
+  }
+  
+  button {
+    /* top: 11px;
+    padding: 4px;
+    margin: 16px; */
+    background-color: #0072c6;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    height: 35px;
+    padding: 0 20px;
+    margin-top: 20px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition: all 0.3s;
+  }
+  
+  button:hover {
+    background-color: #004d99;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.19), 0 6px 10px rgba(0, 0, 0, 0.23);
+    transform: translateY(-1px);
+  }
+  button {
+    /* other styles */
+    position: relative;
+  }
+  
+  button::before {
+    content: attr(title);
+    display: none;
+    position: absolute;
+    background-color: rgb(204, 202, 240);
+    color: rgb(3, 15, 246);
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  
+  button:hover::before {
+    display: block;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+    
+  
