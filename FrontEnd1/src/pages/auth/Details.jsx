@@ -6,61 +6,66 @@ const Details=({detail,setdetail})=>{
     const [github,setgithub]=useState(detail['github'])
     const [linkedIn,setlinkedIn]=useState(detail['linkedIn'])
     const [portfolio,setportfolio]=useState(detail['portfolio'])
-    const handleChange=(e,s)=>{
-        // console.log(e,s)
+    const handleChange=(val,s)=>{
+        // console.log(e.target.value,s)
+        const delt=detail
         if(s==='about')
         {
-            setabout(e.target.value)
-            detail['about']=about
+            delt['about']=val
+
+            setabout(val)
         }
 
         if(s==='github')
         {
-            setgithub(e.target.value)
-            detail['github']=github
+            delt['github']=val
+
+            setgithub(val)
         }
         if(s==='highlight')
         {
-            sethighlight(e.target.value)
-            detail['highlight']=highlight
+            delt['highlight']=val
+
+            sethighlight(val)
         }
         if(s==='linkedIn')
         {
-            setlinkedIn(e.target.value)
-            detail['linkedIn']=linkedIn
+            delt['linkedIn']=val
+
+            setlinkedIn(val)
         }
         if(s==='portfolio')
         {
-            setportfolio(e.target.value)
-            detail['portfolio']=portfolio
+            delt['portfolio']=val
+            setportfolio(val)
         }
-        setdetail(detail)
+        setdetail(delt)
         // console.log(detail)
     }   
    return( <div>
      <div className="mb-5 md:mb-6">
         <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="About"
-        value={about} onChange={e=>(handleChange(e,"about"))} required/>
+        value={about} onChange={e=>(handleChange(e.target.value,"about"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
         <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add highlight"
-        value={highlight} onChange={e=>(handleChange(e,"highlight"))} required/>
+        value={highlight} onChange={e=>(handleChange(e.target.value,"highlight"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
         <input type="text" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add portfolio(optional)"
-        value={portfolio} onChange={e=>(handleChange(e,"portfolio"))} required/>
+        value={portfolio} onChange={e=>(handleChange(e.target.value,"portfolio"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
         <input type="text" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add github url(optional)"
-        value={github} onChange={e=>(handleChange(e,"github"))} required/>
+        value={github} onChange={e=>(handleChange(e.target.value,"github"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
         <input type="text" id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add linkedIn(optional)"
-        value={linkedIn} onChange={e=>(handleChange(e,"linkedIn"))} required/>
+        value={linkedIn} onChange={e=>(handleChange(e.target.value,"linkedIn"))} required/>
 
     </div>
 

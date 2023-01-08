@@ -34,10 +34,11 @@ export function SignIn({state}) {
     {
       document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      
+      state=false
     }
   },[])
   const handleClick=async(e)=>{
+    // console.log(e)
     if(!email.length)
     {
       changeColor("Email can't be empty")
@@ -72,10 +73,9 @@ export function SignIn({state}) {
 
         
       }
-
-      
     ).then( (d)=>{
         const jss=d.data
+        // console.log(jss)
         if(!jss.Success)
         { 
             changeColor(jss.message)
@@ -87,6 +87,7 @@ export function SignIn({state}) {
           history("/")
         }
     }).catch(err=>{
+      console.log("err",err)
         changeColor(err.message)
         changAlert(true)
     })

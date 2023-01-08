@@ -49,13 +49,9 @@ const handleSignup = async (req, res) => {
     linkedIn
 
     });
-    // console.log(user)
-    //encode the password
-    if (ismanager) {
-      const managr = await Manager.create({ id: user._id });
-      // console.log(managr);
-    }
+  
     const token = createToken(user._id);
+    // console.log(token)
     res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
     res.cookie("name", FirstName, { httpOnly: false, maxAge: age * 1000 });
     // console.log("-----Signup successful-----");
@@ -74,6 +70,7 @@ const handleSignup = async (req, res) => {
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   // console.log("-----email-pass-----:", email, password);
+  // console.log(req.body)
 
   try {
     const user = await Employee.login(email, password);
