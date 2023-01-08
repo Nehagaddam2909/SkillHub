@@ -17,6 +17,7 @@ export function Filter() {
     const [Employee,setEmp]=useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    // setIsEmp
 
 
     // this will set the all unique vale for Location,Position,Dapartment etc from backend available data dynamically
@@ -24,7 +25,7 @@ export function Filter() {
       console.log("lennnnnnnnn of Employee state var:",Employee.length)
       if(Employee.length===0)
       {
-        setIsEmp(true)
+        // setIsEmp(true)
         {
                 // Fetch the unique values for the filters
       const fetchData =async () => {
