@@ -40,7 +40,7 @@ const verifyJWT = (req, res, next) => {
     next();
   });
 };
-router.post("/logout", verifyJWT, logout);
+router.get("/logout", logout);
 
 router.use(manager);
 router.use(emp);

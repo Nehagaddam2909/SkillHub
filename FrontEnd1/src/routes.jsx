@@ -11,6 +11,7 @@ import {
 import { Home, Profile, Tables, Skills,Filter} from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import { PlusSmallIcon, SquaresPlusIcon } from "@heroicons/react/24/outline";
+import Logoutted from "./widgets/layout/Logoutted";
 
 
 const icon = {
@@ -73,7 +74,7 @@ export const routes = [
         icon: <UserPlusIcon {...icon} />,
         name: "Logout",
         path: "/Logout",
-        element: <SignIn />,
+        element: <SignIn state={true} />,
       },
     ],
   },

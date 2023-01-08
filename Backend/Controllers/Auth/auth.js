@@ -95,27 +95,14 @@ const handleLogin = async (req, res) => {
   }
 };
 
-// logout------
 
-// const logout = (req, res) => {
-//   // Invalidate the user's token
-//   console.log("req.user:", req.user);
-//   req.user.token = null;
-//   req.user.save((err) => {
-//     if (err) {
-//       return res.send({ "gotted error": err });
-//     }
-
-//     res.send({ success: true });
-//   });
-// };
 
 const logout = (req, res) => {
   // Send a successful response to the client
   console.log("logout success........#");
   // Remove the JWT cookie
-  res.clearCookie("jwt", { path: "/" });
-  res.clearCookie("name", { path: "/" });
+  req.clearCookie("jwt", { path: "/" });
+  req.clearCookie("name", { path: "/" });
   res.send({ success: true });
 };
 

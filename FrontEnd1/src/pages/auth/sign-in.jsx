@@ -1,5 +1,7 @@
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useNavigate,useLocation } from "react-router-dom";
 import { useEffect,useState } from "react";
+import Cookies from 'js-cookie';
+
 import axios from "axios";
 import {
   Card,
@@ -15,7 +17,7 @@ import {
   
 } from "@material-tailwind/react";
 
-export function SignIn() {
+export function SignIn({state}) {
   let axiosConfig = {
     withCredentials: true,
   }
@@ -24,7 +26,17 @@ export function SignIn() {
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
   let history=useNavigate();
+  // const {state} = useLocation();
 
+
+  useEffect(()=>{
+    if(state)
+    {
+      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      
+    }
+  },[])
   const handleClick=async(e)=>{
     if(!email.length)
     {
@@ -72,7 +84,7 @@ export function SignIn() {
         }
         else{
           changAlert(false)
-          history(-1)
+          history("/")
         }
     }).catch(err=>{
         changeColor(err.message)
