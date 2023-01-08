@@ -88,6 +88,7 @@ export function Filter() {
               filter_position,
           },
         };
+        // in above url lokks like->url:`http://localhost:4000/applyFilter/skills?filter_gender=${filter_gender}&filter_location=${filter_location}`
         
         const response = await axios(config);
   
