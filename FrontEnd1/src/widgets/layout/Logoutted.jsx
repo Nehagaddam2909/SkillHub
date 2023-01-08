@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
 import {
     Navbar,
@@ -35,6 +35,12 @@ export default function Logoutted() {
     
 const history = useNavigate();
 
+useEffect(()=>{
+  // document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  // document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+// history('/auth/sign-in');
+
+ },[])
 
 function handleLogout() {
     // Remove the token from local storage

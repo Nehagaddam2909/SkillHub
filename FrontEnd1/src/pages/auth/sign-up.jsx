@@ -30,7 +30,8 @@ export function SignUp() {
  
   const handleClick=async (e)=>{
     // console.log(e.target.value)
-    e.preventDefault()
+    // e.preventDefault()
+    let flag=0;
     if(step==0)
         setstep(step+1);
     else
@@ -38,31 +39,41 @@ export function SignUp() {
         var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         const key=Object.keys(signup)
         key.forEach((e)=>{
-            if(!signup[key])
+          if(flag==1)
+            return ;
+            if(!signup[e])
             {
-                changeColor(key," can't be empty")
-
+                changeColor(e," can't be empty")
+                flag=1;
                 changAlert(true)
                 return ;
             }
-            if(key==='email')
+            if(e==='email')
             {
-                if(!signup[key].match(validRegex))
+                if(!signup[e].match(validRegex))
                 {
                     changeColor("Enter valid email")
                     changAlert(true)
+                    flag=1;
                     return ;
                 }
                 
-            }
-            if(key=='pos')
+            } 
+            if(e==="pass")
             {
-                res=signup[key].toLocalLowerCase();
-                ismanager=(res.indexOf("manager")>=0?1:0);
+              if(signup[e].length<6)
+              {
+                flag=1;
+                changeColor("Min lentgh of password is 6 characters")
+                changAlert(true)
+                return ;
+              }
             }
+           
         })
-
-        const d= await fetch("http://localhost:4000/signup",{
+        if(!flag)
+        {
+          const d= await fetch("http://localhost:4000/signup",{
                   method:"POST",
                   body:JSON.stringify({"FirstName":signup["first"],"LastName":signup["last"],"Gender":signup["gen"],"JoinDate":signup["jod"],"Location":signup["location"],
                   "Department":signup["dept"],"Position":signup["pos"],"Email":signup["email"],"Password":signup["pass"],"ismanager":ismanager,"about":detail["about"
@@ -70,20 +81,29 @@ export function SignUp() {
             }),
                   headers:{"Content-type":"application/json"}
                 })
-                const jss=await d.json();
-                console.log(jss)
-                if(!jss.Success)
-                { 
-                    changeColor(jss.message)
-                    console.log("signup form submitted!!!!!:",jss.message)
-                    changAlert(true)
-                    // history("/auth/sign-in")
+                try{
+                  const jss=await d.json();
+                  // console.log(jss)
+                  if(jss.Success)
+                  { 
+                    changAlert(false)
+                    console.log(jss)
+                    history("/")
+                     
+                      
+                  }
                 }
-                else{
-                  changAlert(false)
-                  console.log("signup form not!!!!!!!!! submitted:",jss.message)
-                  history("/")
+                
+                catch(err)
+                {
+                  console.log("ghjkl")
+                  // changeColor(jss.message)
+                  // changAlert(true)
                 }
+                  
+        }
+        
+                
               
             
     }

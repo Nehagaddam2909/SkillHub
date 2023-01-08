@@ -1,5 +1,7 @@
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useNavigate,useLocation } from "react-router-dom";
 import { useEffect,useState } from "react";
+import Cookies from 'js-cookie';
+
 import axios from "axios";
 import {
   Card,
@@ -15,7 +17,7 @@ import {
   
 } from "@material-tailwind/react";
 
-export function SignIn() {
+export function SignIn({state}) {
   let axiosConfig = {
     withCredentials: true,
   }
@@ -24,8 +26,19 @@ export function SignIn() {
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
   let history=useNavigate();
+  // const {state} = useLocation();
 
+
+  useEffect(()=>{
+    if(state)
+    {
+      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      state=false
+    }
+  },[])
   const handleClick=async(e)=>{
+    // console.log(e)
     if(!email.length)
     {
       changeColor("Email can't be empty")
@@ -60,10 +73,9 @@ export function SignIn() {
 
         
       }
-
-      
     ).then( (d)=>{
         const jss=d.data
+        // console.log(jss)
         if(!jss.Success)
         { 
             changeColor(jss.message)
@@ -73,10 +85,10 @@ export function SignIn() {
         }
         else{
           changAlert(false)
-          console.log("else block"+jss.message+" And email:"+email)
-          history(-1)
+          history("/")
         }
     }).catch(err=>{
+      console.log("err",err)
         changeColor(err.message)
         console.log("catched block:"+jss.message+" And email:"+email)
         changAlert(true)

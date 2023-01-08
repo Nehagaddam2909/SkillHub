@@ -47,13 +47,9 @@ const handleSignup = async (req, res) => {
       github,
       linkedIn,
     });
-    // console.log(user)
-    //encode the password
-    if (ismanager) {
-      const managr = await Manager.create({ id: user._id });
-      // console.log(managr);
-    }
+  
     const token = createToken(user._id);
+    // console.log(token)
     res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
     res.cookie("name", FirstName, { httpOnly: false, maxAge: age * 1000 });
     console.log("-----Signup successful-----");
@@ -72,6 +68,7 @@ const handleSignup = async (req, res) => {
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
   // console.log("-----email-pass-----:", email, password);
+  // console.log(req.body)
 
   try {
     const user = await Employee.login(email, password);
@@ -93,27 +90,14 @@ const handleLogin = async (req, res) => {
   }
 };
 
-// logout------
 
-// const logout = (req, res) => {
-//   // Invalidate the user's token
-//   console.log("req.user:", req.user);
-//   req.user.token = null;
-//   req.user.save((err) => {
-//     if (err) {
-//       return res.send({ "gotted error": err });
-//     }
-
-//     res.send({ success: true });
-//   });
-// };
 
 const logout = (req, res) => {
   // Send a successful response to the client
   console.log("logout success........#");
   // Remove the JWT cookie
-  res.clearCookie("jwt", { path: "/" });
-  res.clearCookie("name", { path: "/" });
+  req.clearCookie("jwt", { path: "/" });
+  req.clearCookie("name", { path: "/" });
   res.send({ success: true });
 };
 

@@ -61,7 +61,7 @@ export function Profile() {
   useEffect( ()=>{
   async function fetchData(){
     const token=cookies.jwt;
-     console.log(token)
+    //  console.log(token)
      await axios.post("http://localhost:4000/employee/123",
      {  
       cookie:token,
