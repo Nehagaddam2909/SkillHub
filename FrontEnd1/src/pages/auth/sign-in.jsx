@@ -67,15 +67,18 @@ export function SignIn() {
         if(!jss.Success)
         { 
             changeColor(jss.message)
+            console.log("gooted error in frontend:"+jss.message+" And email:"+email)
             changAlert(true)
             
         }
         else{
           changAlert(false)
+          console.log("else block"+jss.message+" And email:"+email)
           history(-1)
         }
     }).catch(err=>{
         changeColor(err.message)
+        console.log("catched block:"+jss.message+" And email:"+email)
         changAlert(true)
     })
     

@@ -75,12 +75,13 @@ export function SignUp() {
                 if(!jss.Success)
                 { 
                     changeColor(jss.message)
+                    console.log("signup form submitted!!!!!:",jss.message)
                     changAlert(true)
                     // history("/auth/sign-in")
                 }
                 else{
                   changAlert(false)
-                  
+                  console.log("signup form not!!!!!!!!! submitted:",jss.message)
                   history("/")
                 }
               
