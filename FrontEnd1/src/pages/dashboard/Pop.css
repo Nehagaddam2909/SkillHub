@@ -39,6 +39,36 @@
     font-size: 1rem !important;
     font-weight: bold !important;
   }
+
+*::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  * {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
   /* .dataTables_wrapper .rdt_TableCell{
     font-size:25px !important;
   } */
+
+  .data-table-extensions-filter
+  {
+    font-size:1rem !important;
+    font-family: sans-serif;
+  }
+  .filterDataTable
+  {
+    font-size: 1rem !important;
+  }
+
+  .data-table-extensions-action .download 
+  {
+    /* width: 3rem !important;
+     */
+     /* width: 3rem !important;
+      */
+
+      font-size: 200% !important;
+  }

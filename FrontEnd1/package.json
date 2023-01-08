@@ -21,9 +21,11 @@
     "react-apexcharts": "1.4.0",
     "react-cookie": "^4.1.1",
     "react-data-table-component": "^7.5.3",
-    "react-dom": "18.2.0",
+    "react-data-table-component-extensions": "^1.6.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1",
-    "reactjs-popup": "^2.0.5"
+    "reactjs-popup": "^2.0.5",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@types/react": "18.0.17",

@@ -285,7 +285,7 @@ export function Profile() {
                             
                             className="text-xs  text-center font-medium text-black capitalize"
                           >
-                            Neha
+                            {ele.skill_id.skill_name}
                           </Typography>
                         </div>
                       </td>
@@ -295,7 +295,8 @@ export function Profile() {
                            
                             className="text-xs  text-center font-medium text-black capitalize"
                           >
-                            Neha
+                            {ele.skill_id.domain}
+                            
                           </Typography>
                         
                       </td>

@@ -99,8 +99,8 @@ export function SignIn({state}) {
 
   return (
     <>
-
-      <div className="absolute inset-0 z-0 h-full w-full bg-blue-700/50" />
+      <Typography variant="h3" color="red" className=" pt-5 text-center">SkillHub</Typography>
+      <div className="absolute inset-0 z-0 h-full w-full bg-blue-500/50" />
       <Alert
               show={alert}
               color={"red"}
@@ -113,7 +113,7 @@ export function SignIn({state}) {
             </Alert>
      <div className="absolute  grid w-screen h-screen place-items-center ">
      
-      <div className="absolute block -ml-6 p-6 w-29 md:w-22 border bg-white shadow-lg">
+      <div className="absolute -mt-20 block -ml-6 p-6 w-29 md:w-22 border bg-white shadow-lg">
           
             <Typography variant="h3"
                   color="black"

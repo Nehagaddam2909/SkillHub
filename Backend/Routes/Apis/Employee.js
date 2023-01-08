@@ -20,17 +20,34 @@ router.post("/employee/addSkills",requireAuth, async (req, res) => {
 
 
 
+
+
 router.post("/employee/:id", requireAuth, async (req, res) => {
   const id = req.body.id;
-  // console.log(id)
-  const data = await Employee.findOne({ _id: id });
+  const data = await Employee.findOne({ _id: id }).populate("Skills.skill_id").exec();
+  // populate the skills
+
+      
+  console.log(data);
+  
   if (data) {
     res.json({ Success: true, data: data });
   } else res.json({ Success: false, message: "Invalid id" });
 });
 
 
+router.post("/employees/:id", requireAuth, async (req, res) => {
+  const id = req.body.id;
+  const data = await Employee.findOne({ _id: id })
+  // populate the skills
 
+      
+  console.log(data);
+  
+  if (data) {
+    res.json({ Success: true, data: data });
+  } else res.json({ Success: false, message: "Invalid id" });
+});
 
 
 module.exports = router;

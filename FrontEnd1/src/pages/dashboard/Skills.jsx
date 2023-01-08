@@ -26,7 +26,7 @@ export function Skills({toggleOverlay}) {
   const [cookies, setCookie] = useCookies(); 
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
-  const [overlay,changeOverlay]=useState(true) 
+  const [overlay,changeOverlay]=useState(false) 
   const [slct_skill,setSkill]=useState("")
   const [select_v,changeSelectV]=useState("Technical")
   const [ModalName,changeModalName]=useState("Update")
@@ -38,7 +38,7 @@ export function Skills({toggleOverlay}) {
     async function fetchUserData(){
       let dt=[]
       const token=cookies.jwt;
-       await axios.post("http://localhost:4000/employee/123",
+       await axios.post("http://localhost:4000/employees/123",
        {
         cookie:token,
        },
@@ -98,7 +98,6 @@ export function Skills({toggleOverlay}) {
             if(n)
             {
               ele.checked=true
-              // console.log(n)
               ele.level=n.level
               ele.YOE=n.YOE
             }
@@ -240,14 +239,15 @@ export function Skills({toggleOverlay}) {
           const jss=d.data
           if(!jss.Success)
           { 
+            console.log("barabar chhe")
               changeColor(jss.message)
               changAlert(true)
               
           }
           else{
-            console.log(jss)
+            console.log("Something went wrong")
             changAlert(false)
-            history("/")
+            // history("/")
           }
       }).catch(err=>{
           changeColor(err.message)
@@ -280,11 +280,12 @@ const handleSkill=async(e)=>{
   withCredentials:true } // could also try 'same-origin'
 
   ).then(d=>{
-    const jss =  d.data()
+    const jss =  d.data
     if(!jss.Success)
     { 
       changeOverlay(false)
         toggleOverlay(false)
+        window.location.reload()
         // changeColor(jss.message)
         // changAlert(true)
 
@@ -313,26 +314,39 @@ const handleSkill=async(e)=>{
 //   console.log(data[ele])
 // })
 const arr =[];
-const handleEditSkill = ()=>{
+const handleEditSkill = async ()=>{
+    console.log("edit skill")
     const token=cookies.jwt;
     const name = skill_to_edit.skill_name
     const id = skill_to_edit.skill_id
+    console.log(name,id)
     // axios call
-    axios.post("http://localhost:4000/skills/editSkill",
+    axios.post("http://localhost:4000/editSkill",
     {
       skill_id:id,
       skill_name:name,
       token,
     }
-    ).then(d=>{
-      const jss =  d.data()
+    ).then(async d=>{
+      const jss =  d.data
+      console.log(d)
       if(jss.Success)
       { 
         changeOverlay(false)
           toggleOverlay(false)
+          // update chunks
+          const arr = [...chunks]
+          arr.filter((ele,i)=>{
+            if(ele.skill_id===id){
+              arr[i].skill_name=name
+            }
+          })
+          console.log("ARRR",arr);
+          setchunks(arr)
+          await handleButton();
           window.location.reload()
-          // changeColor(jss.message)
-          // changAlert(true)
+          changeColor(jss.message)
+          changAlert(true)
 
           
       }
@@ -354,17 +368,18 @@ const handleEditSkill = ()=>{
     }
     )
 }
-const HandleDeleteSkill = ({id}) =>{
+console.log("chunks",chunks)
+const HandleDeleteSkill = (id) =>{
   const token=cookies.jwt;
   
   // axios call
-  axios.post("http://localhost:4000/skills/deleteSkill",
+  axios.post("http://localhost:4000/deleteSkill",
   {
     skill_id:id,
     token,
   }
-  ).then(d=>{
-    const jss =  d.data()
+  ).then(async (d)=>{
+    const jss =  d.data
     if(jss.Success)
     { 
       // remove from chunks
@@ -374,12 +389,16 @@ const HandleDeleteSkill = ({id}) =>{
           arr.splice(i,1)
         } 
       })
+      console.log("ARRR",arr);
       setchunks(arr)
-      changeOverlay(false)
-        toggleOverlay(false)
+       await handleButton();
+
+      // changeOverlay(false)
+      //   toggleOverlay(false)
+      //   changeModalName("")
         window.location.reload()
-        // changeColor(jss.message)
-        // changAlert(true)
+      //   changeColor(jss.message)
+      //   changAlert(true)
 
         
     }
@@ -403,15 +422,17 @@ const HandleDeleteSkill = ({id}) =>{
 }
 const HandleDeleteAllSkills = ()=>{
   const token=cookies.jwt;
-  
+  const skillIdstodelete = chunks.map((ele,i)=>{
+    return ele.skill_id
+  })
   // axios call
   axios.post("http://localhost:4000/skills/deleteAllSkills",
   {
-    data:chunks,
+    data:skillIdstodelete,
     token,
   }
   ).then(d=>{
-    const jss =  d.data()
+    const jss =  d.data
     if(jss.Success)
     { 
       // remove from chunks
@@ -515,7 +536,7 @@ const HandleDeleteAllSkills = ()=>{
                 Object.values(data).map(d=>{
                   // console.log("D:",d)
                   d.forEach(e=>{
-                    if(e._id==ele.skill_id){
+                    if(e._id==ele.skill_id && e.skill_name.length>0){
                       name = e.skill_name
                       arr.push({name,skill_id:e._id})
 
@@ -565,7 +586,11 @@ const HandleDeleteAllSkills = ()=>{
           <div className= "bg-white z-10 absolute top-[10rem] lg:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5 space-y-5">
             <div className="text-xl border-b-2 border-gray-700 pb-2 mb-3 ">Edit Skill Name</div>
               ID:   <input type="text" value={skill_to_edit.skill_id} disabled />
-               <p>Name :</p> <input className="border-b-2 outline-none" type="text" value={skill_to_edit.skill_name} onChange={e=>skill_to_edit.skill_name=e.target.nodeValue} />
+               <p>Name :</p> <input className="border-b-2 outline-none" type="text" value={skill_to_edit.skill_name} onChange={
+                  e=>{
+                    setskill_to_edit(prev=>({...prev,skill_name:e.target.value}))
+                  }
+               } />
             <div className="flex justify-end gap-2">
                 <button onClick={e=>{
                   // toggleOverlay(false)
@@ -573,7 +598,7 @@ const HandleDeleteAllSkills = ()=>{
                   changeModalName("Update")
                 }}  color="red" className="text-lg text-white bg-red-500 rounded px-3 py-1 font-normal capitalize"  >Cancel</button>
                 <button  className="text-lg text-white bg-green-500 rounded px-3 py-1  font-normal capitalize" 
-                onclick={e=>handleEditSkill()}
+                onClick={handleEditSkill}
                 >Update</button>
               </div>
           <hr />

@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import './filterForm.css'
 
 import axios from 'axios';
+import { Button, Select } from '@material-tailwind/react';
+import { ArrowDownLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowDownCircleIcon, ArrowDownIcon } from '@heroicons/react/24/solid';
 export default function FilterSelection() {
 
     const [filter_gender, setGender_filter] = useState('All');
@@ -24,6 +27,12 @@ export default function FilterSelection() {
 
     const navigate = useNavigate();
 
+    function downloadXLS() {
+      const ws = XLSX.utils.json_to_sheet(employees);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "People");
+      XLSX.writeFile(wb, 'reports.xlsx');
+    }
     const [data,setData]=useState(
         [    {"_id":"63b713e7ba4fb439c79d9678","FirstName":"loc","LastName":"dob","Gender":"Female","JoinDate":"2003-09-29T00:00:00.000Z","Location":"pune ","Department":"sales","Position":"sales person","Email":"loc@gmail.com","Password":"$2b$10$TRV7076kpx3.N0rWAXYm4.7WJrNKzAyEbOcGK9D6RvOzCSgDDvOqu","Skills":[],"__v":0},
             {"_id":"63b715ee2d2fd1cc52f9001c","FirstName":"vbn","LastName":"sdf","Gender":"Female","JoinDate":"2013-12-31T00:00:00.000Z","Location":"sdfg","Department":"sdfgn","Position":"xcvb","Email":"vbn@gmail.com","Password":"$2b$10$02bQWAoK/aLHE9ZzKc/vfuoZz3K2IXaN6796VsNdgls4JeaLY72Lm","Skills":[{"skill_id":"63af1e42157be2cd2d498984","level":"Beginner","YOE":2,"_id":"63b71b0aca22d6993db9550c"},{"skill_id":"63b3a57939ac8dece5f96ada","level":"Intermediate","YOE":2,"_id":"63b71b40ca22d6993db9551f"}],"__v":0,"about":"I am enthusicatic learner","highlight":"Have experience of sales more than 8 yeaens","github":"http://my-github.com","linkedIn":"http://my-linked.com","portfolio":"http://my-portforlio.com"},{"_id":"63b716732d2fd1cc52f9001e","FirstName":"sdjs","LastName":"mnzd","Gender":"female","JoinDate":"0201-02-23T00:00:00.000Z","Location":"md","Department":"mdnm","Position":"md","Email":"hj@gmail.co","Password":"$2b$10$mu6gSb8SBVUIbsxwCfH8peslcEOaivW96fXCCTR9800u2asqsL.LC","about":"dasdjjfsdmn","highlight":"nzbczbxcnzxbczxb","Skills":[],"__v":0},{"_id":"63b716ce000b60bc71d4bfa6","FirstName":"Nehal","LastName":"Ughade","Gender":"Female","JoinDate":"2002-08-07T00:00:00.000Z","Location":"Mumbai","Department":"Technical","Position":"SDE","Email":"nehalughade1221@gmail.com","Password":"$2b$10$RhVzGL3/YR8zNNAEE9blp.0oN1zsV/QyPX6wKIgZhFJNinE5HyiIG","Skills":[{"skill_id":"63af1e42157be2cd2d498986","level":"Beginner","YOE":5,"_id":"63b7cbe2f8927bae8321aee5"},{"skill_id":"63b7ca29f8927bae8321ae91","level":"Expert","YOE":0,"_id":"63b7cbe2f8927bae8321aee6"}],"__v":0},{"_id":"63b7197e000b60bc71d4c02e","FirstName":"wew","LastName":"aa","Gender":"female","JoinDate":"0201-12-12T00:00:00.000Z","Location":"sds","Department":"SA","Position":"ds","Email":"wewe@gm.co","Password":"$2b$10$59RWnbVYBcmzIF8eNb/H3.SnpKFEyqgckhtgUmwR6sgpZqkbMhN0y","about":"dmfds","highlight":"mncmn","portfolio":"mcxn","github":"xvmxmvc","Skills":[],"__v":0},{"_id":"63b71a16ca22d6993db954bc","FirstName":"adsa","LastName":"asdasd","Gender":"Female","JoinDate":"2012-12-12T00:00:00.000Z","Location":"asdsad","Department":"sczx","Position":"asdsad","Email":"sadsand@ndj.com","Password":"$2b$10$wExXBi9utUDBYN2x5QR7.uAHfuFYs8dh2zuO1ZNZbpBKNZ7b2qa4u","Skills":[],"__v":0}]
@@ -43,8 +52,8 @@ export default function FilterSelection() {
             });
         
             const Alldata = response.data;
-            console.log("mydata:", Alldata);
-            console.log("mydata's employees:", Alldata.data);
+            // console.log("mydata:", Alldata);
+            // console.log("mydata's employees:", Alldata.data);
             setEmp(Alldata.data)
     
             } catch (error) {
@@ -120,7 +129,7 @@ export default function FilterSelection() {
     //   handlesubmit to apply respective filters
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("selected values are:",filter_gender,filter_location,filter_department,filter_position)
+        // console.log("selected values are:",filter_gender,filter_location,filter_department,filter_position)
     
         // Send the GET request to the backend API
         const config = {
@@ -150,31 +159,22 @@ export default function FilterSelection() {
         navigate('/dashboard/tables', { state:(employees!==null && employees!=='undefined')?employees: data});
       };
 
-    const styling={
-
-        top: "13px",
-        padding: "4px",
-        margin: "16px",
-        color:'black',
-        
-      }
   return (
-    <div>
-    <form onSubmit={handleSubmit}  className="slectionMenu" style={styling}>
+    <div className='flex flex-center my-4 text-black space-x-4 overflow-x-scroll'>
+    {/* <form  className='flex space-x-4 text-black'> */}
 
-      <label className='label_' style={{paddingLeft:"22px" ,top:'0px'}}>
-        Gender:
-        <select className='select_' value={filter_gender} onChange={(event) => setGender_filter(event.target.value)}>
+      <label className="mt-[.2rem] text-xs md:text-[1rem] font-serif mr-1" for="slct">
+        Gender:</label>
+        <select id="slct" className='-mt-[.4px] block text-[1rem] font-serif bg-white border border-grey-300 focus:outline-blue-500' value={filter_gender} onChange={(event) => setGender_filter(event.target.value)}>
           <option value="All">All</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
-      </label>
-      <br />
+      
 
-      <label className='label_' style={{paddingLeft:"22px"}}>
-        Location:
-        <select className='select_' value={filter_location} onChange={(event) => setLocation_filter(event.target.value)}>
+      <label className="mt-[.2rem] text-xs md:text-[1rem] font-serif mr-1" for="slct2">
+        Location:</label>
+        <select id="slct2" className='-mt-[.4px] block text-[1rem] font-serif bg-white border border-grey-300 focus:outline-blue-500' value={filter_location} onChange={(event) => setLocation_filter(event.target.value)}>
           <option value="All">All</option>
           {locs.map((location) => (
             <option key={location} value={location}>
@@ -182,12 +182,11 @@ export default function FilterSelection() {
             </option>
           ))}
         </select>
-      </label>
-      <br />
+      
 
-      <label className='label_' style={{paddingLeft:"22px"}}>
-        Department:
-        <select className='select_' value={filter_department} onChange={(event) => setDepartment_filter(event.target.value)}>
+      <label className='mt-[.2rem] text-xs md:text-[1rem] font-serif mr-1' id="slct4">
+        Department:</label>
+        <select id="slct4" className='-mt-[.4px]  block text-[1rem] font-serif bg-white border border-grey-300 focus:outline-blue-500' value={filter_department} onChange={(event) => setDepartment_filter(event.target.value)}>
           <option value="All">All</option>
           {depts.map((department) => (
             <option key={department} value={department}>
@@ -195,23 +194,20 @@ export default function FilterSelection() {
             </option>
           ))}
         </select>
-      </label>
-      <br />
+      
 
-      <label className='label_' style={{paddingLeft:"22px"}}>
-        Position:
-        <select className='select_' value={filter_position} onChange={(event)=>setPosition_filter(event.target.value)}>
+      <label className='mt-[.2rem] text-xs md:text-[1rem] font-serif mr-1' for="slct3">
+        Position:</label>
+        <select className='-mt-[.4px] block text-[1rem] font-serif bg-white border border-grey-300 focus:outline-blue-500' value={filter_position} onChange={(event)=>setPosition_filter(event.target.value)} id="slct3">
             <option value="All">All</option>
             {pos.map((position)=>(
                 <option key={position} value={position}>{position}</option>
             ))}
 
         </select>
-        </label>
-         <br />
-
-        <button className='button_' title="Filter results" style={styling} type="submit">Filter</button>
-    </form>
+        
+        <input value="Filter" className='border border-blue-500 font-serif text-[1rem] px-1' type="submit" onClick={e=>handleSubmit(e)}/>
+        
     </div>
   )
 }

@@ -9,6 +9,7 @@ import {
   Progress,
   Button
 } from "@material-tailwind/react";
+import ReactDOM from "react-dom";
 import './Pop.css';
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { authorsTableData, projectsTableData } from "@/data";
@@ -20,13 +21,68 @@ import DataTable, { createTheme  } from "react-data-table-component";
 import { tableCustomStyles } from "./tableCustomStyle";
 import { Link,useNavigate,useLocation } from "react-router-dom";
 import FilterSelection from "./FilterSelection";
+import DataTableExtensions from "react-data-table-component-extensions";
+import "react-data-table-component-extensions/dist/index.css";
 
 
 export function Tables({toggleOverlay}) {
+
+  const navigate = useNavigate();
+
+const columns = [
+    
+  {
+    name: "Name",
+    
+    selector: (row) =>row.FirstName,
+    cellExport: row => row.FirstName,
+    sortable: true,
+  },
+  {
+    name: "Position",
+    selector: (row) => row.Position   ,
+    cellExport: row => row.Position,
+    sortable: true
+  },
+  {
+    name: 
+    "Department",
+    selector: (row) =>row.Department ,
+    cellExport: row => row.Department,
+    sortable: true
+  },
+  {
+    name:  "Gender",
+    selector: (row) => row.Gender,
+    cellExport: row => row.Gender,
+    sortable: true
+  },
+  {
+    name: "Location",
+    selector: (row) =>row.Location,
+    cellExport: row => row.Location,
+    sortable: true
+  },
+  {
+    name: "Employeed",
+    selector: (row) => row.JoinDate,
+    cellExport: row => row.JoinDate,
+    sortable: true
+  },
+   {
+    name:"Action",
+    selector:(row)=><button onClick={e=>handleClick(e,row)} className="font-serif text-[1rem] md:text-base text-center capitalize">View</button>,
+    cellExport: row => "",
+  }   
+  
+];
+const handleClick=(e,row)=>{
+
+  navigate('/dashboard/profile', { state: row });
+}
   const [keys,setKeys]=useState([])
   const [toggle,changeToggle]=useState(false)
   const [id,setId]=useState("")
-  const navigate = useNavigate();
   const [cookies,setCookie]=useCookies()
   const [data,setData]=useState(
 [    {"_id":"63b713e7ba4fb439c79d9678","FirstName":"loc","LastName":"dob","Gender":"Female","JoinDate":"2003-09-29T00:00:00.000Z","Location":"pune ","Department":"sales","Position":"sales person","Email":"loc@gmail.com","Password":"$2b$10$TRV7076kpx3.N0rWAXYm4.7WJrNKzAyEbOcGK9D6RvOzCSgDDvOqu","Skills":[],"__v":0},
@@ -40,17 +96,19 @@ export function Tables({toggleOverlay}) {
   const {state} = useLocation();
   const stateVariable_imported = state;
   console.log("imported state var:::::::-->using useLocation():",state)
-
+  
   // set the data-->imported from other components
   // setData(stateVariable_imported)-->these will cause an infinite-loop-->to prevent these we will update it inside the useEffect()-->as below
   useEffect(() => {
     if(state!==null && state!=='undefined')
     {
       setData(stateVariable_imported)
+       
     }
     else
     {
       setData(data)
+      setTableData({columns,data})
     }
     console.log("imported state var:::::::__________---------:",stateVariable_imported)
   }, [stateVariable_imported]); // only update the state variable if location.state changes
@@ -58,10 +116,7 @@ export function Tables({toggleOverlay}) {
 
 
 
-  const handleClick=(e,row)=>{
-
-    navigate('/dashboard/profile', { state: row });
-  }
+  
   const handleToggle=(e,id)=>{
     console.log(id)
     const ele=document.getElementById(id+"h")
@@ -69,48 +124,10 @@ export function Tables({toggleOverlay}) {
    
   }
 
-  const columns = [
-    
-    {
-      name: "Name",
-      
-      selector: (row) =>row.FirstName,
-      sortable: true,
-    },
-    {
-      name: "Position",
-      selector: (row) => row.Position   ,
-      sortable: true
-    },
-    {
-      name: 
-      "Department",
-      selector: (row) =>row.Department ,
-      sortable: true
-    },
-    {
-      name:  "Gender",
-      selector: (row) => row.Gender,
-      sortable: true
-    },
-    {
-      name: "Location",
-      selector: (row) =>row.Location,
-      sortable: true
-    },
-    {
-      name: "Employeed",
-      selector: (row) => row.JoinDate,
-      sortable: true
-    },
-     {
-      name:"Action",
-      selector:(row)=><button onClick={e=>handleClick(e,row)} className="font-serif text-[1rem] md:text-base text-center capitalize">View</button>
-     }   
-    
-  ];
   
+  const [tabledata,setTableData]=useState({columns,data})
 
+// console.log("",tablesdata)
   return (
   <div>
     <Card className="mt-9">
@@ -124,7 +141,7 @@ export function Tables({toggleOverlay}) {
         {/*-------------------- applying filter------------------ */}
         <FilterSelection/>
         {/* <h3>----------here the filter is---------------</h3> */}
-
+      {data && <DataTableExtensions {...tabledata}>
           <DataTable
             
             columns={columns}
@@ -133,129 +150,16 @@ export function Tables({toggleOverlay}) {
             
             defaultSortFieldId
             highlightOnHover
-        
+            noHeader
             customStyles={tableCustomStyles}
             // style="backgrund-color:red !important;"
           />
+          </DataTableExtensions>}
       </CardBody>
 
     </Card>
 
-      <div className="mt-12 mb-8 flex flex-col gap-12">
-        <Card>
-          <CardHeader variant="gradient" color="blue" className="mb-8 p-6">
-            <Typography variant="h6" color="white">
-              All Employees
-            </Typography>
-          </CardHeader>
-          
-          <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
-            
-            <table className="w-full min-w-[640px] table-auto">
-              <thead>
-                <tr>
-                  {["Name", "Function", "Gender","Location", "employed", ""].map(
-                    (el) => (
-                      <th
-                        key={el}
-                        className="border-b border-blue-gray-50 py-3 px-5 text-left"
-                      >
-                        <Typography
-                          variant="small"
-                          className="text-[18px] font-bold uppercase text-blue-gray-400"
-                        >
-                          {el}
-                        </Typography>
-                      </th>
-                    )
-                  )}
-                </tr>
-              </thead>
-
-
-              <tbody>
-                
-                {data && data.map((ele)=>{
-                  console.log(ele)
-                })}
-                {authorsTableData.map(
-                  ({ img, name, email, job, online, date }, key) => {
-                    const className = `py-3 px-5 ${
-                      key === authorsTableData.length - 1
-                        ? ""
-                        : "border-b border-blue-gray-50"
-                    }`;
-
-                    return (
-                    < >
-
-                      
-                      
-                        <tr key={name} className="popup" >
-                          <td className={className}>
-                            <div className="flex items-center gap-4">
-                              <Avatar src={img} alt={name} size="sm" />
-                              <div>
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-semibold"
-                                >
-                                  {name}
-                                </Typography>
-                                <Typography className="text-base font-normal text-blue-gray-500">
-                                  {email}
-                                </Typography>
-                              </div>
-                            </div>
-                          </td>
-                          <td className={className}>
-                            <Typography className="text-base font-semibold text-blue-gray-600">
-                              {job[0]}
-                            </Typography>
-                            <Typography className="text-base font-normal text-blue-gray-500">
-                              {job[1]}
-                            </Typography>
-                          </td>
-                          <td className={className}>
-                            <Chip
-                              variant="gradient"
-                              color={online ? "green" : "blue-gray"}
-                              value={online ? "online" : "offline"}
-                              className="py-0.5 px-2 text-[11px] font-medium"
-                            />
-                          </td>
-                          <td className={className}>
-                            <Typography className="text-base font-semibold text-blue-gray-600">
-                              {date}
-                            </Typography>
-                          </td>
-                          <td className={className}>
-                            <Typography
-                              as="a"
-                              href="#"
-                              className="text-base font-semibold text-blue-gray-600"
-                            >
-                           
-                            </Typography>
-
-                            <button onClick={e=>handleToggle(e,name)}>View Details</button>
-
-                            { toggle && 
-                            <Pop id={id} changeToggle={changeToggle} toggleOverlay={toggleOverlay}></Pop>}
-                          </td>
-                        </tr>
-
-                    </>
-                    );
-                  }     
-                )}    
-              </tbody>
-            </table>
-          </CardBody>
-        </Card>
       
-      </div>
     </div>
   );
 }
