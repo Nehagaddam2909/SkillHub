@@ -27,8 +27,7 @@ const handleSignup = async (req, res) => {
     highlight,
     portfolio,
     github,
-    linkedIn
-
+    linkedIn,
   } = req.body;
   // console.log(ismanager)
   try {
@@ -44,25 +43,24 @@ const handleSignup = async (req, res) => {
       Password,
       about,
       highlight,
-    portfolio,
-    github,
-    linkedIn
-
+      portfolio,
+      github,
+      linkedIn,
     });
   
     const token = createToken(user._id);
     // console.log(token)
     res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
     res.cookie("name", FirstName, { httpOnly: false, maxAge: age * 1000 });
-    // console.log("-----Signup successful-----");
-    // console.log(user)
+    console.log("-----Signup successful-----");
+    console.log("username:", FirstName);
     // res.body._id=user._id
-    res.json({ Success:true,data: user._id });
+    res.json({ Success: true, data: user._id });
   } catch (err) {
     console.log(err);
+    console.log("-----Signup successful failed!!!!!-----");
     res.json({ Success: false, message: err });
   }
-
 };
 
 //login form with JWT
@@ -74,17 +72,17 @@ const handleLogin = async (req, res) => {
 
   try {
     const user = await Employee.login(email, password);
-    if(user)
-    {
+    if (user) {
       const token = createToken(user._id);
       res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
-      res.cookie("name", user.FirstName, { httpOnly: false, maxAge: age * 1000 });
-      console.log(user)
+      res.cookie("name", user.FirstName, {
+        httpOnly: false,
+        maxAge: age * 1000,
+      });
+      console.log(user);
       // res.body.id=user._id
       res.json({ Success: true, data: user._id });
-    }
-    else
-      res.json({Success:false,message:"user not found"})
+    } else res.json({ Success: false, message: "user not found" });
 
     // console.log("....login successful....");
   } catch (err) {

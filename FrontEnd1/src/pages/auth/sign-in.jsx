@@ -79,6 +79,7 @@ export function SignIn({state}) {
         if(!jss.Success)
         { 
             changeColor(jss.message)
+            console.log("gooted error in frontend:"+jss.message+" And email:"+email)
             changAlert(true)
             
         }
@@ -89,6 +90,7 @@ export function SignIn({state}) {
     }).catch(err=>{
       console.log("err",err)
         changeColor(err.message)
+        console.log("catched block:"+jss.message+" And email:"+email)
         changAlert(true)
     })
     

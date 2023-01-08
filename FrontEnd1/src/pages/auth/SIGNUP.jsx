@@ -24,7 +24,7 @@ export function SIGNUP({signup,setSignup,state}) {
   const [dept,setdept]=useState(signup.dept)
   const [pos,setpos]=useState(signup.pos)
   const [jod,setjod]=useState(signup.jod)
-  const [gen,setgen]=useState(signup.email)
+  const [gen,setgen]=useState(signup.gen)
   const [email,setemail]=useState(signup.email)
   const [pass,setpass]=useState(signup.pass)
   

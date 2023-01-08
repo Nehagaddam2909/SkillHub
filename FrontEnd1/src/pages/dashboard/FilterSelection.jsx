@@ -151,25 +151,30 @@ export default function FilterSelection() {
       };
 
     const styling={
-        top: "11px",
+
+        top: "13px",
         padding: "4px",
-        margin: "16px"
+        margin: "16px",
+        color:'black',
+        
       }
   return (
     <div>
     <form onSubmit={handleSubmit}  className="slectionMenu" style={styling}>
-      <label style={{paddingLeft:"22px"}}>
+
+      <label className='label_' style={{paddingLeft:"22px" ,top:'0px'}}>
         Gender:
-        <select value={filter_gender} onChange={(event) => setGender_filter(event.target.value)}>
+        <select className='select_' value={filter_gender} onChange={(event) => setGender_filter(event.target.value)}>
           <option value="All">All</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
         </select>
       </label>
       <br />
-      <label style={{paddingLeft:"22px"}}>
+
+      <label className='label_' style={{paddingLeft:"22px"}}>
         Location:
-        <select value={filter_location} onChange={(event) => setLocation_filter(event.target.value)}>
+        <select className='select_' value={filter_location} onChange={(event) => setLocation_filter(event.target.value)}>
           <option value="All">All</option>
           {locs.map((location) => (
             <option key={location} value={location}>
@@ -179,9 +184,10 @@ export default function FilterSelection() {
         </select>
       </label>
       <br />
-      <label style={{paddingLeft:"22px"}}>
+
+      <label className='label_' style={{paddingLeft:"22px"}}>
         Department:
-        <select value={filter_department} onChange={(event) => setDepartment_filter(event.target.value)}>
+        <select className='select_' value={filter_department} onChange={(event) => setDepartment_filter(event.target.value)}>
           <option value="All">All</option>
           {depts.map((department) => (
             <option key={department} value={department}>
@@ -191,9 +197,10 @@ export default function FilterSelection() {
         </select>
       </label>
       <br />
-      <label style={{paddingLeft:"22px"}}>
+
+      <label className='label_' style={{paddingLeft:"22px"}}>
         Position:
-        <select value={filter_position} onChange={(event)=>setPosition_filter(event.target.value)}>
+        <select className='select_' value={filter_position} onChange={(event)=>setPosition_filter(event.target.value)}>
             <option value="All">All</option>
             {pos.map((position)=>(
                 <option key={position} value={position}>{position}</option>
@@ -202,7 +209,8 @@ export default function FilterSelection() {
         </select>
         </label>
          <br />
-        <button data-tooltip="Filter result" title="Filter results" style={styling} type="submit">Filter</button>
+
+        <button className='button_' title="Filter results" style={styling} type="submit">Filter</button>
     </form>
     </div>
   )

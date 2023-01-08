@@ -1,4 +1,4 @@
 const tableCustomStyles = {
    
   }
-  export { tableCustomStyles };
+export { tableCustomStyles };
