@@ -6,7 +6,9 @@ const Details=({detail,setdetail})=>{
     const [github,setgithub]=useState(detail['github'])
     const [linkedIn,setlinkedIn]=useState(detail['linkedIn'])
     const [portfolio,setportfolio]=useState(detail['portfolio'])
+    // console.log("xcvbnkl")
     const handleChange=(val,s)=>{
+        // console.log("val")
         // console.log(e.target.value,s)
         const delt=detail
         if(s==='about')
@@ -40,12 +42,12 @@ const Details=({detail,setdetail})=>{
             setportfolio(val)
         }
         setdetail(delt)
-        // console.log(detail)
+        // console.log("",detail)
     }   
    return( <div>
      <div className="mb-5 md:mb-6">
         <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="About"
-        value={about} onChange={e=>(handleChange(e.target.value,"about"))} required/>
+        value={detail["about"]} onChange={e=>(handleChange(e.target.value,"about"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">

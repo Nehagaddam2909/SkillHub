@@ -30,10 +30,13 @@ export function SignUp() {
  
   const handleClick=async (e)=>{
     // console.log(e.target.value)
-    // e.preventDefault()
     let flag=0;
     if(step==0)
-        setstep(step+1);
+    {
+    e.preventDefault()
+      
+      setstep(1)
+    }
     else
     {
         var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
