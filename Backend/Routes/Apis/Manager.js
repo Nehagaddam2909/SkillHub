@@ -3,11 +3,23 @@ const mongoose = require("mongoose");
 const Employee = require("../../Models/Employee");
 const { requireAuth } = require("../../Controllers/index");
 //API for the employee data
-router.get("/getEmployee",async (req, res) => {
-const id="63b716ce000b60bc71d4bfa6"
+router.post("/getEmployee",async (req, res) => {
+  let {gender,location,department,position}=req.body
+  if(department==='All') 
+      department=' *'
+  if(location==='All')
+    location=" *"
+  if(position==='All')
+    position=" *"
 
+  if(gender==='All')
+    gender=" *"
   const data=await Employee.aggregate([
-   
+    {
+      $match:{
+      $and:[{Department:{ $regex: department} },{Position:{ $regex: position} },{Location:{ $regex: location} },{Gender:{ $regex: gender} }]
+      }
+    },
     {
       "$lookup": {
         "from": "skills",
@@ -64,6 +76,7 @@ const id="63b716ce000b60bc71d4bfa6"
         }
       }
     }
+  
   ])
       
   if(data) {

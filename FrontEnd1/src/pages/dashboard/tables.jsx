@@ -20,14 +20,23 @@ import axios from "axios";
 import DataTable, { createTheme  } from "react-data-table-component";
 import { tableCustomStyles } from "./tableCustomStyle";
 import { Link,useNavigate,useLocation } from "react-router-dom";
-import FilterSelection from "./FilterSelection";
+// import FilterSelection from "./FilterSelection";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 
 
 export function Tables({toggleOverlay}) {
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
+const [filter_gender, setGenderF] = useState('All');
+const [filter_location, setLocationF] = useState('All');
+const [filter_department, setDepartmentF] = useState('All');
+const [filter_position, setPositionF] = useState('All');
+const [gender,setGender]=useState([])
+const [department,setDepartment]=useState([])
+const [location,setLocation]=useState([])
+const [position,setPosition]=useState([])
+
 
 const columns = [
     
@@ -84,49 +93,48 @@ const handleClick=(e,row)=>{
   const [toggle,changeToggle]=useState(false)
   const [id,setId]=useState("")
   const [cookies,setCookie]=useCookies()
-  const [data,setData]=useState(
-[]  )
-
-// // -------------------------------------------
-//   // other component(Table.jsx), we can access the state variable by using the useLocation hook from the react-router-dom library and accessing the state property of the location object it returns.
-//   const location = useLocation();
-  // const stateVariable_imported = location.state;
-  const {state} = useLocation();
-  const stateVariable_imported = state;
-  // console.log("imported state var:::::::-->using useLocation():",state)
+  const [data,setData]=useState([]  )
   
-  // set the data-->imported from other components
-  // setData(stateVariable_imported)-->these will cause an infinite-loop-->to prevent these we will update it inside the useEffect()-->as below
-  useEffect(() => {
-    console.log(state)
-    if(state)
-    {
-      setData(stateVariable_imported)
-       
-    }
-    else
-    {
-      setData(data)
-      setTableData({columns,data})
-    }
-    // console.log("imported state var:::::::__________---------:",stateVariable_imported)
-  }, [stateVariable_imported]); // only update the state variable if location.state changes
-// -------------------------------------------
 
 
-
-  
-  const handleToggle=(e,id)=>{
-    // console.log(id)
-    const ele=document.getElementById(id+"h")
-    ele.classList.remove("hidden")
-   
+useEffect(()=>{
+   async function fetchData(){
+      await axios.post("http://localhost:4000/getEmployee",{
+        gender:filter_gender,
+        location:filter_location,
+        department:filter_department,
+        position:filter_position,
+      }).
+      then(async(d)=>{
+        const dd=await d.data
+        setData(dd.data)
+        // console.log(dd)
+        let loc=[]
+        let pos=[],dep=[],gen=[];
+        dd.data.map((a,i)=>
+        {
+          if(!loc.includes(a.Location))
+            loc.push(a.Location)
+          if(!pos.includes(a.Position))
+            pos.push(a.Position)
+          if(!gen.includes(a.Gender))
+            gen.push(a.Gender)
+          if(!dep.includes(a.Department))
+            dep.push(a.Department)
+        })
+      
+      }).catch(ee=>{
+        console.log(ee)
+      })
   }
+  fetchData()
+},[])
+
+
 
   
   const [tabledata,setTableData]=useState({columns,data})
 
-// console.log("",tabledata)
   return (
   <div>
     <Card className="mt-9">
@@ -138,7 +146,6 @@ const handleClick=(e,row)=>{
 
       <CardBody className="text-xl">
         {/*-------------------- applying filter------------------ */}
-        <FilterSelection/>
         {/* <h3>----------here the filter is---------------</h3> */}
           <DataTable
             
@@ -150,7 +157,6 @@ const handleClick=(e,row)=>{
             highlightOnHover
             noHeader
             customStyles={tableCustomStyles}
-            // style="backgrund-color:red !important;"
           />
           {/* </DataTableExtensions>} */}
       </CardBody>
