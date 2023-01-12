@@ -66,8 +66,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
             {pages.map(({ icon, name, path }) => {
               if(name!=='sign in' && name!='sign up' && name!=='Edit profile' && name!=='getFilter'  )
               {
-              // console.log("hg",name==="sign in")
-
+                            
                 return(
                   <li key={name}>
                     <NavLink to={`/${layout}${path}`}>

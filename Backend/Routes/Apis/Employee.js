@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const mongoose = require("mongoose");
+
 const Employee = require("../../Models/Employee");
 const { requireAuth } = require("../../Controllers/index");
 
@@ -24,12 +26,75 @@ router.post("/employee/addSkills",requireAuth, async (req, res) => {
 
 router.post("/employee/:id", requireAuth, async (req, res) => {
   const id = req.body.id;
-  const data = await Employee.findOne({ _id: id }).populate("Skills.skill_id").exec();
-  // populate the skills
 
+console.log(id)
+  // const data = await Employee.findOne({ _id: id }).populate("Skills.skill_id").exec();
+  const data=await Employee.aggregate([
+    {
+      $match:{_id:new mongoose.Types.ObjectId(id) }
+    },
+    
+    {
+      "$lookup": {
+        "from": "skills",
+        "localField": "Skills.skill_id",
+        "foreignField": "_id",
+        "as": "product"
+      }
+    },
+    // console.log(product)
+    {
+      $project: {
+        FirstName:"$FirstName",
+        LastName:"$LastName",
+        Gender:"$Gender",
+        JoinDate:"$JoinDate",
+        Department:"$Department",
+        Location:"$Location",
+        Position:"$Position",
+        Email:"$Email",
+        Password:"$Password",
+        about:"$about",
+        highlight:"$highlight",
+        portfolio:"$portfolio",
+        github:"$github",
+        linkedIn:"$linkedIn",
+
+        // Skills:"$product"
+        Skills: {
+          $map: {
+            input: "$Skills",
+            as: "item",
+            in: {
+              skill_id: {
+                $arrayElemAt: [
+                  {
+                    $filter: {
+                      input: "$product",
+                      as: "prod",
+                      cond: {
+                        $eq: [
+                          "$$prod._id",
+                          "$$item.skill_id"
+                        ]
+                      }
+                    }
+                  },
+                  0
+                ]
+              },
+              quantity: "$$item.quantity",
+              YOE: "$$item.YOE",
+              level: "$$item.level"
+            }
+          }
+        }
+      }
+    }
+  ])
       
-  console.log(data);
-  
+   
+  console.log(data)  
   if (data) {
     res.json({ Success: true, data: data });
   } else res.json({ Success: false, message: "Invalid id" });

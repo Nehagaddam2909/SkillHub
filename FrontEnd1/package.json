@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@heroicons/react": "2.0.12",
     "@material-tailwind/react": "1.2.4",
+    "@mui/material": "^5.11.4",
     "apexcharts": "3.35.5",
     "axios": "^1.2.2",
     "js-cookie": "^3.0.1",

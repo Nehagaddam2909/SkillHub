@@ -1,13 +1,75 @@
 const router = require("express").Router();
+const mongoose = require("mongoose");
 const Employee = require("../../Models/Employee");
 const { requireAuth } = require("../../Controllers/index");
 //API for the employee data
-router.get("/getEmployee", (req, res) => {
-  Employee.find()
-    .then((data) => {
+router.get("/getEmployee",async (req, res) => {
+const id="63b716ce000b60bc71d4bfa6"
+
+  const data=await Employee.aggregate([
+   
+    {
+      "$lookup": {
+        "from": "skills",
+        "localField": "Skills.skill_id",
+        "foreignField": "_id",
+        "as": "product"
+      }
+    },
+    {
+      $project: {
+        FirstName:"$FirstName",
+        LastName:"$LastName",
+        Gender:"$Gender",
+        JoinDate:"$JoinDate",
+        Department:"$Department",
+        Location:"$Location",
+        Position:"$Position",
+        Email:"$Email",
+        Password:"$Password",
+        about:"$about",
+        highlight:"$highlight",
+        portfolio:"$portfolio",
+        github:"$github",
+        linkedIn:"$linkedIn",
+
+        // Skills:"$product"
+        Skills: {
+          $map: {
+            input: "$Skills",
+            as: "item",
+            in: {
+              skill_id: {
+                $arrayElemAt: [
+                  {
+                    $filter: {
+                      input: "$product",
+                      as: "prod",
+                      cond: {
+                        $eq: [
+                          "$$prod._id",
+                          "$$item.skill_id"
+                        ]
+                      }
+                    }
+                  },
+                  0
+                ]
+              },
+              quantity: "$$item.quantity",
+              YOE: "$$item.YOE",
+              level: "$$item.level"
+            }
+          }
+        }
+      }
+    }
+  ])
+      
+  if(data) {
       res.json({ Success: true, data: data });
-    })
-    .catch((err) => res.json({ Success: false, message: err }));
+    }
+  else res.json({ Success: false, message: err });
 });
 
 router.get("/applyFilter", async (req, res) => {

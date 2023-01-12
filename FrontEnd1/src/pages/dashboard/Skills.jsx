@@ -65,7 +65,7 @@ export function Skills({toggleOverlay}) {
      {  withCredentials:true } 
      ).then(d=>{
      
-        // console.log(d.data)
+        console.log(d.data)
         const dd=(d.data).data
         const res={}
         dd.forEach((ele) => {
