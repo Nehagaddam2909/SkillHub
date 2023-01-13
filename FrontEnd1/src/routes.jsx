@@ -8,7 +8,7 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/24/solid";
 // import { Home, Profile, Tables, Notifications,Skills,Filter} from "@/pages/dashboard";
-import { Home, Profile, Tables, Skills,Filter} from "@/pages/dashboard";
+import { Home, Profile, Tables, Skills} from "@/pages/dashboard";
 import { EditProfile, SignIn, SignUp } from "@/pages/auth";
 import { PlusSmallIcon, SquaresPlusIcon } from "@heroicons/react/24/outline";
 import Logoutted from "./widgets/layout/Logoutted";
@@ -43,12 +43,7 @@ export const routes = [
       },
       
    
-      {
-        icon: <BellIcon {...icon} />,
-        name: "getFilter",
-        path: "/getFilter",
-        element: <Filter />,
-      },
+      
      
       // 
       

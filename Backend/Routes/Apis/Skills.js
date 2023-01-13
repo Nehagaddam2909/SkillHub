@@ -68,9 +68,9 @@ Router.post('/deleteSkill',(req,res)=>{
 
 // Form to delete selected skilss
 Router.post('/deleteAllSkills',(req,res)=>{
-    const {skill_ids}=req.body;
-    console.log("Delete All skills !",skill_ids)
-    Skills.deleteMany({_id:{$in:skill_ids}}).then(data=>{
+    const {data}=req.body;
+    console.log("Delete All skills !",data)
+    Skills.deleteMany({_id:{$in:data}}).then(data=>{
         res.json({"Success":true,data,message:"Skills Deleted Successfully"})
     }
     ).catch(err=>{

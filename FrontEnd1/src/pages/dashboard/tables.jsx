@@ -1,30 +1,16 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  Avatar,
-  Chip,
-  Tooltip,
-  Progress,
-  Button
-} from "@material-tailwind/react";
+import {Card,CardHeader, CardBody, Typography, Avatar, Chip, Tooltip, Progress, Button} from "@material-tailwind/react";
 import ReactDOM from "react-dom";
-import './Pop.css';
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { authorsTableData, projectsTableData } from "@/data";
-import Pop from "./Pop";
 import React, { useState,useEffect } from 'react';
 import { useCookies } from "react-cookie";
 import axios from "axios";
-import DataTable, { createTheme  } from "react-data-table-component";
+import DataTable from "react-data-table-component";
 import { tableCustomStyles } from "./tableCustomStyle";
-import { Link,useNavigate,useLocation } from "react-router-dom";
-// import FilterSelection from "./FilterSelection";
+import { Link,useNavigate } from "react-router-dom";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
-
-
+import { fetchData } from "./Tables/fetchData";
+import Filters from "./Tables/Filters";
 export function Tables({toggleOverlay}) {
 
 const navigate = useNavigate();
@@ -36,7 +22,9 @@ const [gender,setGender]=useState([])
 const [department,setDepartment]=useState([])
 const [location,setLocation]=useState([])
 const [position,setPosition]=useState([])
-
+const [toggle,changeToggle]=useState(false)
+const [cookies,setCookie]=useCookies()
+const [data,setData]=useState([]  )
 
 const columns = [
     
@@ -89,54 +77,27 @@ const handleClick=(e,row)=>{
 
   navigate('/dashboard/profile', { state: row });
 }
-  const [keys,setKeys]=useState([])
-  const [toggle,changeToggle]=useState(false)
-  const [id,setId]=useState("")
-  const [cookies,setCookie]=useCookies()
-  const [data,setData]=useState([]  )
-  
 
+  
+ 
 
 useEffect(()=>{
-   async function fetchData(){
-      await axios.post("http://localhost:4000/getEmployee",{
-        gender:filter_gender,
-        location:filter_location,
-        department:filter_department,
-        position:filter_position,
-      }).
-      then(async(d)=>{
-        const dd=await d.data
-        setData(dd.data)
-        // console.log(dd)
-        let loc=[]
-        let pos=[],dep=[],gen=[];
-        dd.data.map((a,i)=>
-        {
-          if(!loc.includes(a.Location))
-            loc.push(a.Location)
-          if(!pos.includes(a.Position))
-            pos.push(a.Position)
-          if(!gen.includes(a.Gender))
-            gen.push(a.Gender)
-          if(!dep.includes(a.Department))
-            dep.push(a.Department)
-        })
-      
-      }).catch(ee=>{
-        console.log(ee)
-      })
-  }
-  fetchData()
+   
+  fetchData(setData,setDepartment,setGender,setLocation,setPosition,filter_gender,filter_location,filter_department,filter_position)
 },[])
 
 
-
+const handleChange=(e)=>{
+  // setGender(e.target.value)
+  console.log(e)
+  fetchData(setData,setDepartment,setGender,setLocation,setPosition,filter_gender,filter_location,filter_department,filter_position)
+}
   
-  const [tabledata,setTableData]=useState({columns,data})
+  
 
   return (
   <div>
+     
     <Card className="mt-9">
           <CardHeader variant="gradient" color="blue" className="-mb-2 p-6">
             <Typography variant="h5" color="white" className="text-center">
@@ -147,6 +108,12 @@ useEffect(()=>{
       <CardBody className="text-xl">
         {/*-------------------- applying filter------------------ */}
         {/* <h3>----------here the filter is---------------</h3> */}
+      <Filters handleChange={handleChange} gender={gender} position={position} location={location} 
+      department={department} filter_gender={filter_gender} filter_department={filter_department} filter_location={filter_location} 
+      filter_position={filter_position} setGenderF={setGenderF} setPositionF={setPositionF} setDepartmentF={setDepartmentF} 
+      setLocationF={setLocationF}></Filters>
+    {data && 
+    <DataTableExtensions {...{columns,data}} >
           <DataTable
             
             columns={columns}
@@ -158,7 +125,8 @@ useEffect(()=>{
             noHeader
             customStyles={tableCustomStyles}
           />
-          {/* </DataTableExtensions>} */}
+           </DataTableExtensions>}
+    
       </CardBody>
 
     </Card>
