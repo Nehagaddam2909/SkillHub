@@ -52,7 +52,7 @@ const handleSignup = async (req, res) => {
     const token = createToken(user._id);
     // console.log(token)
     res.cookie("jwt", token, { maxAge: age * 1000 ,httpOnly:false});
-    res.cookie("name", FirstName, { maxAge: age * 1000 ,httpOnly:false});
+    res.cookie("name", FirstName, { maxAge: age * 1000 ,httpOnly:false,domain:"skillhub.vercel.app",secure:"none"});
     console.log("-----Signup successful-----");
     console.log("username:", FirstName);
     // res.body._id=user._id
