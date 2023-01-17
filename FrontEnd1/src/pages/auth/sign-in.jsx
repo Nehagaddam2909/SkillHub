@@ -81,7 +81,7 @@ export function SignIn({state}) {
     }).catch(err=>{
       console.log("err",err)
         changeColor(err.message)
-        console.log("catched block:"+jss.message+" And email:"+email)
+        console.log("catched block:"+err.message+" And email:"+email)
         changAlert(true)
     })
     
