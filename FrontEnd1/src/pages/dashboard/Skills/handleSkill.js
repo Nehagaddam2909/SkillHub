@@ -1,7 +1,7 @@
 import { platformSettingsData } from "@/data"
 import axios from "axios"
-export const handleSkill=async(e,slct_skill,select_v,changeOverlay,toggleOverlay,setData,setDomainData)=>{
-   
+export const handleSkill=async(e,slct_skill,select_v,changeOverlay,toggleOverlay,setData,setDomainData,data,other)=>{
+   if(select_v=="Other") select_v=other
     await axios.post("http://localhost:4000/addSkill",
     {
       skill:slct_skill,
@@ -15,16 +15,25 @@ export const handleSkill=async(e,slct_skill,select_v,changeOverlay,toggleOverlay
 
       if(jss.Success)
       { 
+        let tt=jss.data
+        
+          tt["level"]="Beginner"
+
+          tt["YOE"]=0,
+          tt["checked"]=false
+
+        // console.log(tt)
         const dd=data
-        dd[select_v].push({
-          skill_name:skill,
-          domain:select_v
-        })
+        // console.log(dd)
+        
+          dd[select_v].push(tt)
+        
+        console.log(dd[select_v])
         setData(dd)
-        setDomainData(dd[domain])
-        window.location.reload();
+        // setDomainData(dd[select_v])
         changeOverlay(false)
         toggleOverlay(false)
+
       window.location.reload()
 
         

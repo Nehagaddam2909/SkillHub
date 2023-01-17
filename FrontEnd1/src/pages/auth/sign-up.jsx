@@ -118,7 +118,11 @@ export function SignUp() {
   return (
     <>
       
-      <div className="absolute inset-0 z-0 h-full w-full bg-blue-700/50" />
+      {/* <div className="absolute inset-0 z-0 h-full w-full" />
+       */}
+
+      <div className="absolute inset-0 z-0 h-full w-full bg-[url('https://www.bwfund.org/wp-content/uploads/2022/05/Copy-of-Untitled.png')] bg-cover overflow-visible" />
+
       <Alert
               show={alert}
               color={"red"}
@@ -129,7 +133,11 @@ export function SignUp() {
             >
              {text}
             </Alert>
-     <div className="absolute  grid w-screen h-screen place-items-center ">
+      {/* <Typography variant="h3" className=" text-[#fff] absolute  z-99">SkillHub</Typography> */}
+        
+            {/* <div className="absolute inset-0 z-0 h-full w-full bg-[url('https://png.pngtree.com/thumb_back/fh260/back_pic/03/63/38/3557ac22d00a48c.jpg')] bg-cover" /> */}
+     <div className="absolute grid w-screen h-screen place-items-center ">
+
       <div className="absolute block -ml-6 p-6 w-29 md:w-28 border bg-white shadow-lg">
           
             <Typography variant="h3"

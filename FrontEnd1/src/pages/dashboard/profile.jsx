@@ -40,10 +40,13 @@ export function Profile() {
           setData(dd.data[0])
         }
         else
-          console.log("in else")
+          {
+            console.log("Errorooo")
+            history("/auth/sign-in")
+          }
   
        }).catch(e=>{
-          history("auth/sign-in")
+          history("/auth/sign-in")
       })
       
       //  return data

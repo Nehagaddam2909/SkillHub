@@ -27,9 +27,11 @@ export function Skills({toggleOverlay}) {
   const [text,changeColor]=useState("")
   const [overlay,changeOverlay]=useState(false) 
   const [slct_skill,setSkill]=useState("")
+
   const [select_v,changeSelectV]=useState("Technical")
   const [ModalName,changeModalName]=useState("Update")
   const [skill_to_edit, setskill_to_edit] = useState({})
+  const [rang,setRang]=useState("blue")
   //Retriving the domain from the request
   useEffect(()=>{
     fetchUserData(cookies.jwt,setUserdata,setchunks,setData,setDomainData,setdomain);
@@ -63,21 +65,24 @@ export function Skills({toggleOverlay}) {
             console.log("barabar chhe")
               changeColor(jss.message)
               changAlert(true)
+              setRang("red")
               
           }
           else{
             console.log("Something went wrong")
-            changAlert(false)
-            // history("/")
+            setRang("green")
+            changAlert(true)
+            changeColor("SuccessFully changed")
           }
       }).catch(err=>{
+          setRang("red")
           changeColor(err.message)
           changAlert(true)
       })
       
 
     }else{
-      
+      setRang("red")
       changeColor("Select any skill")
       changAlert(true)
       return ;
@@ -101,6 +106,10 @@ const HandleDeleteSkill = (id) =>{
   }
   ).then(async (d)=>{
     const jss =  d.data
+    setRang("blue")
+    changAlert(true)
+     changeColor("SuccessFully deleted")
+
     if(jss.Success)
     { 
       // remove from chunks
@@ -117,7 +126,10 @@ const HandleDeleteSkill = (id) =>{
     }
     else{
       console.log("success false:",jss)
-      // changAlert(false)
+      setRang("red")
+      changAlert(true)
+     changeColor(jss.message)
+
       // history("/")
     }
 
@@ -126,8 +138,9 @@ const HandleDeleteSkill = (id) =>{
     changeOverlay(false)
     toggleOverlay(false)
     console.log(err)
-    //  changeColor(err)
-    //  changAlert(true)
+    setRang("red")
+     changeColor(err.message)
+     changAlert(true)
     
    
   }
@@ -180,10 +193,10 @@ const HandleDeleteAllSkills = ()=>{
 }
   return (
 
-    <div className="relative mx-auto my-8 md:my-15 flex min-w-sm flex-col gap-8">
+    <div className="relative min-h-screen mx-auto my-8 md:my-15 flex min-w-sm flex-col gap-8">
      <Alert
               show={alert}
-              color={"red"}
+              color={rang}
               dismissible={{
                 onClose: () =>
                   changAlert(false)
@@ -199,12 +212,12 @@ const HandleDeleteAllSkills = ()=>{
         </div>            
         { ModalName==="Add" && overlay  && 
           <AddSkills slct_skill={slct_skill} select_v={select_v} setSkill={setSkill} changeSelectV={changeSelectV} setData={setData}
-          domain_data={domain_data} toggleOverlay={toggleOverlay} changeOverlay={changeOverlay} handleSkill={handleSkill} setDomainData={setDomainData}></AddSkills>
+          domain_data={domain_data} toggleOverlay={toggleOverlay} changeOverlay={changeOverlay} data={data} handleSkill={handleSkill} setDomainData={setDomainData}></AddSkills>
         }
 
            {/* Update Skills Modal */}
           { ModalName==="Update" && overlay  && 
-          <div className= "bg-white z-10 absolute top-[10rem] lg:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5 space-y-5">
+          <div className= "bg-white z-10 absolute top-[30rem] lg:top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  rounded-xl px-8 py-5 space-y-5">
             <div className="text-xl border-b-2 border-gray-700 pb-2 mb-3 ">Update Skills</div>
            
             {chunks && chunks.map((ele,idx)=>{
@@ -244,7 +257,7 @@ const HandleDeleteAllSkills = ()=>{
               chunks={chunks} setchunks={setchunks} changeColor={changeColor} changeOverlay={changeOverlay}
               changeAlert={changAlert} toggleOverlay={toggleOverlay}></EditSkill>
           }
-       <div className="flex flex-wrap justify-evenly">
+       <div className="flex justify-center overflow-scroll space-x-9">
        {domain_data && domain_data.map((ele,idx)=>{
           return(
           <Domain ele={ele} domain={domain} idx={idx} data={data} handleCheck={handleCheck} setdomain={setdomain} setSkills={setSkills}></Domain>
@@ -269,16 +282,11 @@ const HandleDeleteAllSkills = ()=>{
        }
        </div>
        
-       <div className="flex flex-col md:flex-row justify-center space-x-10 mt-[3rem] " >
-           <Button onClick={e=>{changeModalName("Update"); toggleOverlay(true); changeOverlay(true)}} varient="gradient"  className="px-7 bg-orange-600 h-10 inline-flex items-center  w-[12rem] justify-center" >
-           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-           </svg>
+       <div className="flex flex-col md:flex-row justify-center space-x-4 mt-[3rem] " >
+           <Button onClick={e=>{changeModalName("Update"); toggleOverlay(true); changeOverlay(true)}} varient="gradient"  className="bg-orange-700 m-2 w-[11rem]" >Update Skills</Button>
+           <Button varient="gradient" color="green" className={`w-[9rem] justify-center m-2`} onClick={handleButton}>Save Changes</Button>
 
-           <span>Update Skills</span></Button>
-           <Button varient="gradient" color="green" className={`w-[9rem] justify-center`} onClick={handleButton}>Save Changes</Button>
-
-           <Button onClick={e=>{changeModalName("Add"); toggleOverlay(true); changeOverlay(true)}} varient="gradient" color="pink" className="px-9 h-10 items-center  w-[10rem] justify-center" >+ Add Skill</Button>
+           <Button onClick={e=>{changeModalName("Add"); toggleOverlay(true); changeOverlay(true)}} varient="gradient" color="pink" className="px-9 h-10 items-center m-2 w-[10rem] justify-center" >+ Add Skill</Button>
 
            
       </div>

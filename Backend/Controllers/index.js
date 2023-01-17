@@ -22,7 +22,7 @@ const requireAuth = (req, res, next) => {
     });
   } else {
     console.log("Cookie not setted")
-    res.redirect("http://localhost:5173/auth/sign-in");
+    res.json({"Success":false,"Message":"Err"})
 
     //res.redirect("")
   }

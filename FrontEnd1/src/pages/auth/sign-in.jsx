@@ -99,8 +99,9 @@ export function SignIn({state}) {
 
   return (
     <>
-      <Typography variant="h3" color="red" className=" pt-5 text-center">SkillHub</Typography>
-      <div className="absolute inset-0 z-0 h-full w-full bg-blue-500/50" />
+
+      <div className="absolute inset-0 z-0 h-full w-full bg-[url('https://www.bwfund.org/wp-content/uploads/2022/05/Copy-of-Untitled.png')] bg-cover overflow-visible" />
+    
       <Alert
               show={alert}
               color={"red"}

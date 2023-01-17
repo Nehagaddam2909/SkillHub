@@ -19,20 +19,20 @@ export function Dashboard() {
   // enable overlay
   const [open, setOpen] = useState(false);
   // prevent from scrolling the body
-  document.body.style.overflow = open ? "hidden" : "auto";
+  // document.body.style.overflow = open ? "hidden" : "auto";
   const toggleOverlay = (b) => setOpen(b); 
   const [cookie,setCookie]=useCookies()
   
   
   return (
-    <div className="min-h-screen bg-blue-gray-50/50">
+    <div className="bg-blue-gray-50/50">
       <Sidenav
         routes={routes}
         brandImg={
           sidenavType === "dark" ? "/img/logo-ct.png" : "/img/logo-ct-dark.png"
         }
       />
-      { open &&<div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-10">
+      { open &&<div className="fixed top-0 h-full overflow-y-scroll left-0 w-full bg-black opacity-50 z-10">
   </div>}
       <div className="p-4 xl:ml-80">
         <DashboardNavbar />
