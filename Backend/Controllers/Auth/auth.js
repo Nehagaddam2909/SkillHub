@@ -51,8 +51,8 @@ const handleSignup = async (req, res) => {
   
     const token = createToken(user._id);
     // console.log(token)
-    res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 ,domain: "skillhub-akatsaki.netlify.app",secure:true,sameSite:false});
-    res.cookie("name", FirstName, { httpOnly: false, maxAge: age * 1000 ,domain: "skillhub-akatsaki.netlify.app",secure:true,sameSite:false});
+    res.cookie("jwt", token, { maxAge: age * 1000 ,secure:true,sameSite:"none"});
+    res.cookie("name", FirstName, { maxAge: age * 1000 ,secure:true,sameSite:"none"});
     console.log("-----Signup successful-----");
     console.log("username:", FirstName);
     // res.body._id=user._id
@@ -75,9 +75,9 @@ const handleLogin = async (req, res) => {
     const user = await Employee.login(email, password);
     if (user) {
       const token = createToken(user._id);
-      res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 ,secure:true,sameSite:false});
+      res.cookie("jwt", token, { maxAge: age * 1000 ,secure:true,sameSite:"none"});
       res.cookie("name", user.FirstName, {
-        httpOnly: false,
+       
         maxAge: age * 1000,
         sameSite:"none",
         secure:true
