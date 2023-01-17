@@ -14,7 +14,6 @@ import AddSkills from "./Skills/AddSkills";
 import EditSkill from "./Skills/EditSkill";
 import { handleEditSkill } from "./Skills/handleEditSkill";
 import EditToggle from "./Skills/EditToggle";
-import.meta.env.VITE_APP_API_URL
 
 export function Skills({toggleOverlay}) {
   const [data,setData]=useState({});

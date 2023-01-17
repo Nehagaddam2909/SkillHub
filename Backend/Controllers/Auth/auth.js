@@ -29,7 +29,6 @@ const handleSignup = async (req, res) => {
     github,
     linkedIn,
   } = req.body;
-  // console.log(ismanager)
   console.log(JoinDate)
 
   try {

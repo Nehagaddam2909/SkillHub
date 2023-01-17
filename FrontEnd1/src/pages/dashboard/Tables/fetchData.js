@@ -1,5 +1,4 @@
 import axios from 'axios';
-import.meta.env.VITE_APP_API_URL
 
 export async function fetchData(setData,setDepartment,setGender,setLocation,setPosition,filter_gender,filter_location,
     filter_department,filter_position){

@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
-import.meta.env.VITE_APP_API_URL
 
 
 export async function fetchData(token,setData){

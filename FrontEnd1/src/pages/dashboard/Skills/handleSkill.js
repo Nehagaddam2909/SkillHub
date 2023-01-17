@@ -1,6 +1,5 @@
 import { platformSettingsData } from "@/data"
 import axios from "axios"
-import.meta.env.VITE_APP_API_URL
 
 export const handleSkill=async(e,slct_skill,select_v,changeOverlay,toggleOverlay,setData,setDomainData,data,other)=>{
    if(select_v=="Other") select_v=other

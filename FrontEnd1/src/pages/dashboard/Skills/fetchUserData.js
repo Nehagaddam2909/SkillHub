@@ -1,5 +1,4 @@
 import axios from "axios";
-import.meta.env.VITE_APP_API_URL
 
 export async function fetchUserData(token,setUserdata,setchunks,setData,setDomainData,setdomain){
     let dt=[]

@@ -11,7 +11,6 @@ import axios from "axios";
 import { useState } from "react";
 import Info from "./Profile/Info";
 import Skill_card from "./Profile/Skill_card";
-import.meta.env.VITE_APP_API_URL
 import { fetchData } from "./Profile/fetchData";
 
 export function Profile() {

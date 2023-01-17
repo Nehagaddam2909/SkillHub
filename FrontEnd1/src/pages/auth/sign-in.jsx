@@ -1,7 +1,6 @@
 import { Link,useNavigate,useLocation } from "react-router-dom";
 import { useEffect,useState } from "react";
 import Cookies from 'js-cookie';
-import.meta.env.VITE_APP_API_URL
 
 import axios from "axios";
 import {  Card, CardHeader, CardBody, CardFooter, Input, Checkbox, Button, Typography, Alert, showAlerts, 

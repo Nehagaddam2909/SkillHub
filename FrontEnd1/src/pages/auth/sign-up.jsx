@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Card,  CardHeader,  CardBody,  CardFooter,  Input,  Checkbox,  Button,  Typography,  Select,Option,  Alert,  showAlerts,} from "@material-tailwind/react";
 import React from "react";
 import Switch from './Switch';
-import.meta.env.VITE_APP_API_URL
 
 
 export function SignUp() {

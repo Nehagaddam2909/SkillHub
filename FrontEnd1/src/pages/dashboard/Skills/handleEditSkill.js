@@ -1,5 +1,4 @@
 import axios from "axios"
-import.meta.env.VITE_APP_API_URL
 
 export async function handleEditSkill(token,skill_to_edit,chunks,setchunks,changeColor,changeOverlay,changAlert,toggleOverlay)
 {

@@ -1,6 +1,5 @@
 import { Link ,useNavigate,useLocation} from "react-router-dom";
 import { useState } from "react";
-import.meta.env.VITE_APP_API_URL
 
 import { Card, CardHeader, CardBody, CardFooter, Input, Checkbox, Button, Typography, Select,Option, Alert, showAlerts,} from "@material-tailwind/react";
 import React from "react";
