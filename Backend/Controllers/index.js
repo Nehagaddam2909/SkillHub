@@ -22,7 +22,7 @@ const requireAuth = (req, res, next) => {
     });
   } else {
     console.log("Cookie not setted")
-    res.json({"Success":false,"Message":"Err"})
+    res.json({"Success":false,"Message":req.cookie})
 
     //res.redirect("")
   }
