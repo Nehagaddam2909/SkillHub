@@ -80,7 +80,7 @@ const handleLogin = async (req, res) => {
         httpOnly: false,
         maxAge: age * 1000,
         domain: "skillhub-akatsaki.netlify.app",
-        sameSite:false,
+        sameSite:"none",
         secure:true
       });
       console.log(user);
