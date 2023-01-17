@@ -1,5 +1,5 @@
 {
-  "proxy": "https://skillhub-backend.onrender.com",
+  "proxy": "http://localhost:4000",
   "name": "material-tailwind-dashboard-react",
   "private": true,
   "version": "2.0.0",
@@ -29,7 +29,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.6.1",
     "reactjs-popup": "^2.0.5",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "vercel": "^28.12.4"
   },
   "devDependencies": {
     "@types/react": "18.0.17",
