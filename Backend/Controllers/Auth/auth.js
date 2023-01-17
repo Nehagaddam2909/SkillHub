@@ -75,10 +75,11 @@ const handleLogin = async (req, res) => {
     const user = await Employee.login(email, password);
     if (user) {
       const token = createToken(user._id);
-      res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 });
+      res.cookie("jwt", token, { httpOnly: false, maxAge: age * 1000 ,domain: "skillhub-akatsaki.netlify.app"});
       res.cookie("name", user.FirstName, {
         httpOnly: false,
         maxAge: age * 1000,
+        domain: "skillhub-akatsaki.netlify.app"
       });
       console.log(user);
       // res.body.id=user._id
