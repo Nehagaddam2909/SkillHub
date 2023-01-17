@@ -1,4 +1,6 @@
 import axios from "axios"
+import.meta.env.VITE_APP_API_URL
+
 export async function handleEditSkill(token,skill_to_edit,chunks,setchunks,changeColor,changeOverlay,changAlert,toggleOverlay)
 {
     console.log("edit skill")
@@ -7,7 +9,8 @@ export async function handleEditSkill(token,skill_to_edit,chunks,setchunks,chang
     const id = skill_to_edit.skill_id
     // console.log(name,id)
     // axios call
-    axios.post("http://localhost:4000/editSkill",
+    axios.post(`${import.meta.env.VITE_APP_API_URL
+    }/editSkill`,
     {
       skill_id:id,
       skill_name:name,

@@ -1,7 +1,9 @@
 import axios from 'axios';
+import.meta.env.VITE_APP_API_URL
+
 export async function fetchData(setData,setDepartment,setGender,setLocation,setPosition,filter_gender,filter_location,
     filter_department,filter_position){
-        await axios.post("http://localhost:4000/getEmployee",{
+        await axios.post(`${import.meta.env.VITE_APP_API_URL}/getEmployee`,{
       gender:filter_gender,
       location:filter_location,
       department:filter_department,

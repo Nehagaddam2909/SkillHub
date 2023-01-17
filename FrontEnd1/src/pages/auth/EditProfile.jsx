@@ -1,18 +1,8 @@
 import { Link ,useNavigate,useLocation} from "react-router-dom";
 import { useState } from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-  Select,Option,
-  Alert,
-  showAlerts,
-} from "@material-tailwind/react";
+import.meta.env.VITE_APP_API_URL
+
+import { Card, CardHeader, CardBody, CardFooter, Input, Checkbox, Button, Typography, Select,Option, Alert, showAlerts,} from "@material-tailwind/react";
 import React from "react";
 import Switch from './Switch';
 import { useEffect } from "react";
@@ -110,7 +100,10 @@ export function EditProfile() {
         if(flag===0)
         {
           e.preventDefault()
-          const d= await fetch("http://localhost:4000/edit",{
+          const d= await fetch(`${
+            import.meta.env.VITE_APP_API_URL
+          }
+          /edit`,{
                   method:"POST",
                   body:JSON.stringify({"id":state._id,"FirstName":signup["first"],"LastName":signup["last"],"Gender":signup["gen"],"JoinDate":signup["jod"],"Location":signup["location"],
                   "Department":signup["dept"],"Position":signup["pos"],"Email":signup["email"],"Password":signup["pass"],"about":signup["about"
@@ -153,7 +146,8 @@ export function EditProfile() {
   return (
     <>
       
-      <div className="absolute inset-0 z-0 h-full w-full bg-blue-700/50" />
+      <div className="absolute inset-0 z-0 h-full w-full bg-[url('https://www.bwfund.org/wp-content/uploads/2022/05/Copy-of-Untitled.png')] bg-cover overflow-visible" />
+
       <Alert
               show={alert}
               color={"red"}

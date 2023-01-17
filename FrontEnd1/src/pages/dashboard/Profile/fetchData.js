@@ -1,10 +1,12 @@
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import.meta.env.VITE_APP_API_URL
 
 
 export async function fetchData(token,setData){
     //  console.log(token)
-     await axios.post("http://localhost:4000/employee/123",
+     await axios.post(`${import.meta.env.VITE_APP_API_URL
+     }/employee/123`,
      {  
       cookie:token,
      },

@@ -1,21 +1,13 @@
 import { Link ,useLocation,useNavigate} from "react-router-dom";
-import { useState } from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-  Select,Option,
-  Alert,
-  showAlerts,
-} from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+import { Card,  CardHeader,  CardBody,  CardFooter,  Input,  Checkbox,  Button,  Typography,  Select,Option,  Alert,  showAlerts,} from "@material-tailwind/react";
 import React from "react";
 import Switch from './Switch';
+import.meta.env.VITE_APP_API_URL
+
+
 export function SignUp() {
+  
   let history=useNavigate();
   const [alert,changAlert]=useState(false)
   const [text,changeColor]=useState("")
@@ -78,7 +70,10 @@ export function SignUp() {
         })
         if(!flag)
         {
-          const d= await fetch("http://localhost:4000/signup",{
+          // let dummy=signup;
+          // dummy["jod"]=signup["jod"].toISOString().split( "T" )[0]; // DateTime object => "2021-08-31T15:15:41.886Z" => [ "2021-08-31", "15:15:41.886Z" ]
+          // setSignup(dummy)
+          const d= await fetch(`${import.meta.env.VITE_APP_API_URL}/signup`,{
                   method:"POST",
                   body:JSON.stringify({"FirstName":signup["first"],"LastName":signup["last"],"Gender":signup["gen"],"JoinDate":signup["jod"],"Location":signup["location"],
                   "Department":signup["dept"],"Position":signup["pos"],"Email":signup["email"],"Password":signup["pass"],"ismanager":ismanager,"about":detail["about"
@@ -114,6 +109,10 @@ export function SignUp() {
     }
     
   }
+
+  useEffect(()=>{
+    // console.log(import.meta.env.VITE_APP_API_URL);
+  },[])
  
   return (
     <>

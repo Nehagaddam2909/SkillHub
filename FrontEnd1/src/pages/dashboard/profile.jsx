@@ -11,6 +11,7 @@ import axios from "axios";
 import { useState } from "react";
 import Info from "./Profile/Info";
 import Skill_card from "./Profile/Skill_card";
+import.meta.env.VITE_APP_API_URL
 import { fetchData } from "./Profile/fetchData";
 
 export function Profile() {
@@ -23,7 +24,8 @@ export function Profile() {
   useEffect( ()=>{
     async function fetchData(token){
       //  console.log(token)
-       await axios.post("http://localhost:4000/employee/123",
+       await axios.post(`${import.meta.env.VITE_APP_API_URL
+       }/employee/123`,
        {  
         cookie:token,
        },
@@ -37,7 +39,9 @@ export function Profile() {
         console.log(dd)     
         if(dd.Success)
         {
+          dd.data[0]["JoinDate"]=dd.data[0]["JoinDate"].split( "T" )[0]
           setData(dd.data[0])
+          
         }
         else
           {
@@ -83,7 +87,7 @@ export function Profile() {
       <div className="my-8">
 
       {/* //Card for the skils array    */}
-      {data && <Skill_card data={data}/>}
+      {data && <Skill_card data={data} state={state}/>}
       </div>
      
     </div>

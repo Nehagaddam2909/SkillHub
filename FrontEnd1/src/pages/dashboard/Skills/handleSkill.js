@@ -1,8 +1,11 @@
 import { platformSettingsData } from "@/data"
 import axios from "axios"
+import.meta.env.VITE_APP_API_URL
+
 export const handleSkill=async(e,slct_skill,select_v,changeOverlay,toggleOverlay,setData,setDomainData,data,other)=>{
    if(select_v=="Other") select_v=other
-    await axios.post("http://localhost:4000/addSkill",
+    await axios.post(`${import.meta.env.VITE_APP_API_URL
+    }/addSkill`,
     {
       skill:slct_skill,
       domain:select_v

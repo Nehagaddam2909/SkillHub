@@ -46,12 +46,12 @@ const Details=({signup,setSignup})=>{
     }   
    return( <div>
      <div className="mb-5 md:mb-6">
-        <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="About"
+        <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="About (optional)"
         value={about} onChange={e=>(handleChange(e.target.value,"about"))} required/>
 
     </div>
     <div className="mb-5 md:mb-6">
-        <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add highlight"
+        <textarea  id="password" className="block w-full px-3 py-2.5 mb-3 black border border-gray-300 sm:text-xs focus:outline-blue-500 capitalize" placeholder="Add highlight (optional)"
         value={highlight} onChange={e=>(handleChange(e.target.value,"highlight"))} required/>
 
     </div>

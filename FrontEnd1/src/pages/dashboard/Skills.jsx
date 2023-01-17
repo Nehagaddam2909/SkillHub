@@ -14,6 +14,8 @@ import AddSkills from "./Skills/AddSkills";
 import EditSkill from "./Skills/EditSkill";
 import { handleEditSkill } from "./Skills/handleEditSkill";
 import EditToggle from "./Skills/EditToggle";
+import.meta.env.VITE_APP_API_URL
+
 export function Skills({toggleOverlay}) {
   const [data,setData]=useState({});
   let history=useNavigate();
@@ -48,7 +50,8 @@ export function Skills({toggleOverlay}) {
     if(chunks.length)
     {
       await axios.post(
-        "http://localhost:4000/employee/addSkills",{
+        `${import.meta.env.VITE_APP_API_URL
+        }/employee/addSkills`,{
           skills:chunks,
           cookie:token,
         },
@@ -99,7 +102,8 @@ const HandleDeleteSkill = (id) =>{
   const token=cookies.jwt;
   
   // axios call
-  axios.post("http://localhost:4000/deleteSkill",
+  axios.post(`${import.meta.env.VITE_APP_API_URL
+  }/deleteSkill`,
   {
     skill_id:id,
     token,
@@ -152,7 +156,7 @@ const HandleDeleteAllSkills = ()=>{
     return ele.skill_id
   })
   // axios call
-  axios.post("http://localhost:4000/deleteAllSkills",
+  axios.post(`${import.meta.env.VITE_APP_API_URL  }/deleteAllSkills`,
   {
     data:skillIdstodelete,
     token,

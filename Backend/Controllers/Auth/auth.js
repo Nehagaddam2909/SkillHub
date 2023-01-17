@@ -30,6 +30,8 @@ const handleSignup = async (req, res) => {
     linkedIn,
   } = req.body;
   // console.log(ismanager)
+  console.log(JoinDate)
+
   try {
     const user = await Employee.create({
       FirstName,
@@ -108,7 +110,6 @@ const handleEdit = async (req, res) => {
     linkedIn
 
   } = req.body;
-  console.log(id)
   try {
     const user = await Employee.findOneAndUpdate({_id:id},{$set:{
       FirstName: FirstName, LastName:LastName,Gender: Gender, JoinDate:JoinDate, Location:Location,

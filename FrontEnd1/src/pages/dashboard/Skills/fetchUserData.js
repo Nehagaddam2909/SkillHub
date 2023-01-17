@@ -1,8 +1,11 @@
 import axios from "axios";
+import.meta.env.VITE_APP_API_URL
+
 export async function fetchUserData(token,setUserdata,setchunks,setData,setDomainData,setdomain){
     let dt=[]
     
-     await axios.post("http://localhost:4000/employee/123",
+     await axios.post(`${import.meta.env.VITE_APP_API_URL
+     }/employee/123`,
      {
       cookie:token,
      },
@@ -38,7 +41,7 @@ export async function fetchUserData(token,setUserdata,setchunks,setData,setDomai
       
      })
 //Api for getting skills from the database
-     await axios.get("http://localhost:4000/getSkills",
+     await axios.get(`${import.meta.env.VITE_APP_API_URL}/getSkills`,
    {  withCredentials:true } 
    ).then(d=>{
    

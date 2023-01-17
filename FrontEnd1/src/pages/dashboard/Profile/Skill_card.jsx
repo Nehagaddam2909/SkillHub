@@ -1,7 +1,7 @@
 import {Card, CardBody, CardHeader, CardFooter, Typography,  IconButton, TabsHeader, Menu, MenuHandler, MenuList, MenuItem, Tab, Switch, Tooltip, Button, Progress} from "@material-tailwind/react";
 import {EllipsisVerticalIcon} from "@heroicons/react/24/outline";
 import {Link} from 'react-router-dom';
-const Skill_card=({data})=>{
+const Skill_card=({data,state})=>{
     return(
         <Card className="mx-3 lg:-mt-24 mb-6 lg:mx-4 capitalize">
       <CardHeader
@@ -16,7 +16,7 @@ const Skill_card=({data})=>{
               </Typography>
              
             </div>
-            <Menu placement="left-start">
+          { !state && <Menu placement="left-start">
               <MenuHandler>
                 <IconButton size="sm" variant="text" color="blue-gray">
                   <EllipsisVerticalIcon
@@ -31,7 +31,7 @@ const Skill_card=({data})=>{
 
                 <MenuItem><Link to="/dashboard/skills">Add more skills</Link></MenuItem>
               </MenuList>
-            </Menu>
+            </Menu>}
           </CardHeader>
 
           <CardBody className="overflow-x-scroll  max-h-[15rem] overflow-y-scroll px-0 pt-0">

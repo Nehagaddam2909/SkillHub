@@ -1,20 +1,10 @@
 import { Link,useNavigate,useLocation } from "react-router-dom";
 import { useEffect,useState } from "react";
 import Cookies from 'js-cookie';
+import.meta.env.VITE_APP_API_URL
 
 import axios from "axios";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Input,
-  Checkbox,
-  Button,
-  Typography,
-  Alert,
-  showAlerts,
-  
+import {  Card, CardHeader, CardBody, CardFooter, Input, Checkbox, Button, Typography, Alert, showAlerts, 
 } from "@material-tailwind/react";
 
 export function SignIn({state}) {
@@ -64,7 +54,9 @@ export function SignIn({state}) {
     const data={email,password}
     // console.log(data)
     await axios.post(
-      "http://localhost:4000/login",{
+`${ 
+  import.meta.env.VITE_APP_API_URL
+}/login`,{
       email:email,
       password:password
       }, 

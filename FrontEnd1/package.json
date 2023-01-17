@@ -17,6 +17,7 @@
     "@mui/material": "^5.11.4",
     "apexcharts": "3.35.5",
     "axios": "^1.2.2",
+    "dotenv": "^16.0.3",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
     "prop-types": "15.8.1",

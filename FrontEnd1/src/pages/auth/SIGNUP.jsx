@@ -27,7 +27,7 @@ export function SIGNUP({signup,setSignup,state}) {
   const [gen,setgen]=useState(signup.gen)
   const [email,setemail]=useState(signup.email)
   const [pass,setpass]=useState(signup.pass)
-  
+
   const handleChange=(val,s)=>{
     // console.log(e,s)
     const st=signup

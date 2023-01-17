@@ -43,8 +43,9 @@ return(
                 
               <div className="flex justify-evenly w-full">
               <Button variant="gradient" color="white" href="mailto:">Bussines Card</Button>
-              
-             <Button variant="gradient" color="white">
+            
+
+             <Button variant="gradient" color="white" onClick={() => window.location = `mailto:${data["email"]}`}>
              Email</Button>
               </div>
                 </div>
