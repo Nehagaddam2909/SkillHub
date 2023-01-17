@@ -20,7 +20,7 @@ const MyRoutes = require("./Routes");
 
 //token authentication
 const corsOptions = {
-  origin: ["http://localhost:5173"],
+  origin: ["http://localhost:5173","https://skillhub-backend.onrender.com"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
