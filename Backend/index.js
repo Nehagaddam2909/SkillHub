@@ -20,7 +20,7 @@ const MyRoutes = require("./Routes");
 
 //token authentication
 const corsOptions = {
-  origin: ["https://skillhub.onrender.com/","https://skillhub-akatsaki.netlify.app"],
+  origin: ["https://skillhub.onrender.com/","http://skillhub.onrender.com/","https://skillhub-akatsaki.netlify.app"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
