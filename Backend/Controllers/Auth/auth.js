@@ -75,16 +75,15 @@ const handleLogin = async (req, res) => {
     const user = await Employee.login(email, password);
     if (user) {
       const token = createToken(user._id);
-      res.cookie("jwt", token, { httpOnly:false,maxAge: age * 1000 ,domain:"skillhub.vercel.app"});
-      res.cookie("name", user.FirstName, {
-        httpOnly:false,
-        maxAge: age * 1000,
-        domain:"skillhub.vercel.app"
-        
-      });
+      // res.cookie("jwt", token, { httpOnly:false,maxAge: age * 1000});
+      // res.cookie("name", user.FirstName, {
+      //   httpOnly:false,
+      //   maxAge: age * 1000,
+       
+      // });
       console.log(user);
       // res.body.id=user._id
-      res.json({ Success: true, data: user._id });
+      res.json({ Success: true, data: user._id,jwt:token,name:user.FirstName });
     } else res.json({ Success: false, message: "user not found" });
 
     // console.log("....login successful....");

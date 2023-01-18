@@ -5,11 +5,13 @@ import Cookies from 'js-cookie';
 import axios from "axios";
 import {  Card, CardHeader, CardBody, CardFooter, Input, Checkbox, Button, Typography, Alert, showAlerts, 
 } from "@material-tailwind/react";
+import { useCookies } from "react-cookie";
 
 export function SignIn({state}) {
   let axiosConfig = {
     withCredentials: true,
   }
+  const [cookie,setCookie]=useCookies()
   const [email,changeEmail]=useState("")
   const [password,changePassword]=useState("")
   const [alert,changAlert]=useState(false)
@@ -67,6 +69,7 @@ export function SignIn({state}) {
     ).then( (d)=>{
         const jss=d.data
         // console.log(jss)
+        
         if(!jss.Success)
         { 
             changeColor(jss.message)
@@ -75,6 +78,8 @@ export function SignIn({state}) {
             
         }
         else{
+          setCookie("jwt",jss.jwt);
+          setCookie("name",jss.name);
           changAlert(false)
           history("/")
         }
