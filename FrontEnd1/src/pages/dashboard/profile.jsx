@@ -12,7 +12,7 @@ import { useState } from "react";
 import Info from "./Profile/Info";
 import Skill_card from "./Profile/Skill_card";
 import { fetchData } from "./Profile/fetchData";
-
+import Contact from "./Profile/Contact";
 export function Profile() {
   const [date,setDate]=useState([])
   const [cookies, setCookie] = useCookies();
@@ -57,10 +57,14 @@ export function Profile() {
   // console.log("stat",state)
       if(!state)
       {
-        fetchData(cookies.jwt)
+        if(cookies && cookies.jwt)
+          fetchData(cookies.jwt)
+        else  
+          history("/auth/sign-in")
       }
       else 
       {
+        state["JoinDate"]=state["JoinDate"].split( "T" )[0]
         setData(state)
         // console.log(state)
       }
@@ -74,23 +78,23 @@ export function Profile() {
     history("/auth/edit-profile",{state:data})
   }
   return (
-    <div>
+    <div className=" text-black mt-8 font-serif">
       
-      <div 
-      className=
-      "relative mt-8 h-72 w-full overflow-hidden rounded-xl bg-[url(https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80)] bg-cover	bg-center">
-        <div className="absolute inset-0 h-full w-full bg-blue-500/50" />
-       </div>
+      
       <div className="flex flex-col md:flex-col lg:flex-row justify-center">
       {data && <Info data={data} handleClick={handleClick} state={state}></Info>}
-      <div className="my-8">
+      <div className="flex flex-col my-3 ">
+      {data && <Contact></Contact>}
+      <div className="my-4">
+        {data && <Skill_card data={data} state={state}/>}
+
+      </div>
 
       {/* //Card for the skils array    */}
-      {data && <Skill_card data={data} state={state}/>}
+      
       </div>
      
     </div>
-    
     </div>
   );
 }

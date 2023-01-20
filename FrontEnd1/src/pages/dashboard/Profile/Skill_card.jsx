@@ -3,7 +3,7 @@ import {EllipsisVerticalIcon} from "@heroicons/react/24/outline";
 import {Link} from 'react-router-dom';
 const Skill_card=({data,state})=>{
     return(
-        <Card className="mx-3 lg:-mt-24 mb-6 lg:mx-4 capitalize">
+        <Card className="mx-3 lg: mb-6 shadow-xl lg:mx-4 capitalize w-full md:w-[32rem]">
       <CardHeader
             floated={false}
             shadow={false}
