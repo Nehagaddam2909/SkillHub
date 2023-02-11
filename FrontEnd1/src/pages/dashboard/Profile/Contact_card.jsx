@@ -1,7 +1,7 @@
 // import GitHubIcon from '@mui/icons-material/GitHub';
 const Contact_card = ({ number, icon, name, text, username, handleClick }) => {
   const handleVisit = () => {
-    window.open(username, '_blank')
+    window.open(username, "_blank");
   };
   return (
     <div>
