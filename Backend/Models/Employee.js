@@ -63,7 +63,7 @@ const EmployeeSchema=new Schema({
     about:{
         type:String
     },
-    highlight:{
+    profile_photo:{
         type:String
     },
     portfolio:{

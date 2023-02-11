@@ -55,7 +55,7 @@ console.log(id)
         Email:"$Email",
         Password:"$Password",
         about:"$about",
-        highlight:"$highlight",
+        profile_photo:"$profile_photo",
         portfolio:"$portfolio",
         github:"$github",
         linkedIn:"$linkedIn",

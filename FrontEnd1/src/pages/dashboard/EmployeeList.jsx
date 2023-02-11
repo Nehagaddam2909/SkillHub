@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // import './filterForm.css'
 
 // const EmployeeTable = ({ employees, genderFilter, positionFilter ,departmentFilter,locationFilter}) => {
 // const [filteredEmployees,setfilteredEmployees]=useState([])
-const EmployeeTable = ({ employees, genderFilter}) => {
-    
-    const [filteredEmployees,setfilteredEmployees]=useState([])
+const EmployeeTable = ({ employees, genderFilter }) => {
+  const [filteredEmployees, setfilteredEmployees] = useState([]);
 
-if(employees){
-    const filtered = employees.filter(employee => {
-        if (genderFilter && employee.Gender !== genderFilter) {
-          return false;
-        }
-        return true;
-      });
-      setfilteredEmployees(filtered)
-}
-else
-{
-    console.log("employee data not founded!!!!!!")
-}
+  if (employees) {
+    const filtered = employees.filter((employee) => {
+      if (genderFilter && employee.Gender !== genderFilter) {
+        return false;
+      }
+      return true;
+    });
+    setfilteredEmployees(filtered);
+  } else {
+    console.log("employee data not founded!!!!!!");
+  }
 
   return (
     <table>
@@ -33,9 +30,11 @@ else
         </tr>
       </thead>
       <tbody>
-        {filteredEmployees.map(employee => (
+        {filteredEmployees.map((employee) => (
           <tr key={employee._id}>
-            <td>{employee.FirstName} {employee.LastName}</td>
+            <td>
+              {employee.FirstName} {employee.LastName}
+            </td>
             <td>{employee.Gender}</td>
             <td>{employee.Position}</td>
             <td>{employee.Location}</td>
@@ -47,70 +46,72 @@ else
   );
 };
 
-
 export function EmployeeList() {
-    const [employees, setEmployees] = useState([]);
-    const [genderFilter, setGenderFilter] = useState('');
-    const [positionFilter, setPositionFilter] = useState('');
-    const [departmentFilter, setDepartmentFilter] = useState('');
-    const [locationFilter, setLocationFilter] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [employees, setEmployees] = useState([]);
+  const [genderFilter, setGenderFilter] = useState("");
+  const [positionFilter, setPositionFilter] = useState("");
+  const [departmentFilter, setDepartmentFilter] = useState("");
+  const [locationFilter, setLocationFilter] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch("http://localhost:4000/getEmployee", {
-              method: "GET",
-              headers: { "Content-type": "application/json" }
-            });
-          
-            if (!response.ok) {
-                console.log(" HTTP request was not successful (status in the range 200-299). ")
-              throw new Error(response.statusText);
-            }
-          
-            const Alldata = await response.json();
-            console.log("mydata::::::::::",Alldata)
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/getEmployee", {
+        method: "GET",
+        headers: { "Content-type": "application/json" },
+      });
 
-            console.log("mydata's  employees::::::::::",Alldata.data)
+      if (!response.ok) {
+        console.log(
+          " HTTP request was not successful (status in the range 200-299). "
+        );
+        throw new Error(response.statusText);
+      }
 
-            setEmployees(Alldata.data);
-            console.log("all emp::::", employees);
+      const Alldata = await response.json();
+      console.log("mydata::::::::::", Alldata);
 
-          } catch (error) {
-            setError(error);
-          } finally {
-            setIsLoading(false);
-          }
-          
-      };
-  
-    useEffect(() => {
-        fetchData();
+      console.log("mydata's  employees::::::::::", Alldata.data);
 
-    }, []);
-  
-    if (isLoading) {
-      return <p>Loading...</p>;
+      setEmployees(Alldata.data);
+      console.log("all emp::::", employees);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
     }
-  
-    if (error) {
-      return <p>An error occurred: {error.message}</p>;
-    }
-    const styling={
-      border:"2px solid blue",
-    }
-  
-    return (
-      <div>
-        <form style={styling}>
-          <label htmlFor="gender-filter">Gender:</label>
-          <select id="gender-filter" value={genderFilter} onChange={event => setGenderFilter(event.target.value)}>
-            <option value="">All</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-          {/* <label htmlFor="position-filter">Position:</label>
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>An error occurred: {error.message}</p>;
+  }
+  const styling = {
+    border: "2px solid blue",
+  };
+
+  return (
+    <div>
+      <form style={styling}>
+        <label htmlFor="gender-filter">Gender:</label>
+        <select
+          id="gender-filter"
+          value={genderFilter}
+          onChange={(event) => setGenderFilter(event.target.value)}
+        >
+          <option value="">All</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        {/* <label htmlFor="position-filter">Position:</label>
           <select id="position-filter" value={positionFilter} onChange={event => setPositionFilter(event.target.value)}>
             <option value="">All</option>
             <option value="Manager">Manager</option>
@@ -131,16 +132,14 @@ export function EmployeeList() {
             <option value="New York">New York</option>
             <option value="London">London</option>
           </select> */}
-        </form>
+      </form>
 
-  
-        {/* <EmployeeTable employees={employees} genderFilter={genderFilter} positionFilter={positionFilter} departmentFilter={departmentFilter} locationFilter={locationFilter} /> */}
-        {
-            employees && <EmployeeTable employees={employees} genderFilter={genderFilter}   />
-        }
-      </div>
-    );
-  };
-  
+      {/* <EmployeeTable employees={employees} genderFilter={genderFilter} positionFilter={positionFilter} departmentFilter={departmentFilter} locationFilter={locationFilter} /> */}
+      {employees && (
+        <EmployeeTable employees={employees} genderFilter={genderFilter} />
+      )}
+    </div>
+  );
+}
+
 //   export default EmployeeList;
-  

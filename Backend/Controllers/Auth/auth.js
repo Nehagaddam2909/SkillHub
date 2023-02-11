@@ -24,7 +24,7 @@ const handleSignup = async (req, res) => {
     Password,
     ismanager,
     about,
-    highlight,
+    profile_photo,
     portfolio,
     github,
     linkedIn,
@@ -43,7 +43,7 @@ const handleSignup = async (req, res) => {
       Email,
       Password,
       about,
-      highlight,
+      profile_photo,
       portfolio,
       github,
       linkedIn,
@@ -104,7 +104,7 @@ const handleEdit = async (req, res) => {
     Position,
     Email,
     about,
-    highlight,
+    profile_photo,
     portfolio,
     github,
     linkedIn
@@ -114,7 +114,7 @@ const handleEdit = async (req, res) => {
     const user = await Employee.findOneAndUpdate({_id:id},{$set:{
       FirstName: FirstName, LastName:LastName,Gender: Gender, JoinDate:JoinDate, Location:Location,
       Department:Department,Position:Position,Email:Email,
-      about:about,highlight:highlight,portfolio: portfolio,github: github,
+      about:about,profile_photo:profile_photo,portfolio: portfolio,github: github,
       linkedIn:linkedIn
     }
       

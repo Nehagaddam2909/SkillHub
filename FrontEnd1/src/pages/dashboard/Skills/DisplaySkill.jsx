@@ -1,6 +1,7 @@
 const DisplaySkill=({ele,idx,domain,handleToggle,dom,setData,setchunks,chunks,data})=>{
     return (
-    <div key={idx} id={ele._id+`flex`} className ={`flex flex-wrap mx-4 mb-3 justify-center items-center  shadow-md rounded-xl w-[14rem] md:w-[11rem] h-[7.5rem] flex-col ${ele.checked?"bg-blue-600 text-white":"bg-teal-200 text-black"} ${domain!==dom?"hidden":""}` } >
+    <div key={idx} id={ele._id+`flex`} className ={`flex flex-wrap hover:-mt-1 hover:-mb-2 hover:drop-shadow-2xl ease-in transition-all duration-400  mx-4 mb-3 justify-center items-center  shadow-xl
+    rounded-br-xl rounded-tl-xl w-[14rem] md:w-[11rem] h-[7.5rem] flex-col ${ele.checked?"bg-blue-600 text-white":"bg-teal-200 text-black"} ${domain!==dom?"hidden":""}` } >
 
     <input name={ele._id}  type="checkbox" id={ele._id+'checkbox'}  className="hidden" onChange={e=>handleToggle(ele._id,idx,dom,setData,setchunks,chunks,data,domain)}></input>
     <label htmlFor={ele._id+'checkbox'} className="text-xl" >{ele.skill_name}</label>

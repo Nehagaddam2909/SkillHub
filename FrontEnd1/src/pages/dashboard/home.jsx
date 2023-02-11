@@ -9,7 +9,6 @@ import React from "react";
 // Material Kit 2 PRO React Examples
 // import TransparentTeamCard from "examples/Cards/TeamCards/TransparentTeamCard";
 
-
 import {
   Typography,
   Card,
@@ -57,7 +56,7 @@ export function Home() {
                 &nbsp;{footer.label}
               </Typography>
             } */}
-          {/* /> */}
+        {/* /> */}
         {/* ))} */}
       </div>
       {/* <div className="mb-6 grid grid-cols-1 gap-y-12 gap-x-6 md:grid-cols-2 xl:grid-cols-3">
@@ -77,7 +76,7 @@ export function Home() {
           />
         ))}
       </div> */}
-      
+
       {/* <TransparentTeamCard
   image="https://bit.ly/3HCDiqM"
   name="Emma Roberts"
@@ -106,8 +105,6 @@ export function Home() {
     </>
   }
 /> */}
-
-
 
       <div className="mb-4 grid grid-cols-1 gap-6 xl:grid-cols-3">
         <Card className="overflow-hidden xl:col-span-2">
@@ -180,7 +177,6 @@ export function Home() {
                       <tr key={name}>
                         <td className={className}>
                           <div className="flex items-center gap-4">
-                            
                             <Typography
                               variant="small"
                               color="blue-gray"
@@ -190,9 +186,7 @@ export function Home() {
                             </Typography>
                           </div>
                         </td>
-                        <td className={className}>
-                          Neha
-                        </td>
+                        <td className={className}>Neha</td>
                         <td className={className}>
                           <Typography
                             variant="small"
@@ -246,9 +240,7 @@ export function Home() {
               <strong>24%</strong> this month
             </Typography>
           </CardHeader>
-          <CardBody className="pt-0">
-          
-          </CardBody>
+          <CardBody className="pt-0"></CardBody>
         </Card>
       </div>
     </div>
