@@ -97,6 +97,7 @@ export function Profile() {
       if (cookies && cookies.jwt) fetchData(cookies.jwt);
       else history("/auth/sign-in");
     } else {
+      setLoading(false);
       state["JoinDate"] = state["JoinDate"].split("T")[0];
       setData(state);
       // console.log(state)
