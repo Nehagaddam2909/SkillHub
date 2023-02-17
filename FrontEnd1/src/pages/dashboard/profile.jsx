@@ -57,6 +57,7 @@ export function Profile() {
   const [cookies, setCookie] = useCookies();
   const [data, setData] = useState([]);
   const [keys, setKeys] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { state } = useLocation();
   let history = useNavigate();
   useEffect(() => {
@@ -74,8 +75,9 @@ export function Profile() {
         )
         .then(async (d) => {
           // console.log(await d.data)
+
           const dd = await d.data;
-          console.log(dd);
+          setLoading(false);
           if (dd.Success) {
             dd.data[0]["JoinDate"] = dd.data[0]["JoinDate"].split("T")[0];
             setData(dd.data[0]);
@@ -107,14 +109,27 @@ export function Profile() {
     history("/auth/edit-profile", { state: data });
   };
   return (
-    <div className=" mt-8 font-serif text-black">
-      {/* <div className="relative mt-8 h-52 bg-cover w-full overflow-hidden rounded-xl bg-[url('/img/2.jpg')] 	bg-center">
-       </div> */}
-
-      {data && 
-      <Info data={data} handleClick={handleClick} state={state}></Info>
-       
-      }
+    <div className="md:my-15 min-w-sm relative mx-auto my-8 flex min-h-screen flex-col gap-8">
+      <div className="flex justify-between ">
+        <Typography variant="h3">Profile</Typography>
+      </div>
+     
+      {loading && (
+        <div className="flex bg-gray ml-2 justify-center items-center">
+          <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <span>Loading</span>
+          </div>
+        </div>
+      )}
+      {!loading && (
+        <Info data={data} handleClick={handleClick} state={state}></Info>
+      )}
       {/* <div className="flex flex-col justify-center">
         {data && (
           <Info data={data} handleClick={handleClick} state={state}></Info>

@@ -26,6 +26,7 @@ export function SignIn({ state }) {
   const [password, changePassword] = useState("");
   const [alert, changAlert] = useState(false);
   const [text, changeColor] = useState("");
+  const [loading, setLoading] = useState(false);
   let history = useNavigate();
   // const {state} = useLocation();
 
@@ -38,6 +39,7 @@ export function SignIn({ state }) {
   }, []);
   const handleClick = async (e) => {
     // console.log(e)
+    setLoading(true);
     if (!email.length) {
       changeColor("Email can't be empty");
       changAlert(true);
@@ -70,9 +72,10 @@ export function SignIn({ state }) {
         }
       )
       .then((d) => {
+        setLoading(false);
+
         const jss = d.data;
         // console.log(jss)
-
         if (!jss.Success) {
           changeColor(jss.message);
           console.log(
@@ -107,69 +110,84 @@ export function SignIn({ state }) {
       >
         {text}
       </Alert>
-      <div className="absolute  grid h-screen w-screen place-items-center ">
-        <div className="md:w-22 absolute -mt-20 -ml-6 block w-29 border bg-white p-6 shadow-lg">
-          <Typography variant="h3" color="black" className="xl font-bold">
-            SignIn
-          </Typography>
-          <Typography variant="paragraph" color="black" className="text-xs">
-            Please fill the from to login
-          </Typography>
-          <hr className="my-2 h-2 w-full border-black" />
-
-          <div className="mb-3">
-            {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
-            <input
-              type="email"
-              id="Email"
-              className="black mb-3 block w-full border border-gray-300 px-3 py-2.5 text-base focus:outline-blue-500 sm:text-xs"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => changeEmail(e.target.value)}
-              required
-            />
+      {loading && (
+        <>
+          <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <span>Loading</span>
           </div>
+        </>
+      )}
+      {!loading && (
+        <div className="absolute  grid h-screen w-screen place-items-center ">
+          <div className="md:w-22 absolute -mt-20 -ml-6 block w-29 border bg-white p-6 shadow-lg">
+            <Typography variant="h3" color="black" className="xl font-bold">
+              SignIn
+            </Typography>
+            <Typography variant="paragraph" color="black" className="text-xs">
+              Please fill the from to login
+            </Typography>
+            <hr className="my-2 h-2 w-full border-black" />
 
-          <div className="mb-5 md:mb-6">
-            {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
-            <input
-              type="password"
-              id="password"
-              className="black mb-3 block w-full border border-gray-300 px-3 py-2.5 text-base capitalize focus:outline-blue-500 sm:text-xs"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => changePassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="-ml-2.5">
-            <Checkbox label="Remember Me" />
-          </div>
-          {/* <input type="submit" id="password" className="block w-full px-3 py-2.5 mb-3 black border bg-blue-500 text-white font-bold text-base focus:outline-blue-500" placeholder="Enter Password"/> */}
-          <Button
-            variant="gradient"
-            className="text-sm"
-            onClick={handleClick}
-            fullWidth
-          >
-            Sign In
-          </Button>
+            <div className="mb-3">
+              {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
+              <input
+                type="email"
+                id="Email"
+                className="black mb-3 block w-full border border-gray-300 px-3 py-2.5 text-base focus:outline-blue-500 sm:text-xs"
+                placeholder="Enter Email"
+                value={email}
+                onChange={(e) => changeEmail(e.target.value)}
+                required
+              />
+            </div>
 
-          <Typography variant="small" className="mt-6 flex justify-center">
-            Don't have an account?
-            <Link to="/auth/sign-up">
-              <Typography
-                as="span"
-                variant="small"
-                color="blue"
-                className="ml-1 font-bold"
-              >
-                Sign Up
-              </Typography>
-            </Link>
-          </Typography>
+            <div className="mb-5 md:mb-6">
+              {/* <input type="text" id="small-input" className="block w-full px-3 py-2 border border-gray-300  focus:outline-blue-500"  placeholder="Department"/> */}
+              <input
+                type="password"
+                id="password"
+                className="black mb-3 block w-full border border-gray-300 px-3 py-2.5 text-base capitalize focus:outline-blue-500 sm:text-xs"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(e) => changePassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="-ml-2.5">
+              <Checkbox label="Remember Me" />
+            </div>
+            {/* <input type="submit" id="password" className="block w-full px-3 py-2.5 mb-3 black border bg-blue-500 text-white font-bold text-base focus:outline-blue-500" placeholder="Enter Password"/> */}
+            <Button
+              variant="gradient"
+              className="text-sm"
+              onClick={handleClick}
+              fullWidth
+            >
+              Sign In
+            </Button>
+
+            <Typography variant="small" className="mt-6 flex justify-center">
+              Don't have an account?
+              <Link to="/auth/sign-up">
+                <Typography
+                  as="span"
+                  variant="small"
+                  color="blue"
+                  className="ml-1 font-bold"
+                >
+                  Sign Up
+                </Typography>
+              </Link>
+            </Typography>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

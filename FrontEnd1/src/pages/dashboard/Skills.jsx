@@ -193,7 +193,7 @@ export function Skills({ toggleOverlay }) {
         <Typography variant="h3">Skills</Typography>
       </div>
       {loading && (
-        <div role="status" className="mt-4 flex flex-row justify-center">
+        <div role="status" className="">
           {/* <svg
             aria-hidden="true"
             className=" mr-2 h-12 w-12 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
@@ -210,7 +210,7 @@ export function Skills({ toggleOverlay }) {
               fill="currentFill"
             />
           </svg> */}
-          <div class="lds-roller">
+          {/* <div class="lds-roller">
             <div></div>
             <div></div>
             <div></div>
@@ -219,6 +219,16 @@ export function Skills({ toggleOverlay }) {
             <div></div>
             <div></div>
             <div></div>
+          </div> */}
+
+          <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <span>Loading</span>
           </div>
         </div>
       )}
@@ -353,7 +363,7 @@ export function Skills({ toggleOverlay }) {
           })}
       </div>
 
-      <div className="mt-[3rem] flex flex-col justify-center space-x-4 md:flex-row ">
+      { !loading && <div className="mt-[3rem] flex flex-col justify-center space-x-4 md:flex-row ">
         <Button
           onClick={(e) => {
             changeModalName("Update");
@@ -386,7 +396,7 @@ export function Skills({ toggleOverlay }) {
         >
           + Add Skill
         </Button>
-      </div>
+      </div>}
     </div>
   );
 }

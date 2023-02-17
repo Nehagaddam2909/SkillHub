@@ -31,7 +31,7 @@ import Contact from "./Contact";
 const Info = ({ data, handleClick, state }) => {
   return (
     data &&
- (   <div className="flex flex-col space-y-3 lg:flex-row">
+ (   <div className="flex flex-col bg-transparent space-y-3 lg:flex-row">
       <div className="flex w-full flex-col">
         <div className="shadow-t-lg relative mt-2 h-[8rem] w-full rounded-t-xl bg-gradient-to-r from-amber-100 to-pink-50 md:h-[10rem]"></div>
         <div className="rounded-b-lg bg-white shadow-lg ">
