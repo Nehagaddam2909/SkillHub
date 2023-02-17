@@ -4,6 +4,7 @@ const Contact_card = ({ number, icon, name, text, username, handleClick }) => {
     window.open(username, "_blank");
   };
   return (
+    
     <div>
       <div className={`card card-${number}`}>
         <div className="flex items-center justify-between ">

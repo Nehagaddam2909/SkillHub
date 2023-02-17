@@ -130,7 +130,7 @@ const Info = ({ data, handleClick, state }) => {
           {data && <Skill_card data={data} state={state} />}
         </div>
       </div>
-      <div className="md:ml-6">{data && <Contact data={data} handleClick={handleClick}></Contact>}</div>
+      <div className="md:ml-6">{data && <Contact data={data} handleClick={handleClick} state={state}></Contact>}</div>
     </div>)
   );
 };
